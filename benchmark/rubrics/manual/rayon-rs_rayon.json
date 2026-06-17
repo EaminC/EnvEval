@@ -1,0 +1,366 @@
+{
+  "repo": "rayon-rs_rayon",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "tar",
+          "gzip"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_available",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "rustc"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_available", 
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "cargo"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version",
+      "type": "output_contains",
+      "params": {
+        "command": "rustc --version",
+        "contains": [
+          "1.80",
+          "1.81",
+          "1.82",
+          "1.83",
+          "1.84",
+          "1.85",
+          "1.86",
+          "1.87",
+          "1.88",
+          "1.89",
+          "1.9"
+        ]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "gcc",
+          "make"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pkg_config",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "pkg-config"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_rust_basic",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --version"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cargo_basic",
+      "type": "run_command", 
+      "params": {
+        "command": "cargo --version"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cargo_help",
+      "type": "run_command",
+      "params": {
+        "command": "cargo help"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_root_cargo_toml",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Cargo.toml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_root_cargo_lock",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Cargo.lock"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "tests",
+          "rayon-core",
+          "rayon-demo"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_rayon_core_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "rayon-core/src",
+          "rayon-core/tests"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_rayon_demo_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "rayon-demo/src",
+          "rayon-demo/examples",
+          "rayon-demo/data"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_documentation_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE-APACHE",
+          "LICENSE-MIT",
+          "FAQ.md",
+          "RELEASES.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_rayon_core_cargo",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "rayon-core/Cargo.toml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_rayon_demo_cargo",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "rayon-demo/Cargo.toml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_rayon_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "Rayon",
+          "data-parallelism"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_cargo_toml_content",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": [
+          "rayon",
+          "rayon-core"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cargo_check_root",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check"
+      },
+      "timeout": 120,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_build_root",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build"
+      },
+      "timeout": 180,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_test_root",
+      "type": "run_command",
+      "params": {
+        "command": "cargo test --lib --bins"
+      },
+      "timeout": 300,
+      "score": 6,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_check_rayon_core",
+      "type": "run_command",
+      "params": {
+        "command": "cd rayon-core && cargo check"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_build_rayon_core",
+      "type": "run_command",
+      "params": {
+        "command": "cd rayon-core && cargo build"
+      },
+      "timeout": 180,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_test_rayon_core",
+      "type": "run_command",
+      "params": {
+        "command": "cd rayon-core && cargo test"
+      },
+      "timeout": 300,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_check_rayon_demo",
+      "type": "run_command",
+      "params": {
+        "command": "cd rayon-demo && cargo check"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_build_rayon_demo",
+      "type": "run_command",
+      "params": {
+        "command": "cd rayon-demo && cargo build --release"
+      },
+      "timeout": 300,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_rayon_demo_help",
+      "type": "run_command",
+      "params": {
+        "command": "cd rayon-demo && cargo run --release -- --help"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_rayon_demo_nbody_dry_run",
+      "type": "output_contains",
+      "params": {
+        "command": "cd rayon-demo && timeout 30s cargo run --release -- nbody --help || true",
+        "contains": [
+          "nbody",
+          "help",
+          "Usage"
+        ]
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_workspace_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build --workspace"
+      },
+      "timeout": 300,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_workspace_test_quick",
+      "type": "run_command",
+      "params": {
+        "command": "cargo test --workspace --lib --bins"
+      },
+      "timeout": 400,
+      "score": 6,
+      "category": "functionality"
+    }
+  ]
+}

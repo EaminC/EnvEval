@@ -1,0 +1,417 @@
+{
+  "repo": "mockito_mockito",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "java",
+          "git",
+          "curl",
+          "wget",
+          "unzip"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_version",
+      "type": "output_contains",
+      "params": {
+        "command": "java -version",
+        "contains": [
+          "11",
+          "17",
+          "21"
+        ]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_javac_available",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "javac"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "JAVA_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_mockito_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "Mockito",
+          "mocking framework"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "mockito-core",
+          "mockito-extensions",
+          "mockito-integration-tests",
+          "mockito-bom"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_gradle_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "build.gradle.kts",
+          "settings.gradle.kts",
+          "gradle.properties",
+          "gradlew",
+          "gradlew.bat"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_gradle_wrapper_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"gradlew\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_gradle_directory",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "gradle"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          ".editorconfig",
+          ".checkstyle",
+          ".gitignore",
+          "LICENSE"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_github_directory",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          ".github"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_mockito_extensions",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "mockito-extensions/mockito-android",
+          "mockito-extensions/mockito-junit-jupiter",
+          "mockito-extensions/mockito-errorprone",
+          "mockito-extensions/mockito-proxy",
+          "mockito-extensions/mockito-subclass"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_script_content",
+      "type": "file_contains",
+      "params": {
+        "path": "build.gradle.kts",
+        "contains": [
+          "mockito"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_settings_gradle_content",
+      "type": "file_contains",
+      "params": {
+        "path": "settings.gradle.kts",
+        "contains": [
+          "mockito-core",
+          "mockito-extensions"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_gradle_properties_content",
+      "type": "file_contains",
+      "params": {
+        "path": "gradle.properties",
+        "contains": [
+          "org.gradle"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_reproducibility_script",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "check_reproducibility.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_reproducibility_script_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"check_reproducibility.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_java_basic",
+      "type": "run_command",
+      "params": {
+        "command": "java -version"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_javac_basic",
+      "type": "run_command",
+      "params": {
+        "command": "javac -version"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_version",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew --version"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_help",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew help"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_tasks",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew tasks"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_properties_task",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew properties"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew dependencies"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_clean",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew clean"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_compile_java",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew compileJava"
+      },
+      "timeout": 300,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_compile_test_java",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew compileTestJava"
+      },
+      "timeout": 300,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_assemble",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew assemble"
+      },
+      "timeout": 600,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_jar",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew jar"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_test",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew test"
+      },
+      "timeout": 900,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_check",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew check"
+      },
+      "timeout": 1200,
+      "score": 6,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gradle_build",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew build"
+      },
+      "timeout": 1800,
+      "score": 10,
+      "category": "functionality"
+    },
+    {
+      "id": "test_checkstyle",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew checkstyleMain"
+      },
+      "timeout": 300,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_mockito_core_test",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew :mockito-core:test"
+      },
+      "timeout": 900,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_build_scan",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew help --scan"
+      },
+      "timeout": 120,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_jar_creation",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "mockito-core/build/libs"
+        ]
+      },
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_reproducibility_check",
+      "type": "run_command",
+      "params": {
+        "command": "./check_reproducibility.sh"
+      },
+      "timeout": 1200,
+      "score": 3,
+      "category": "functionality"
+    }
+  ]
+}

@@ -1,0 +1,343 @@
+{
+  "repo": "jqlang_jq",
+  "tests": [
+    {
+      "id": "check_c_toolchain",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "gcc",
+          "make",
+          "autoconf",
+          "automake",
+          "libtool"
+        ]
+      },
+      "score": 4,
+      "category": "configuration"
+    },
+    {
+      "id": "check_parser_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "flex",
+          "bison"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "bash",
+          "curl"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gcc_version",
+      "type": "output_contains",
+      "params": {
+        "command": "gcc --version",
+        "contains": [
+          "gcc"
+        ]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_bison_version",
+      "type": "run_command",
+      "params": {
+        "command": "bison --version | head -1 | grep -E 'bison \\(GNU Bison\\) [3-9]\\.|bison \\(GNU Bison\\) [0-9][0-9]'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "tests",
+          "vendor",
+          "docs"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_autotools_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "configure.ac",
+          "Makefile.am"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_key_source_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "src/main.c",
+          "src/jq.h",
+          "src/jv.h",
+          "src/parser.y",
+          "src/lexer.l"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_jq",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "jq"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_structure",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tests/jq.test",
+          "tests/jqtest",
+          "tests/setup"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_vendor_dependencies",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "vendor/oniguruma",
+          "vendor/decNumber"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_c_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <stdio.h>\nint main() { printf(\"Hello\\n\"); return 0; }' | gcc -x c - -o /tmp/test_c && /tmp/test_c"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_math_library",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <math.h>\n#include <stdio.h>\nint main() { printf(\"%.2f\\n\", sqrt(4.0)); return 0; }' | gcc -x c - -lm -o /tmp/test_math && /tmp/test_math"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "run_git_submodule_update",
+      "type": "run_command",
+      "params": {
+        "command": "git submodule update --init"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "run_autoreconf",
+      "type": "run_command",
+      "params": {
+        "command": "autoreconf -i"
+      },
+      "timeout": 60,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "run_configure",
+      "type": "run_command",
+      "params": {
+        "command": "./configure --with-oniguruma=builtin"
+      },
+      "timeout": 120,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "run_make_clean",
+      "type": "run_command",
+      "params": {
+        "command": "make clean"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "run_make_build",
+      "type": "run_command",
+      "params": {
+        "command": "make -j$(nproc)"
+      },
+      "timeout": 300,
+      "score": 6,
+      "category": "functionality"
+    },
+    {
+      "id": "check_jq_binary_exists",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "jq"
+        ]
+      },
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jq_version",
+      "type": "output_contains",
+      "params": {
+        "command": "./jq --version",
+        "contains": [
+          "jq"
+        ]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jq_help",
+      "type": "output_contains",
+      "params": {
+        "command": "./jq --help",
+        "contains": [
+          "jq - commandline JSON processor"
+        ]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jq_basic_json_processing",
+      "type": "run_command",
+      "params": {
+        "command": "echo '{\"test\": \"value\", \"number\": 42}' | ./jq '.test'"
+      },
+      "timeout": 10,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jq_complex_filter",
+      "type": "run_command",
+      "params": {
+        "command": "echo '[{\"name\": \"John\", \"age\": 30}, {\"name\": \"Jane\", \"age\": 25}]' | ./jq '.[] | select(.age > 26) | .name'"
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jq_arithmetic",
+      "type": "run_command",
+      "params": {
+        "command": "echo '{\"a\": 10, \"b\": 5}' | ./jq '.a + .b'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "run_basic_tests",
+      "type": "run_command",
+      "params": {
+        "command": "make check"
+      },
+      "timeout": 300,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "test_oniguruma_regex",
+      "type": "run_command",
+      "params": {
+        "command": "echo '\"hello world\"' | ./jq 'test(\"hello\")''"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jq_streaming",
+      "type": "run_command",
+      "params": {
+        "command": "echo '{\"a\":1}\n{\"b\":2}' | ./jq -s '. | length'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jq_raw_output",
+      "type": "run_command",
+      "params": {
+        "command": "echo '{\"message\": \"hello\"}' | ./jq -r '.message'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jq_compact_output",
+      "type": "run_command",
+      "params": {
+        "command": "echo '{\"a\": 1, \"b\": 2}' | ./jq -c ."
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "run_specific_test_suite",
+      "type": "run_command",
+      "params": {
+        "command": "./tests/jqtest"
+      },
+      "timeout": 180,
+      "score": 4,
+      "category": "functionality"
+    }
+  ]
+}

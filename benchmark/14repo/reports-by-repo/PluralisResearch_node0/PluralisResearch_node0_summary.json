@@ -1,0 +1,43 @@
+{
+  "repository": "PluralisResearch_node0",
+  "timestamp": "2026-05-13T10:17:46.955769",
+  "total_models_evaluated": 3,
+  "best_performer": {
+    "model": "ours-tensorblock/gpt-4.1",
+    "total_score": 0,
+    "max_score": 75,
+    "success_rate": 0,
+    "total_time": 0,
+    "passed_tests": 0,
+    "total_tests": 0
+  },
+  "model_comparison": [
+    {
+      "model": "ours-tensorblock/gpt-4.1",
+      "total_score": 0,
+      "max_score": 75,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    },
+    {
+      "model": "ours-tensorblock/gpt-4.1-mini",
+      "total_score": 0,
+      "max_score": 75,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    },
+    {
+      "model": "ours-anthropic/claude-opus-4",
+      "total_score": 0,
+      "max_score": 75,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    }
+  ]
+}

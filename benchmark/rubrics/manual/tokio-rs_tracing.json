@@ -1,0 +1,491 @@
+{
+  "repo": "tokio-rs_tracing",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "wget"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_available",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "rustc",
+          "cargo"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version",
+      "type": "output_contains",
+      "params": {
+        "command": "rustc --version",
+        "contains": ["1.65", "1.66", "1.67", "1.68", "1.69", "1.7", "1.8", "1.9", "2.", "3."]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_version",
+      "type": "run_command",
+      "params": {
+        "command": "cargo --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "gcc",
+          "make",
+          "pkg-config"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_core_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "Cargo.toml",
+          "LICENSE",
+          "SECURITY.md",
+          "CONTRIBUTING.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "clippy.toml",
+          "netlify.toml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "tracing",
+          "tracing-core",
+          "tracing-subscriber",
+          "tracing-attributes",
+          "examples"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_extended_crate_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "tracing-log",
+          "tracing-macros",
+          "tracing-test",
+          "tracing-mock",
+          "tracing-serde",
+          "tracing-appender",
+          "tracing-flame",
+          "tracing-futures",
+          "tracing-error",
+          "tracing-tower",
+          "tracing-journald"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_asset_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "assets",
+          "bin"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_crate_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tracing/Cargo.toml",
+          "tracing/src/lib.rs",
+          "tracing/README.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_core_crate_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tracing-core/Cargo.toml",
+          "tracing-core/src/lib.rs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_subscriber_crate_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tracing-subscriber/Cargo.toml",
+          "tracing-subscriber/src/lib.rs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "tracing/tests",
+          "tracing/benches",
+          "tracing-core/tests",
+          "tracing-subscriber/tests"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_rust_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --crate-type lib --emit=metadata -o /tmp/test_compile.meta tracing/src/lib.rs"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --quiet"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_tree",
+      "type": "run_command",
+      "params": {
+        "command": "cargo tree --quiet"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_nextest",
+      "type": "run_command",
+      "params": {
+        "command": "cargo nextest --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_hack",
+      "type": "run_command",
+      "params": {
+        "command": "cargo hack --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_audit",
+      "type": "run_command",
+      "params": {
+        "command": "cargo audit --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_workspace_config",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": ["[workspace]", "members", "tracing", "tracing-core"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_tracing_crate_config",
+      "type": "file_contains",
+      "params": {
+        "path": "tracing/Cargo.toml",
+        "contains": ["name = \"tracing\"", "tracing-core", "edition"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_example_files_exist",
+      "type": "run_command",
+      "params": {
+        "command": "find examples -name '*.rs' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_rust_files_count",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name '*.rs' | wc -l"
+      },
+      "timeout": 15,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_toml_files_count",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name '*.toml' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_cargo_metadata",
+      "type": "run_command",
+      "params": {
+        "command": "cargo metadata --format-version 1 --quiet"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_core_dependencies",
+      "type": "output_contains",
+      "params": {
+        "command": "cargo tree --quiet",
+        "contains": ["tracing-core", "pin-project-lite"]
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_main_crate_lib_rust_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --crate-type lib --emit=metadata -o /tmp/tracing_syntax_check.meta tracing/src/lib.rs"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_core_crate_lib_rust_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --crate-type lib --emit=metadata -o /tmp/tracing_core_syntax_check.meta tracing-core/src/lib.rs"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_subscriber_crate_lib_rust_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --crate-type lib --emit=metadata -o /tmp/tracing_subscriber_syntax_check.meta tracing-subscriber/src/lib.rs"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_clippy",
+      "type": "run_command",
+      "params": {
+        "command": "cargo clippy --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_basic_compile_tracing_crate",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check -p tracing --quiet"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_basic_compile_tracing_core",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check -p tracing-core --quiet"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_basic_compile_tracing_subscriber",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check -p tracing-subscriber --quiet"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_test_list",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 30 cargo test --no-run --quiet"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_nextest_list",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 30 cargo nextest list"
+      },
+      "timeout": 45,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_doc_check",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 90 cargo doc --no-deps --quiet"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_benchmark_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 30 cargo bench --no-run --quiet"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_example_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 30 cargo check --examples --quiet"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_workspace_features",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 45 cargo check --all-features --quiet"
+      },
+      "timeout": 90,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_no_std_support",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 30 cargo check -p tracing --no-default-features --quiet"
+      },
+      "timeout": 45,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_readme_accessibility",
+      "type": "run_command",
+      "params": {
+        "command": "[ -r \"README.md\" ]"
+      },
+      "timeout": 5,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_license_accessibility",
+      "type": "run_command",
+      "params": {
+        "command": "[ -r \"LICENSE\" ]"
+      },
+      "timeout": 5,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_contributing_guidelines",
+      "type": "run_command",
+      "params": {
+        "command": "[ -r \"CONTRIBUTING.md\" ]"
+      },
+      "timeout": 5,
+      "score": 1,
+      "category": "structure"
+    }
+  ]
+}

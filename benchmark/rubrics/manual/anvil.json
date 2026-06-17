@@ -1,0 +1,354 @@
+{
+  "repo": "anvil",
+  "tests": [
+    {
+      "id": "check_rust_cargo",
+      "type": "commands_exist",
+      "params": {
+        "names": ["rustc", "cargo"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version",
+      "type": "output_contains",
+      "params": {
+        "command": "rustc --version",
+        "contains": ["rustc 1.88", "rustc 1.89", "rustc 1.90"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "requires": ["check_rust_cargo"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_version",
+      "type": "output_contains",
+      "params": {
+        "command": "cargo --version",
+        "contains": ["cargo 1.88", "cargo 1.89", "cargo 1.90"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "requires": ["check_rust_cargo"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_k8s_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["kubectl", "minikube"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_kubectl_version",
+      "type": "output_contains",
+      "params": {
+        "command": "kubectl version --client",
+        "contains": ["Client Version: v1"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_k8s_tools"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_minikube_version",
+      "type": "output_contains",
+      "params": {
+        "command": "minikube version",
+        "contains": ["minikube version: v"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_k8s_tools"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "curl", "wget", "unzip", "pkg-config", "python3", "pip3"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "deploy",
+          "e2e",
+          "docker",
+          "tools",
+          "doc"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Cargo.toml",
+          "rust-toolchain.toml",
+          "README.md",
+          "build.md",
+          "build.sh",
+          "deploy.sh",
+          "local-test.sh"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_rust_toolchain_config",
+      "type": "file_contains",
+      "params": {
+        "path": "rust-toolchain.toml",
+        "contains": ["channel = \"1.88.0\"", "components", "targets"]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "check_cargo_toml_config",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": ["name = \"verifiable-controllers\"", "edition = \"2021\"", "builtin", "vstd", "tungstenite", "rand"]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "check_src_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src/reconciler",
+          "src/shim_layer",
+          "src/kubernetes_cluster",
+          "src/kubernetes_api_objects",
+          "src/state_machine",
+          "src/temporal_logic",
+          "src/deps_hack",
+          "src/controller_examples"
+        ]
+      },
+      "score": 3,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "check_docker_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "docker/controller"
+        ]
+      },
+      "score": 2,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "check_docker_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "docker/controller/Dockerfile.local",
+          "docker/controller/Dockerfile.remote"
+        ]
+      },
+      "score": 2,
+      "requires": ["check_docker_structure"],
+      "category": "structure"
+    },
+    {
+      "id": "check_build_scripts",
+      "type": "run_command",
+      "params": {
+        "command": "test -x build.sh && test -x deploy.sh && test -x local-test.sh"
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_cargo_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --quiet"
+      },
+      "timeout": 120,
+      "score": 3,
+      "requires": ["check_rust_cargo"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_rust_target_installed",
+      "type": "run_command",
+      "params": {
+        "command": "rustup target list --installed | grep -q x86_64-unknown-linux-gnu"
+      },
+      "timeout": 30,
+      "score": 1,
+      "requires": ["check_rust_cargo"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_build_script_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "bash -n build.sh"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_deploy_script_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "bash -n deploy.sh"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_local_test_script_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "bash -n local-test.sh"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_verus_integration",
+      "type": "run_command",
+      "params": {
+        "command": "grep -q VERUS_DIR build.sh"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_python_tabulate",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import tabulate; print('tabulate available')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "requires": ["check_system_tools"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_rust_basic_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --version >/dev/null && cargo --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_rust_cargo"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_k8s_tools_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "kubectl version --client >/dev/null && minikube version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_k8s_tools"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_system_libraries",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists openssl && pkg-config --exists libssl"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_system_tools"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_git_configuration",
+      "type": "run_command",
+      "params": {
+        "command": "git --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_system_tools"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["anvil", "verifiable", "controllers", "Rust"]
+      },
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_verus_dependency",
+      "type": "run_command",
+      "params": {
+        "command": "test -d ../verus || echo 'Verus dependency not found'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_e2e_tests",
+      "type": "run_command",
+      "params": {
+        "command": "find e2e -name '*.rs' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "test_deploy_scripts",
+      "type": "run_command",
+      "params": {
+        "command": "find deploy -name '*.yaml' -o -name '*.yml' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    }
+  ]
+}

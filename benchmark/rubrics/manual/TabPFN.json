@@ -1,0 +1,359 @@
+{
+  "repo": "TabPFN",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3", "git", "curl", "wget"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 --version",
+        "contains": ["3.9", "3.10", "3.11", "3.12", "3.13"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_core_files",
+      "type": "files_exist",
+      "params": {
+        "paths": ["README.md", "pyproject.toml", "LICENSE", "CHANGELOG.md"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": ["src", "tests", "examples", "scripts"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_src_tabpfn_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": ["src/tabpfn", "src/tabpfn/model", "src/tabpfn/architectures", "src/tabpfn/misc", "src/tabpfn/preprocessors"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_tabpfn_core_files",
+      "type": "files_exist",
+      "params": {
+        "paths": ["src/tabpfn/__init__.py", "src/tabpfn/classifier.py", "src/tabpfn/regressor.py", "src/tabpfn/model_loading.py"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_example_files",
+      "type": "files_exist",
+      "params": {
+        "paths": ["examples/tabpfn_for_binary_classification.py", "examples/tabpfn_for_multiclass_classification.py", "examples/tabpfn_for_regression.py"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_download_script",
+      "type": "files_exist",
+      "params": {
+        "paths": ["scripts/download_all_models.py"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_python3_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Hello from Python3')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_python3_import_system",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; print('Python path:', sys.path[0])\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip3_version",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_torch_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torch; print('PyTorch version:', torch.__version__)\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "test_sklearn_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sklearn; print('scikit-learn version:', sklearn.__version__)\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pandas_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import pandas as pd; print('pandas version:', pd.__version__)\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_scipy_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import scipy; print('scipy version:', scipy.__version__)\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_einops_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import einops; print('einops imported successfully')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_huggingface_hub_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import huggingface_hub; print('huggingface_hub imported successfully')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pydantic_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import pydantic; print('pydantic version:', pydantic.__version__)\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_tabpfn_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import tabpfn; print('TabPFN version:', tabpfn.__version__)\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "test_tabpfn_classifier_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from tabpfn import TabPFNClassifier; print('TabPFNClassifier imported successfully')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_tabpfn_regressor_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from tabpfn import TabPFNRegressor; print('TabPFNRegressor imported successfully')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pyproject_toml_parsing",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import tomllib; data = tomllib.load(open('pyproject.toml', 'rb')); print('Project name:', data['project']['name'])\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tabpfn_basic_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from tabpfn import TabPFNClassifier; import numpy as np; from sklearn.datasets import make_classification; X, y = make_classification(n_samples=20, n_features=5, n_classes=2, random_state=42); clf = TabPFNClassifier(device='cpu', n_estimators=1); clf.fit(X, y); pred = clf.predict(X); print('Predictions shape:', pred.shape)\""
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tabpfn_predict_proba",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from tabpfn import TabPFNClassifier; import numpy as np; from sklearn.datasets import make_classification; X, y = make_classification(n_samples=20, n_features=5, n_classes=2, random_state=42); clf = TabPFNClassifier(device='cpu', n_estimators=1); clf.fit(X, y); proba = clf.predict_proba(X); print('Probabilities shape:', proba.shape); print('Probabilities sum check:', np.allclose(proba.sum(axis=1), 1.0))\""
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tabpfn_regressor_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from tabpfn import TabPFNRegressor; import numpy as np; from sklearn.datasets import make_regression; X, y = make_regression(n_samples=20, n_features=5, random_state=42); reg = TabPFNRegressor(device='cpu', n_estimators=1); reg.fit(X, y); pred = reg.predict(X); print('Regression predictions shape:', pred.shape)\""
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_binary_classification_example",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 60s python3 examples/tabpfn_for_binary_classification.py"
+      },
+      "timeout": 70,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_multiclass_classification_example",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 60s python3 examples/tabpfn_for_multiclass_classification.py"
+      },
+      "timeout": 70,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_regression_example",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 60s python3 examples/tabpfn_for_regression.py"
+      },
+      "timeout": 70,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_download_script_help",
+      "type": "run_command",
+      "params": {
+        "command": "python3 scripts/download_all_models.py --help"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_torch_device_detection",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torch; print('CUDA available:', torch.cuda.is_available()); print('MPS available:', torch.backends.mps.is_available() if hasattr(torch.backends, 'mps') else False); print('CPU count:', torch.get_num_threads())\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_tabpfn_with_pandas",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from tabpfn import TabPFNClassifier; import pandas as pd; import numpy as np; from sklearn.datasets import make_classification; X, y = make_classification(n_samples=20, n_features=5, n_classes=2, random_state=42); X_df = pd.DataFrame(X); clf = TabPFNClassifier(device='cpu', n_estimators=1); clf.fit(X_df, y); pred = clf.predict(X_df); print('Pandas compatibility test passed')\""
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tabpfn_with_missing_values",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from tabpfn import TabPFNClassifier; import pandas as pd; import numpy as np; from sklearn.datasets import make_classification; X, y = make_classification(n_samples=20, n_features=5, n_classes=2, random_state=42); X[0, 0] = np.nan; X[1, 1] = np.nan; clf = TabPFNClassifier(device='cpu', n_estimators=1); clf.fit(X, y); pred = clf.predict(X); print('Missing values handling test passed')\""
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pytest_available",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import pytest; print('pytest version:', pytest.__version__)\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_basic_pytest_run",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 30s python3 -m pytest tests/test_settings.py -v"
+      },
+      "timeout": 40,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_model_loading_module",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from tabpfn.model_loading import load_fitted_tabpfn_model, save_fitted_tabpfn_model; print('Model loading/saving functions imported successfully')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_display_debug_info",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from tabpfn import display_debug_info; display_debug_info()\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    }
+  ]
+}

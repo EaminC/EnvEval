@@ -1,2 +1,7 @@
-# No external dependencies required - uses only Python standard library
-# The script requires Docker to be installed and accessible via command line
+# Requirements for EnvEval benchmark tools
+# The evaluation scripts require Docker to be installed and accessible via command line
+
+# For generate_stats.py visualization script:
+matplotlib>=3.5.0
+numpy>=1.21.0
+pandas>=1.3.0

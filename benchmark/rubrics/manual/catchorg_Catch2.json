@@ -1,0 +1,383 @@
+{
+  "repo": "catchorg_Catch2",
+  "tests": [
+    {
+      "id": "check_cpp_compilers",
+      "type": "commands_exist",
+      "params": {
+        "names": ["g++", "clang++"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["cmake", "make", "ninja"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "bash", "ls", "doxygen"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "tests",
+          "examples",
+          "docs",
+          "tools",
+          "third_party",
+          "fuzzing",
+          "extras"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE.txt",
+          "CMakeLists.txt",
+          "meson.build",
+          "BUILD.bazel",
+          "conanfile.py"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_cmake_config",
+      "type": "file_contains",
+      "params": {
+        "path": "CMakeLists.txt",
+        "contains": ["cmake_minimum_required", "CATCH_", "option", "include"]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_files"]
+    },
+    {
+      "id": "check_meson_config",
+      "type": "file_contains",
+      "params": {
+        "path": "meson.build",
+        "contains": ["project", "catch2", "dependency"]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_files"]
+    },
+    {
+      "id": "check_bazel_config",
+      "type": "file_contains",
+      "params": {
+        "path": "BUILD.bazel",
+        "contains": ["cc_library", "catch2"]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_files"]
+    },
+    {
+      "id": "check_conan_config",
+      "type": "file_contains",
+      "params": {
+        "path": "conanfile.py",
+        "contains": ["ConanFile", "catch2"]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_files"]
+    },
+    {
+      "id": "test_cmake_configure",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p build && cd build && cmake .."
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality",
+      "requires": ["check_build_tools", "check_cmake_config"]
+    },
+    {
+      "id": "test_meson_configure",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p buildmeson && cd buildmeson && meson .."
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_build_tools", "check_meson_config"]
+    },
+    {
+      "id": "test_cmake_examples_build",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p build && cd build && cmake .. && make -j2 examples"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality",
+      "requires": ["check_build_tools", "check_cmake_config"]
+    },
+    {
+      "id": "test_catch2_example_compile",
+      "type": "run_command",
+      "params": {
+        "command": "g++ -std=c++17 -I./src -o test_catch2_example examples/100-CatchMain.cpp src/catch2/catch_all.hpp"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_cpp_compilers"]
+    },
+    {
+      "id": "test_python_tools",
+      "type": "run_command",
+      "params": {
+        "command": "python3 tools/convert.py --help"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_python_tools"]
+    },
+    {
+      "id": "test_src_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find src -name '*.hpp' -o -name '*.cpp' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "test_tests_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find tests -name '*.cpp' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "test_examples_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find examples -name '*.cpp' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "test_fuzzing_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find fuzzing -name '*.cpp' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "test_third_party_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find third_party -type f | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "test_extras_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find extras -type f | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["Catch2", "C++", "testing", "framework"]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_files"]
+    },
+    {
+      "id": "test_license_file",
+      "type": "file_contains",
+      "params": {
+        "path": "LICENSE.txt",
+        "contains": ["Boost Software License"]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_files"]
+    },
+    {
+      "id": "test_git_configuration",
+      "type": "run_command",
+      "params": {
+        "command": "git --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_system_tools"]
+    },
+    {
+      "id": "test_git_repository",
+      "type": "run_command",
+      "params": {
+        "command": "test -d .git"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_system_tools"]
+    },
+    {
+      "id": "test_locale_utf8",
+      "type": "run_command",
+      "params": {
+        "command": "echo $LANG | grep -q UTF-8 || echo $LC_ALL | grep -q UTF-8"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_system_tools"]
+    },
+    {
+      "id": "test_doxygen_available",
+      "type": "run_command",
+      "params": {
+        "command": "doxygen --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_system_tools"]
+    },
+    {
+      "id": "test_cpp_compilation_basic",
+      "type": "run_command",
+      "params": {
+        "command": "g++ --version >/dev/null && clang++ --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_cpp_compilers"]
+    },
+    {
+      "id": "test_cmake_basic",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_build_tools"]
+    },
+    {
+      "id": "test_make_basic",
+      "type": "run_command",
+      "params": {
+        "command": "make --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_build_tools"]
+    },
+    {
+      "id": "test_ninja_basic",
+      "type": "run_command",
+      "params": {
+        "command": "ninja --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_build_tools"]
+    },
+    {
+      "id": "test_doxygen_docs",
+      "type": "run_command",
+      "params": {
+        "command": "doxygen --version >/dev/null && test -f Doxyfile"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_system_tools", "check_main_files"]
+    },
+    {
+      "id": "test_benchmark_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find benchmarks -name '*.cpp' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "test_tools_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find tools -type f | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    }
+  ]
+}

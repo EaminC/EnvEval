@@ -1,0 +1,357 @@
+{
+  "repo": "yhirose_cpp-httplib",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "bash",
+          "curl",
+          "wget"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cpp_toolchain",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "g++",
+          "gcc",
+          "clang-format",
+          "cmake",
+          "meson",
+          "ninja",
+          "make"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "python3",
+          "pip3"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_package_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "pkg-config",
+          "openssl",
+          "pre-commit"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_gcc_version",
+      "type": "run_command",
+      "params": {
+        "command": "g++ --version"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cmake_version",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --version"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_core_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "httplib.h",
+          "LICENSE",
+          "README.md",
+          "CMakeLists.txt",
+          "meson.build",
+          "meson_options.txt"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "test",
+          "example",
+          "benchmark",
+          "cmake",
+          "docker",
+          ".github"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "test/Makefile",
+          "test/test.cc",
+          "test/include_httplib.cc"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_script",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "split.py"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_httplib_header_readable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -r \"httplib.h\" ]"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cpp_compilation_basic",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"httplib.h\"\nint main() { return 0; }' | g++ -std=c++11 -I. -c -x c++ -"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cpp_compilation_with_ssl",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"httplib.h\"\nint main() { httplib::SSLServer svr; return 0; }' | g++ -std=c++11 -I. -DCPPHTTPLIB_OPENSSL_SUPPORT -c -x c++ - -lssl -lcrypto"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_ssl_libraries",
+      "type": "run_command",
+      "params": {
+        "command": "dpkg -s libssl-dev >/dev/null 2>&1 || rpm -q openssl-devel >/dev/null 2>&1 || brew list openssl >/dev/null 2>&1"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_compression_libraries",
+      "type": "run_command",
+      "params": {
+        "command": "dpkg -s zlib1g-dev libbrotli-dev libzstd-dev >/dev/null 2>&1 || echo 'Some compression libs may be missing'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_curl_library",
+      "type": "run_command",
+      "params": {
+        "command": "dpkg -s libcurl4-openssl-dev >/dev/null 2>&1 || rpm -q libcurl-devel >/dev/null 2>&1 || brew list curl >/dev/null 2>&1"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gtest_library",
+      "type": "run_command",
+      "params": {
+        "command": "dpkg -s libgtest-dev >/dev/null 2>&1 || rpm -q gtest-devel >/dev/null 2>&1 || brew list googletest >/dev/null 2>&1"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python3_split_script",
+      "type": "run_command",
+      "params": {
+        "command": "python3 --version && python3 -c \"import sys; print('Python available for split.py')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cmake_configuration",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p test_build && cd test_build && cmake .. -DHTTPLIB_TEST=OFF && rm -rf ../test_build"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_make_test_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "cd test && timeout 120 make test_split 2>/dev/null || echo 'Test compilation may need dependencies'"
+      },
+      "timeout": 150,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_meson_setup",
+      "type": "run_command",
+      "params": {
+        "command": "meson setup test_meson_build --buildtype=release -Dtests=false && rm -rf test_meson_build"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_basic_server_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "cd example && echo '#include \"httplib.h\"\nint main() { httplib::Server svr; return 0; }' | g++ -std=c++11 -I.. -o test_server -x c++ - -lpthread && rm -f test_server"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_basic_client_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "cd example && echo '#include \"httplib.h\"\nint main() { httplib::Client cli(\"localhost\"); return 0; }' | g++ -std=c++11 -I.. -o test_client -x c++ - -lpthread && rm -f test_client"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_ssl_compilation_with_libs",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"httplib.h\"\nint main() { httplib::SSLServer svr(\"cert.pem\", \"key.pem\"); return 0; }' | g++ -std=c++11 -I. -DCPPHTTPLIB_OPENSSL_SUPPORT -o test_ssl -x c++ - -lpthread -lssl -lcrypto 2>/dev/null && rm -f test_ssl || echo 'SSL compilation needs certificates'"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_compression_support_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"httplib.h\"\nint main() { httplib::Client cli(\"localhost\"); cli.set_compress(true); return 0; }' | g++ -std=c++11 -I. -DCPPHTTPLIB_ZLIB_SUPPORT -DCPPHTTPLIB_BROTLI_SUPPORT -o test_compression -x c++ - -lpthread -lz -lbrotlicommon -lbrotlienc -lbrotlidec 2>/dev/null && rm -f test_compression || echo 'Compression support needs libraries'"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_split_script_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 split.py -o test_split_out && [ -f test_split_out/httplib.h ] && [ -f test_split_out/httplib.cc ] && rm -rf test_split_out"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_clang_format_availability",
+      "type": "run_command",
+      "params": {
+        "command": "clang-format --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_threading_support",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"httplib.h\"\n#include <thread>\nint main() { std::thread t([](){}); t.join(); return 0; }' | g++ -std=c++11 -I. -o test_threading -x c++ - -lpthread && rm -f test_threading"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cpp11_standard_compliance",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"httplib.h\"\n#include <memory>\nint main() { auto ptr = std::make_shared<int>(42); return 0; }' | g++ -std=c++11 -I. -o test_cpp11 -x c++ - && rm -f test_cpp11"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_docker_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "[ -f \"Dockerfile\" ] && [ -f \"docker-compose.yml\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_example_files_exist",
+      "type": "run_command",
+      "params": {
+        "command": "[ -f \"example/server.cc\" ] && [ -f \"example/client.cc\" ] && [ -f \"example/hello.cc\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_benchmark_files_exist",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"benchmark\" ] && [ \"$(ls -A benchmark 2>/dev/null)\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    }
+  ]
+}

@@ -1,0 +1,519 @@
+{
+  "repo": "cli_cli",
+  "tests": [
+    {
+      "id": "check_system_dependencies",
+      "type": "commands_exist",
+      "params": {
+        "names": ["go", "git", "make", "bash", "curl"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_version",
+      "type": "output_contains",
+      "params": {
+        "command": "go version",
+        "contains": ["go1.24", "go1.25", "go1.26", "go1.27"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_version_minor",
+      "type": "run_command",
+      "params": {
+        "command": "go version | sed 's/go version go//' | sed 's/ .*//' | cut -d'.' -f1-2 | awk '{if ($1 == 1 && $2 >= 24) exit 0; else exit 1}'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gopath",
+      "type": "envvar_set",
+      "params": {
+        "name": "GOPATH"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_goroot",
+      "type": "envvar_set",
+      "params": {
+        "name": "GOROOT"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_modules_enabled",
+      "type": "run_command",
+      "params": {
+        "command": "go env GOMOD | grep -q go.mod"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_mod_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "go.mod",
+          "go.sum"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_go_mod_cli_project",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": ["github.com/cli/cli"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_go_mod_version",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": ["go 1.24"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_go_mod_toolchain",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": ["toolchain go1.24"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_go_mod_module_name",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": ["module github.com/cli/cli/v2"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_go_dependencies_cobra",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": ["github.com/spf13/cobra"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_go_dependencies_go_gh",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": ["github.com/cli/go-gh"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_go_dependencies_oauth",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": ["github.com/cli/oauth"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_go_dependencies_glamour",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": ["github.com/charmbracelet/glamour"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_go_dependencies_testify",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": ["github.com/stretchr/testify"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_project_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "cmd",
+          "pkg",
+          "internal",
+          "test",
+          "acceptance",
+          "docs",
+          "script",
+          "utils",
+          "api",
+          "context",
+          "git",
+          "build",
+          "third-party"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_cmd_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "cmd/gh",
+          "cmd/gen-docs"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_cmd_main_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "cmd/gh/main.go",
+          "cmd/gen-docs/main.go"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_go_mod_download",
+      "type": "run_command",
+      "params": {
+        "command": "go mod download"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_go_mod_verify",
+      "type": "run_command",
+      "params": {
+        "command": "go mod verify"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_go_build_gh",
+      "type": "run_command",
+      "params": {
+        "command": "go build ./cmd/gh"
+      },
+      "timeout": 180,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_go_build_gen_docs",
+      "type": "run_command",
+      "params": {
+        "command": "go build ./cmd/gen-docs"
+      },
+      "timeout": 180,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_source_files_pkg",
+      "type": "run_command",
+      "params": {
+        "command": "[ $(find pkg -name '*.go' 2>/dev/null | wc -l) -gt 0 ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_source_files_internal",
+      "type": "run_command",
+      "params": {
+        "command": "[ $(find internal -name '*.go' 2>/dev/null | wc -l) -gt 0 ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_script_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "script/build.go"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_build_script_compile",
+      "type": "run_command",
+      "params": {
+        "command": "go build script/build.go"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_makefile",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Makefile"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_makefile_test_target",
+      "type": "run_command",
+      "params": {
+        "command": "make -n test"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_makefile_clean_target",
+      "type": "run_command",
+      "params": {
+        "command": "make -n clean"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_makefile_manpages_target",
+      "type": "run_command",
+      "params": {
+        "command": "make -n manpages"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_makefile_completions_target",
+      "type": "run_command",
+      "params": {
+        "command": "make -n completions"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_test_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ $(find test -name '*.go' 2>/dev/null | wc -l) -gt 0 ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_integration_directory",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "test/integration"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_helper_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "test/helpers.go"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_acceptance_test_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "acceptance/acceptance_test.go"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_acceptance_testdata_directory",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "acceptance/testdata"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_license_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["GitHub CLI"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_docs_count",
+      "type": "run_command",
+      "params": {
+        "command": "[ $(find docs -type f 2>/dev/null | wc -l) -gt 0 ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          ".golangci.yml",
+          ".goreleaser.yml",
+          ".gitignore",
+          ".gitattributes"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_license_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "third-party-licenses.linux.md",
+          "third-party-licenses.darwin.md",
+          "third-party-licenses.windows.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_go_basic_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "go version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_go_env_access",
+      "type": "run_command",
+      "params": {
+        "command": "go env"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_git_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "git --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_git_repository",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d .git ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_locale_lang",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $LANG",
+        "contains": ["UTF-8"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_locale_lc_all",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $LC_ALL",
+        "contains": ["UTF-8"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

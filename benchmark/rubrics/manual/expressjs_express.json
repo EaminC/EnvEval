@@ -1,0 +1,322 @@
+{
+  "repo": "expressjs_express",
+  "tests": [
+    {
+      "id": "check_system_dependencies",
+      "type": "commands_exist",
+      "params": {
+        "names": ["node", "npm", "git"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_redis_server",
+      "type": "commands_exist",
+      "params": {
+        "names": ["redis-server"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_curl_wget",
+      "type": "commands_exist",
+      "params": {
+        "names": ["curl", "wget"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version",
+      "type": "output_contains",
+      "params": {
+        "command": "node -v",
+        "contains": ["v18", "v20", "v21", "v22"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version_major",
+      "type": "run_command",
+      "params": {
+        "command": "node --version 2>&1 | cut -d'v' -f2 | cut -d'.' -f1 | awk '{if ($1 >= 18) exit 0; else exit 1}'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_node_execution",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"console.log('Hello from Node.js')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_node_module_system",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"console.log(require('path').join('test', 'file'))\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_npm_version",
+      "type": "run_command",
+      "params": {
+        "command": "npm --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_npm_list",
+      "type": "run_command",
+      "params": {
+        "command": "npm list || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": ["lib", "test", "examples", "benchmarks"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_project_files",
+      "type": "files_exist",
+      "params": {
+        "paths": ["package.json", "index.js", "Readme.md", "LICENSE"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [".npmrc", ".eslintrc.yml"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_express_lib_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "lib/express.js",
+          "lib/application.js",
+          "lib/request.js",
+          "lib/response.js",
+          "lib/view.js",
+          "lib/utils.js"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_router_directory",
+      "type": "dirs_exist",
+      "params": {
+        "paths": ["lib/router"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_npm_install",
+      "type": "run_command",
+      "params": {
+        "command": "npm install"
+      },
+      "timeout": 180,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_node_modules_exists",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"node_modules\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_npm_test",
+      "type": "run_command",
+      "params": {
+        "command": "npm test"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_node_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "NODE_ENV"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_npm_config_prefix",
+      "type": "envvar_set",
+      "params": {
+        "name": "npm_config_prefix"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["node"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_npm_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["npm"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_express_module_load",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"const express = require('./index.js'); console.log('Express loaded successfully')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_express_app_creation",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"const express = require('./index.js'); const app = express(); console.log('Express app created')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_express_http_server",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"const express = require('./index.js'); const app = express(); app.get('/', (req, res) => res.send('Hello')); const server = app.listen(0, () => { server.close(); console.log('Server created'); });\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_express_generator",
+      "type": "commands_exist",
+      "params": {
+        "names": ["express"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_express_generator_version",
+      "type": "run_command",
+      "params": {
+        "command": "express --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_express_generator_help",
+      "type": "run_command",
+      "params": {
+        "command": "express --help || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_npx",
+      "type": "commands_exist",
+      "params": {
+        "names": ["npx"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_mocha",
+      "type": "run_command",
+      "params": {
+        "command": "npx mocha --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_eslint",
+      "type": "run_command",
+      "params": {
+        "command": "npx eslint --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_redis_cli",
+      "type": "commands_exist",
+      "params": {
+        "names": ["redis-cli"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_redis_ping",
+      "type": "run_command",
+      "params": {
+        "command": "redis-cli ping || true"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

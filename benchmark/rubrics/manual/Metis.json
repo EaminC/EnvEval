@@ -1,0 +1,343 @@
+{
+  "repo": "Metis",
+  "tests": [
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "g++", "make", "cmake"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_autotools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["autoconf", "automake", "libtool"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_parser_generators",
+      "type": "commands_exist",
+      "params": {
+        "names": ["flex", "bison"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_network_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["ssh", "git", "curl", "wget"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_pkg_config",
+      "type": "commands_exist",
+      "params": {
+        "names": ["pkg-config"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "common",
+          "include",
+          "scripts",
+          "kernel",
+          "tests",
+          "fs_bugs",
+          "fs-state",
+          "driver-fs-state",
+          "verifs1",
+          "promela-demo",
+          "python-demo",
+          "mcl-demo",
+          "example",
+          "ae-experiments"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_key_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Makefile",
+          "README.md",
+          "README-others.md",
+          "LICENSE",
+          ".gitignore"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_script_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "scripts/setup-deps.sh",
+          "scripts/color.py",
+          "scripts/mcfs_helper_daemon.sh"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_metis_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "METIS_ROOT"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_home_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_path_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "PATH"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_virtual_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "VIRTUAL_ENV"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python3_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["python3"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gcc_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["gcc"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python3_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Python3 works')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pip_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "pip --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_makefile_structure",
+      "type": "file_contains",
+      "params": {
+        "path": "Makefile",
+        "contains": ["COMMON_DIR", "CFLAGS", "LIBS", "libmcfs", "install", "clean", "gcc", "g++"]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "test_common_source_files",
+      "type": "run_command",
+      "params": {
+        "command": "find common -name \"*.c\" -o -name \"*.cpp\" | wc -l"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_include_header_files",
+      "type": "run_command",
+      "params": {
+        "command": "find include -name \"*.h\" | wc -l"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_setup_deps_executable",
+      "type": "run_command",
+      "params": {
+        "command": "test -x scripts/setup-deps.sh"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_setup_deps_bash_script",
+      "type": "file_contains",
+      "params": {
+        "path": "scripts/setup-deps.sh",
+        "contains": ["#!/bin/bash"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_color_py_executable",
+      "type": "run_command",
+      "params": {
+        "command": "test -x scripts/color.py"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_color_py_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -m py_compile scripts/color.py"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_mcfs_helper_executable",
+      "type": "run_command",
+      "params": {
+        "command": "test -x scripts/mcfs_helper_daemon.sh"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["Metis", "File System Model Checking", "Setup", "Prerequisites"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_gitignore_content",
+      "type": "file_contains",
+      "params": {
+        "path": ".gitignore",
+        "contains": ["*.o", "*.so", "*.a"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_gcc_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "gcc --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_gpp_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "g++ --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_make_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "make --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cmake_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_ssh_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "ssh -V"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_git_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "git --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

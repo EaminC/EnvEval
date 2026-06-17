@@ -1,0 +1,281 @@
+{
+  "repo": "elastic_logstash",
+  "tests": [
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["java", "gradle", "jruby", "git", "bash", "curl", "wget", "unzip", "perl"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_version",
+      "type": "output_contains",
+      "params": {
+        "command": "java -version",
+        "contains": ["11", "12", "13", "14", "15", "16", "17"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gradle_version",
+      "type": "output_contains",
+      "params": {
+        "command": "gradle --version",
+        "contains": ["Gradle 8", "Gradle 9"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_jruby_version",
+      "type": "output_contains",
+      "params": {
+        "command": "jruby -v",
+        "contains": ["jruby 9.2", "jruby 9.3", "jruby 9.4"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "JAVA_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_jruby_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "JRUBY_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "build.gradle",
+          "settings.gradle",
+          "gradlew",
+          ".ruby-version",
+          "Rakefile",
+          "README.md",
+          "LICENSE.txt"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_project_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "logstash-core",
+          "spec",
+          "lib",
+          "bin",
+          "config",
+          "x-pack"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_ruby_version",
+      "type": "file_contains",
+      "params": {
+        "path": ".ruby-version",
+        "contains": ["jruby-9.2", "jruby-9.3", "jruby-9.4"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_jruby",
+      "type": "run_command",
+      "params": {
+        "command": "jruby -v"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_jruby_gem",
+      "type": "run_command",
+      "params": {
+        "command": "jruby -S gem -v"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_bin_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "bin/logstash",
+          "bin/logstash-plugin",
+          "bin/rspec"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_gradle_build",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew --version"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_gradle_tasks",
+      "type": "run_command",
+      "params": {
+        "command": "./gradlew tasks --all"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_bundle_install",
+      "type": "run_command",
+      "params": {
+        "command": "jruby -S bundle install || true"
+      },
+      "timeout": 300,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_logstash_lib_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "lib/logstash",
+          "logstash-core/lib/logstash"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_java_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "BUILD_JAVA_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gem_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "GEM_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gradle_user_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "GRADLE_USER_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_jruby_bundler",
+      "type": "run_command",
+      "params": {
+        "command": "jruby -S bundle -v || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_jruby_rake",
+      "type": "run_command",
+      "params": {
+        "command": "jruby -S rake -V || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_jruby_rspec",
+      "type": "run_command",
+      "params": {
+        "command": "jruby -S rspec --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_rake_help",
+      "type": "run_command",
+      "params": {
+        "command": "jruby -S rake help || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_rake_tasks",
+      "type": "run_command",
+      "params": {
+        "command": "jruby -S rake -T || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_rspec_dry_run",
+      "type": "run_command",
+      "params": {
+        "command": "jruby -S rspec --dry-run spec/ 2>/dev/null | head -10 || true"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_bin_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"bin/logstash\" ] && [ -x \"bin/logstash-plugin\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    }
+  ]
+}
+

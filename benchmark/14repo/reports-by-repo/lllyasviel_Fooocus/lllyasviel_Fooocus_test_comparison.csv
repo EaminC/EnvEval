@@ -1,0 +1,10 @@
+test_id,test_type,max_score,ours-anthropic/claude-opus-4,ours-tensorblock/gpt-4.1,ours-tensorblock/gpt-4.1-mini,params
+check_conda_tool,commands_exist,1,0,0,0.0,"{""names"":[""conda""]}"
+check_environment_python_pin,file_contains,1,0,0,1,"{""path"":""environment.yaml"",""contains"":[""python=3.10"",""pip=23.0""]}"
+check_python_tools,commands_exist,2,0,0,2.0,"{""names"":[""python3"",""pip3""]}"
+check_python_version,output_contains,1,0,0,1,"{""command"":""python3 --version"",""contains"":[""3.10""]}"
+check_readme_install_commands,file_contains,1,0,0,1,"{""path"":""readme.md"",""contains"":[""conda env create -f environment.yaml"",""pip install -r requirements_versions.txt"",""python entry_with_update.py""]}"
+check_repo_dirs,dirs_exist,1,0,0,1.0,"{""paths"":[""models"",""modules"",""css"",""javascript""]}"
+check_repo_files,files_exist,1,0,0,1.0,"{""paths"":[""readme.md"",""environment.yaml"",""requirements_versions.txt"",""entry_with_update.py""]}"
+test_entry_help,run_command,2,0,0,2,"{""command"":""python3 entry_with_update.py --help >/dev/null""}"
+test_pip_version,run_command,1,0,0,1,"{""command"":""python3 -m pip --version""}"

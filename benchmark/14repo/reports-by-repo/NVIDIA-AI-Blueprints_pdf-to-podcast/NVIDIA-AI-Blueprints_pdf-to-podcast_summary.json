@@ -1,0 +1,43 @@
+{
+  "repository": "NVIDIA-AI-Blueprints_pdf-to-podcast",
+  "timestamp": "2026-05-13T10:11:56.540615",
+  "total_models_evaluated": 3,
+  "best_performer": {
+    "model": "ours-tensorblock/gpt-4.1-mini",
+    "total_score": 61.42,
+    "max_score": 76,
+    "success_rate": 0.8824,
+    "total_time": 15.18,
+    "passed_tests": 60,
+    "total_tests": 68
+  },
+  "model_comparison": [
+    {
+      "model": "ours-tensorblock/gpt-4.1-mini",
+      "total_score": 61.42,
+      "max_score": 76,
+      "success_rate": 0.8824,
+      "total_time": 15.18,
+      "passed_tests": 60,
+      "total_tests": 68
+    },
+    {
+      "model": "ours-tensorblock/gpt-4.1",
+      "total_score": 0,
+      "max_score": 76,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    },
+    {
+      "model": "ours-anthropic/claude-opus-4",
+      "total_score": 0,
+      "max_score": 76,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    }
+  ]
+}

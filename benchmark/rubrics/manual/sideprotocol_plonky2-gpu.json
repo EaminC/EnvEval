@@ -1,0 +1,356 @@
+{
+  "repo": "sideprotocol_plonky2-gpu",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "curl", "wget", "bash", "tar"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "g++", "make", "cmake", "pkg-config"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cmake_version_ge_3_16",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --version 2>&1 | head -n1 | awk '{print $3}' | awk -F. '{ if ($1 > 3 || ($1 == 3 && $2 >= 16)) exit 0; else exit 1 }'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_toolchain",
+      "type": "commands_exist",
+      "params": {
+        "names": ["rustc", "cargo"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_nightly_available",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --version 2>&1 | grep -qi 'nightly' || (command -v rustup && rustup toolchain list 2>&1 | grep -qi 'nightly') || cargo +nightly --version 2>/dev/null"
+      },
+      "timeout": 15,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_nightly_features_compile",
+      "type": "run_command",
+      "params": {
+        "command": "TMP=$(mktemp -d); printf '#![feature(allocator_api)]\\n#![feature(inherent_associated_types)]\\nfn main(){}\\n' > $TMP/t.rs && (rustc +nightly --edition 2021 -o $TMP/t $TMP/t.rs 2>/dev/null || rustc --edition 2021 -o $TMP/t $TMP/t.rs) && $TMP/t; rm -rf $TMP"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rustup",
+      "type": "run_command",
+      "params": {
+        "command": "command -v rustup || rustc -Vv | grep -q 'host:'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gpu_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["nvcc"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_version",
+      "type": "output_contains",
+      "params": {
+        "command": "nvcc --version 2>&1",
+        "contains": ["release 12"]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_version_acceptable_fallback",
+      "type": "output_contains",
+      "params": {
+        "command": "nvcc --version 2>&1",
+        "contains": ["release 11", "release 12"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_nvidia_smi",
+      "type": "run_command",
+      "params": {
+        "command": "command -v nvidia-smi"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "CUDA_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_path_has_cuda_or_cargo",
+      "type": "output_contains",
+      "params": {
+        "command": "echo \"$PATH\"",
+        "contains": ["cuda", "cargo", ".cargo"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ld_library_path_or_cuda_libs",
+      "type": "run_command",
+      "params": {
+        "command": "[ -n \"$LD_LIBRARY_PATH\" ] || ldconfig -p | grep -qi libcudart"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_home_or_default",
+      "type": "run_command",
+      "params": {
+        "command": "[ -n \"$CARGO_HOME\" ] || [ -d \"$HOME/.cargo\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_root_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Cargo.toml",
+          "README.md",
+          "LICENSE"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_workspace_members",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": ["plonky2", "cuda", "workspace", "members"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_crate_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "plonky2",
+          "cuda",
+          "field",
+          "util",
+          "ecdsa",
+          "evm",
+          "starky",
+          "u32",
+          "waksman",
+          "maybe_rayon"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_cuda_sources",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "cuda/Cargo.toml",
+          "cuda/build.rs",
+          "cuda/CMakeLists.txt",
+          "cuda/plonky2_gpu.cu",
+          "cuda/plonky2_gpu_impl.cuh"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_rs_invokes_nvcc_sm75",
+      "type": "file_contains",
+      "params": {
+        "path": "cuda/build.rs",
+        "contains": ["sm_75", "nvcc", "cuda"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_plonky2_uses_nightly_features",
+      "type": "file_contains",
+      "params": {
+        "path": "plonky2/src/lib.rs",
+        "contains": ["feature(allocator_api)", "feature(inherent_associated_types)"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_plonky2_crate_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "plonky2/Cargo.toml",
+          "plonky2/src"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_plonky2_manifest_deps",
+      "type": "file_contains",
+      "params": {
+        "path": "plonky2/Cargo.toml",
+        "contains": ["plonky2_cuda", "rustacuda"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_rustc_runs",
+      "type": "output_contains",
+      "params": {
+        "command": "rustc --version",
+        "contains": ["rustc"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cargo_runs",
+      "type": "output_contains",
+      "params": {
+        "command": "cargo --version",
+        "contains": ["cargo"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_nvcc_compile_hello",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <cstdio>\n__global__ void k(){}\nint main(){printf(\"cuda-compile-ok\\n\");return 0;}' > /tmp/hw.cu && nvcc -o /tmp/hw /tmp/hw.cu && /tmp/hw && rm -f /tmp/hw /tmp/hw.cu"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_nvcc_compile_sm75",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <cstdio>\n__global__ void k(){}\nint main(){printf(\"sm75-ok\\n\");return 0;}' > /tmp/hw.cu && nvcc -arch=sm_75 -o /tmp/hw /tmp/hw.cu && /tmp/hw && rm -f /tmp/hw /tmp/hw.cu"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_metadata",
+      "type": "run_command",
+      "params": {
+        "command": "cargo metadata --no-deps --format-version 1 >/dev/null"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_workspace_members_listed",
+      "type": "output_contains",
+      "params": {
+        "command": "cargo metadata --no-deps --format-version 1 2>/dev/null | tr ',' '\\n' | grep -E '\"name\"' | head -n 30",
+        "contains": ["plonky2", "plonky2_cuda", "plonky2_field"]
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_check_small_crate",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check -p plonky2_util"
+      },
+      "timeout": 600,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_check_field_crate",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check -p plonky2_field"
+      },
+      "timeout": 900,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cuda_crate_present",
+      "type": "run_command",
+      "params": {
+        "command": "cargo metadata --no-deps --format-version 1 2>/dev/null | grep -q 'plonky2_cuda'"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_c_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <stdio.h>\nint main() { printf(\"Hello from C\\n\"); return 0; }' > /tmp/test.c && gcc -o /tmp/test_c /tmp/test.c && /tmp/test_c && rm -f /tmp/test_c /tmp/test.c"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    }
+  ]
+}

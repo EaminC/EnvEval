@@ -1,0 +1,482 @@
+{
+  "repo": "RSNN",
+  "tests": [
+    {
+      "id": "check_python",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python", "pip"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python --version",
+        "contains": ["3.10", "3.9", "3.8"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_python_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import sys; print('Python import test passed')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pytorch_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torch; print(f'PyTorch {torch.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "test_requirements_dependencies",
+      "type": "file_contains",
+      "params": {
+        "path": "requirements.txt",
+        "contains": ["numpy", "torch", "scipy", "matplotlib", "seaborn", "h5py", "soundfile", "tables", "torchaudio", "tonic", "xlsxwriter", "hydra-core", "neurobench", "pandas", "snntorch", "omegaconf", "KDEpy", "stork"]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "test_torchvision_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torchvision; print(f'torchvision {torchvision.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_torchaudio_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torchaudio; print(f'torchaudio {torchaudio.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_snntorch_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import snntorch; print('snntorch available')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "test_numpy_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import numpy; print(f'NumPy {numpy.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_scipy_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import scipy; print(f'SciPy {scipy.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pandas_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import pandas; print(f'pandas {pandas.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_h5py_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import h5py; print(f'h5py {h5py.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_tables_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import tables; print(f'tables {tables.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_matplotlib_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import matplotlib; print(f'matplotlib {matplotlib.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_seaborn_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import seaborn; print(f'seaborn {seaborn.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_stork_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import stork; print('stork available')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "test_neurobench_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import neurobench; print('neurobench available')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "test_hydra_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import hydra; print('hydra available')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_omegaconf_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import omegaconf; print('omegaconf available')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_tonic_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import tonic; print('tonic available')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_kdepy_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import KDEpy; print('KDEpy available')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_xlsxwriter_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import xlsxwriter; print('xlsxwriter available')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_soundfile_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import soundfile; print('soundfile available')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "gcc", "make"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_libsndfile",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists sndfile"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_libhdf5",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists hdf5"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_blas",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists blas"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_lapack",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists lapack"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "challenge",
+          "conf",
+          "models",
+          "results"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_key_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE",
+          "requirements.txt"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_training_scripts",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "train-bigRSNN.py",
+          "train-tinyRSNN.py",
+          "evaluate.py"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_challenge_subdirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "challenge/custom",
+          "challenge/neurobench",
+          "challenge/utils"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_challenge_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "challenge/data.py",
+          "challenge/model.py",
+          "challenge/train.py",
+          "challenge/evaluate.py"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "conf/train-bigRSNN.yaml",
+          "conf/train-tinyRSNN.yaml",
+          "conf/evaluate.yaml",
+          "conf/defaults.yaml"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_model_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "models/loco01",
+          "models/loco02",
+          "models/loco03",
+          "models/indy01",
+          "models/indy02",
+          "models/indy03"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_result_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "results_summary_bigRSNN.json",
+          "results_summary_tinyRSNN.json",
+          "results_extract_from_logs.ipynb"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_files_count",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name \"*.py\" | wc -l"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_notebook_files_count",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name \"*.ipynb\" | wc -l"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_yaml_files_count",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name \"*.yaml\" | wc -l"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_json_files_count",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name \"*.json\" | wc -l"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "python -m py_compile train-bigRSNN.py"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["RSNN", "Spiking Neural Networks", "train-bigRSNN.py", "evaluate.py"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_git_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "git --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_gcc_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "gcc --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

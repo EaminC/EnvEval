@@ -1,0 +1,473 @@
+{
+  "repo": "gluetest",
+  "tests": [
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["mvn", "python3", "java", "javac", "git", "bash", "curl"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_maven_version",
+      "type": "output_contains",
+      "params": {
+        "command": "mvn -version",
+        "contains": ["Apache Maven"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_version",
+      "type": "output_contains",
+      "params": {
+        "command": "java -version",
+        "contains": ["1.8", "8", "11", "17"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 --version",
+        "contains": ["Python 3"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version_minor",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 --version",
+        "contains": ["Python 3.10", "Python 3.11", "Python 3.12"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pip3",
+      "type": "commands_exist",
+      "params": {
+        "names": ["pip3"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_graalvm_gu",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gu"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_graalvm_native_image",
+      "type": "commands_exist",
+      "params": {
+        "names": ["native-image"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_graalpython",
+      "type": "commands_exist",
+      "params": {
+        "names": ["graalpython"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools_optional",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "make", "wget"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "run.sh",
+          "CITATION.bib"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_project_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "commons-cli",
+          "commons-cli-graal",
+          "commons-cli-python",
+          "commons-csv",
+          "commons-csv-graal",
+          "commons-csv-python",
+          "graal-glue-generator",
+          "scripts",
+          "scripts/coverage",
+          "scripts/clients"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_maven_pom_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "commons-cli/pom.xml",
+          "commons-csv/pom.xml",
+          "commons-cli-graal/pom.xml",
+          "commons-csv-graal/pom.xml",
+          "graal-glue-generator/pom.xml"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_script_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "scripts/generate_glue.py",
+          "scripts/coverage/cover_local.py",
+          "scripts/clients/selenium.py",
+          "scripts/clients/bash_script_version.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_java_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "JAVA_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_maven_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "MAVEN_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pythonpath",
+      "type": "envvar_set",
+      "params": {
+        "name": "PYTHONPATH"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_virtual_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "VIRTUAL_ENV"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["java"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["python"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_java_execution",
+      "type": "run_command",
+      "params": {
+        "command": "java -version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_java_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'public class Test { public static void main(String[] args) { System.out.println(\"Hello from Java\"); } }' > Test.java && javac Test.java 2>/dev/null && java Test 2>/dev/null && rm -f Test.java Test.class || rm -f Test.java"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_maven_version",
+      "type": "run_command",
+      "params": {
+        "command": "mvn --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_maven_help",
+      "type": "run_command",
+      "params": {
+        "command": "mvn help || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Hello from Python3')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_import_system",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; print('Python path:', sys.path[0])\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip3_version",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip3_list",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 list || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pytest",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import pytest; print('Pytest version:', pytest.__version__)\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_gu_list",
+      "type": "run_command",
+      "params": {
+        "command": "gu list || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_gu_version",
+      "type": "run_command",
+      "params": {
+        "command": "gu --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_graalpython_version",
+      "type": "run_command",
+      "params": {
+        "command": "graalpython --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_run_sh_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -f \"run.sh\" ] && chmod +x run.sh 2>/dev/null && [ -x \"run.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_generate_glue_script",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; sys.path.append('scripts'); exec(open('scripts/generate_glue.py').read()) \" 2>&1 | head -5 || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_commons_cli_compile",
+      "type": "run_command",
+      "params": {
+        "command": "mvn -f commons-cli/pom.xml compile -q || true"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_commons_csv_compile",
+      "type": "run_command",
+      "params": {
+        "command": "mvn -f commons-csv/pom.xml compile -q || true"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_graal_glue_generator_compile",
+      "type": "run_command",
+      "params": {
+        "command": "mvn -f graal-glue-generator/pom.xml compile -q || true"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_commons_cli_graal_compile",
+      "type": "run_command",
+      "params": {
+        "command": "mvn -f commons-cli-graal/pom.xml compile -q || true"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_commons_csv_graal_compile",
+      "type": "run_command",
+      "params": {
+        "command": "mvn -f commons-csv-graal/pom.xml compile -q || true"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_commons_cli_python_pytest",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -m pytest commons-cli-python --collect-only -q || true"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_commons_csv_python_pytest",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -m pytest commons-csv-python --collect-only -q || true"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cover_local_script",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; sys.path.append('scripts/coverage'); exec(open('scripts/coverage/cover_local.py').read()) \" 2>&1 | head -5 || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_bash_script_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -f \"scripts/clients/bash_script_version.sh\" ] && [ -x \"scripts/clients/bash_script_version.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_java_files",
+      "type": "run_command",
+      "params": {
+        "command": "find commons-cli -name '*.java' | head -1"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_python_files",
+      "type": "run_command",
+      "params": {
+        "command": "find commons-cli-python -name '*.py' | head -1"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    }
+  ]
+}

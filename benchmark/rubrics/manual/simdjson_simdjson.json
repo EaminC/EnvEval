@@ -1,0 +1,343 @@
+{
+  "repo": "simdjson_simdjson",
+  "tests": [
+    {
+      "id": "check_basic_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "wget",
+          "bash",
+          "tar",
+          "gzip"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cpp_compiler",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "g++",
+          "gcc"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gcc_version",
+      "type": "run_command",
+      "params": {
+        "command": "g++ --version | head -n 1 | grep -E '([7-9]\\.|1[0-9]\\.)'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cmake",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "cmake"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cmake_version",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --version | head -n 1 | grep -E 'version ([3-9]\\.|[1-9][0-9]\\.)'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_make",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "make"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_root",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "CMakeLists.txt"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "include",
+          "tests",
+          "examples",
+          "singleheader"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_singleheader_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "singleheader/simdjson.h",
+          "singleheader/simdjson.cpp"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_source_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "src/simdjson.cpp"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_documentation",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "HACKING.md",
+          "CONTRIBUTING.md",
+          "LICENSE"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_json_examples",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "jsonexamples"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "simdjson"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_basic_cpp_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'int main() { return 0; }' > /tmp/test.cpp && g++ -o /tmp/test /tmp/test.cpp && /tmp/test"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cmake_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p /tmp/cmake_test && cd /tmp/cmake_test && cmake .. 2>&1 | head -20"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cmake_configure",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p build && cd build && cmake .."
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cmake_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd build && cmake --build ."
+      },
+      "timeout": 300,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cmake_build_examples",
+      "type": "run_command",
+      "params": {
+        "command": "cd build && cmake --build . --target quickstart"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_run_tests",
+      "type": "run_command",
+      "params": {
+        "command": "cd build && ctest --output-on-failure"
+      },
+      "timeout": 300,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_quickstart_example",
+      "type": "run_command",
+      "params": {
+        "command": "wget -q https://raw.githubusercontent.com/simdjson/simdjson/master/jsonexamples/twitter.json -O twitter.json && echo '#include <iostream>\\n#include \"singleheader/simdjson.h\"\\nusing namespace simdjson;\\nint main(void) {\\n    ondemand::parser parser;\\n    padded_string json = padded_string::load(\"twitter.json\");\\n    ondemand::document tweets = parser.iterate(json);\\n    std::cout << uint64_t(tweets[\"search_metadata\"][\"count\"]) << \" results.\" << std::endl;\\n}' > quickstart.cpp && g++ -o quickstart quickstart.cpp singleheader/simdjson.cpp"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_quickstart_execution",
+      "type": "run_command",
+      "params": {
+        "command": "./quickstart"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_developer_mode_configure",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p build_dev && cd build_dev && cmake -D SIMDJSON_DEVELOPER_MODE=ON .."
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_developer_mode_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd build_dev && cmake --build ."
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cpp17_support",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <iostream>\\n#include <string_view>\\nint main() { std::string_view sv = \"test\"; std::cout << sv << std::endl; return 0; }' > /tmp/cpp17test.cpp && g++ -std=c++17 -o /tmp/cpp17test /tmp/cpp17test.cpp && /tmp/cpp17test"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_benchmark_directory",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "benchmark"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_benchmark_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd build_dev && cmake --build . --target parse"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_minify_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "echo '{\"test\": \"value\", \"array\": [1, 2, 3]}' > test.json && cd build_dev && ./tools/minify ../test.json"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_json2json_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "cd build_dev && ./tools/json2json ../test.json"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_git_repository",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          ".git"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_pkg_config",
+      "type": "run_command",
+      "params": {
+        "command": "command -v pkg-config"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_ninja_availability",
+      "type": "run_command",
+      "params": {
+        "command": "command -v ninja"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

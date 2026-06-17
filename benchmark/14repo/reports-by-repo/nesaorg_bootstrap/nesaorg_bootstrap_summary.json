@@ -1,0 +1,43 @@
+{
+  "repository": "nesaorg_bootstrap",
+  "timestamp": "2026-05-13T09:25:58.456701",
+  "total_models_evaluated": 3,
+  "best_performer": {
+    "model": "ours-tensorblock/gpt-4.1-mini",
+    "total_score": 38.67,
+    "max_score": 65,
+    "success_rate": 0.7091,
+    "total_time": 9.39,
+    "passed_tests": 39,
+    "total_tests": 55
+  },
+  "model_comparison": [
+    {
+      "model": "ours-tensorblock/gpt-4.1-mini",
+      "total_score": 38.67,
+      "max_score": 65,
+      "success_rate": 0.7091,
+      "total_time": 9.39,
+      "passed_tests": 39,
+      "total_tests": 55
+    },
+    {
+      "model": "ours-tensorblock/gpt-4.1",
+      "total_score": 0,
+      "max_score": 65,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    },
+    {
+      "model": "ours-anthropic/claude-opus-4",
+      "total_score": 0,
+      "max_score": 65,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    }
+  ]
+}

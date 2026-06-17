@@ -1,0 +1,43 @@
+{
+  "repository": "nyu-systems_CLM-GS",
+  "timestamp": "2026-05-13T10:06:47.381164",
+  "total_models_evaluated": 3,
+  "best_performer": {
+    "model": "ours-anthropic/claude-opus-4",
+    "total_score": 10.0,
+    "max_score": 13,
+    "success_rate": 0.8824,
+    "total_time": 5.95,
+    "passed_tests": 15,
+    "total_tests": 17
+  },
+  "model_comparison": [
+    {
+      "model": "ours-anthropic/claude-opus-4",
+      "total_score": 10.0,
+      "max_score": 13,
+      "success_rate": 0.8824,
+      "total_time": 5.95,
+      "passed_tests": 15,
+      "total_tests": 17
+    },
+    {
+      "model": "ours-tensorblock/gpt-4.1",
+      "total_score": 0,
+      "max_score": 13,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    },
+    {
+      "model": "ours-tensorblock/gpt-4.1-mini",
+      "total_score": 0,
+      "max_score": 13,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "repo": "SVRTK_svrtk-docker-gpu",
+  "dockerfile": "/home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-tensorblock/gpt-4.1/SVRTK_svrtk-docker-gpu/envgym/envgym.dockerfile",
+  "rubric": "/home/cc/enveval/EnvEval/benchmark/rubrics/manual/SVRTK_svrtk-docker-gpu.json",
+  "build_log": {
+    "command": "docker build --no-cache --network host --label uuid=eval_svrtk_svrtk-docker-gpu_1778667329899_4583 -t eval_svrtk_svrtk-docker-gpu:1778667329899_4583 -f /home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-tensorblock/gpt-4.1/SVRTK_svrtk-docker-gpu/envgym/envgym.dockerfile /home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-tensorblock/gpt-4.1/SVRTK_svrtk-docker-gpu",
+    "dockerfile_path": "/home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-tensorblock/gpt-4.1/SVRTK_svrtk-docker-gpu/envgym/envgym.dockerfile",
+    "build_context": "/home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-tensorblock/gpt-4.1/SVRTK_svrtk-docker-gpu",
+    "scenario": "scenario_2",
+    "repo_data_exists": true,
+    "build_success": false,
+    "build_stdout": "",
+    "build_stderr": "#0 building with \"default\" instance using docker driver\n\n#1 [internal] load build definition from envgym.dockerfile\n#1 transferring dockerfile: 3.16kB done\n#1 DONE 0.0s\n\n#2 [internal] load metadata for docker.io/pytorch/pytorch:1.9.0-cpu\n#2 ERROR: docker.io/pytorch/pytorch:1.9.0-cpu: not found\n------\n > [internal] load metadata for docker.io/pytorch/pytorch:1.9.0-cpu:\n------\nenvgym.dockerfile:1\n--------------------\n   1 | >>> FROM pytorch/pytorch:1.9.0-cpu\n   2 |     \n   3 |     # Set non-interactive mode for apt\n--------------------\nERROR: failed to build: failed to solve: pytorch/pytorch:1.9.0-cpu: failed to resolve source metadata for docker.io/pytorch/pytorch:1.9.0-cpu: docker.io/pytorch/pytorch:1.9.0-cpu: not found\n",
+    "build_returncode": 1,
+    "build_timeout": false,
+    "error_message": "Docker build failed with return code 1"
+  },
+  "container_health": {
+    "final_container_running": false,
+    "container_id": null,
+    "container_name": "eval_svrtk_svrtk-docker-gpu_1778667329899_4583"
+  },
+  "summary": {
+    "total_tests": 0,
+    "passed_tests": 0,
+    "failed_tests": 0,
+    "total_score": 0,
+    "max_score": 65,
+    "success_rate": 0,
+    "total_execution_time": 0
+  },
+  "test_results": []
+}

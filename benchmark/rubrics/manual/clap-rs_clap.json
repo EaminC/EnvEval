@@ -1,0 +1,423 @@
+{
+  "repo": "clap-rs_clap",
+  "tests": [
+    {
+      "id": "check_rust_cargo",
+      "type": "commands_exist",
+      "params": {
+        "names": ["rustc", "cargo"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version",
+      "type": "output_contains",
+      "params": {
+        "command": "rustc --version",
+        "contains": ["rustc 1.74", "rustc 1.75", "rustc 1.76", "rustc 1.77", "rustc 1.78"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "check_cargo_version",
+      "type": "output_contains",
+      "params": {
+        "command": "cargo --version",
+        "contains": ["cargo 1.74", "cargo 1.75", "cargo 1.76", "cargo 1.77", "cargo 1.78"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "make"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "clap_bench",
+          "clap_builder",
+          "clap_derive",
+          "clap_lex",
+          "clap_complete",
+          "clap_complete_nushell",
+          "clap_mangen",
+          "examples",
+          "tests"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Cargo.toml",
+          "Cargo.lock",
+          "README.md",
+          "CHANGELOG.md",
+          "LICENSE-APACHE",
+          "LICENSE-MIT",
+          "Makefile"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_workspace_config",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": ["[workspace]", "clap_bench", "clap_builder", "clap_derive", "clap_lex", "clap_complete", "clap_mangen", "edition = \"2021\"", "rust-version = \"1.74\""]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_files"]
+    },
+    {
+      "id": "check_clap_builder_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "clap_builder/Cargo.toml",
+          "clap_builder/src/lib.rs"
+        ]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "check_clap_derive_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "clap_derive/Cargo.toml",
+          "clap_derive/src/lib.rs"
+        ]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "check_clap_lex_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "clap_lex/Cargo.toml",
+          "clap_lex/src/lib.rs"
+        ]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "check_clap_complete_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "clap_complete/Cargo.toml",
+          "clap_complete/src/lib.rs"
+        ]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "check_clap_mangen_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "clap_mangen/Cargo.toml",
+          "clap_mangen/src/lib.rs"
+        ]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "check_examples_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find examples -name '*.rs' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "check_tests_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find tests -name '*.rs' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    },
+    {
+      "id": "test_cargo_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --quiet"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "test_cargo_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build --quiet"
+      },
+      "timeout": 180,
+      "score": 3,
+      "category": "functionality",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "test_cargo_test",
+      "type": "run_command",
+      "params": {
+        "command": "cargo test --quiet"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "test_clap_builder_works",
+      "type": "run_command",
+      "params": {
+        "command": "cd clap_builder && cargo check --quiet"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_clap_builder_files", "check_rust_cargo"]
+    },
+    {
+      "id": "test_clap_derive_works",
+      "type": "run_command",
+      "params": {
+        "command": "cd clap_derive && cargo check --quiet"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_clap_derive_files", "check_rust_cargo"]
+    },
+    {
+      "id": "test_clap_lex_works",
+      "type": "run_command",
+      "params": {
+        "command": "cd clap_lex && cargo check --quiet"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_clap_lex_files", "check_rust_cargo"]
+    },
+    {
+      "id": "test_clap_complete_works",
+      "type": "run_command",
+      "params": {
+        "command": "cd clap_complete && cargo check --quiet"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_clap_complete_files", "check_rust_cargo"]
+    },
+    {
+      "id": "test_clap_mangen_works",
+      "type": "run_command",
+      "params": {
+        "command": "cd clap_mangen && cargo check --quiet"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_clap_mangen_files", "check_rust_cargo"]
+    },
+    {
+      "id": "test_examples_compile",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build --examples --quiet"
+      },
+      "timeout": 180,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "test_bench_works",
+      "type": "run_command",
+      "params": {
+        "command": "cd clap_bench && cargo check --quiet"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_main_dirs", "check_rust_cargo"]
+    },
+    {
+      "id": "test_make_commands",
+      "type": "run_command",
+      "params": {
+        "command": "make --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_system_tools"]
+    },
+    {
+      "id": "test_git_configuration",
+      "type": "run_command",
+      "params": {
+        "command": "git --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_system_tools"]
+    },
+    {
+      "id": "test_rust_basic_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --version >/dev/null && cargo --version >/dev/null"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "test_cargo_doc",
+      "type": "run_command",
+      "params": {
+        "command": "cargo doc --quiet"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "test_cargo_clippy",
+      "type": "run_command",
+      "params": {
+        "command": "cargo clippy --quiet"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "test_cargo_fmt",
+      "type": "run_command",
+      "params": {
+        "command": "cargo fmt --check"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["clap", "CLI", "command line", "Rust"]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_files"]
+    },
+    {
+      "id": "test_license_files",
+      "type": "run_command",
+      "params": {
+        "command": "test -f LICENSE-APACHE && test -f LICENSE-MIT"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_files"]
+    },
+    {
+      "id": "test_changelog_exists",
+      "type": "file_contains",
+      "params": {
+        "path": "CHANGELOG.md",
+        "contains": ["# Changelog", "##"]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_files"]
+    },
+    {
+      "id": "test_workspace_members",
+      "type": "run_command",
+      "params": {
+        "command": "cargo metadata --format-version 1 | jq -r '.workspace_members | length'"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_rust_cargo"]
+    },
+    {
+      "id": "test_clap_complete_nushell",
+      "type": "run_command",
+      "params": {
+        "command": "cd clap_complete_nushell && cargo check --quiet"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_main_dirs", "check_rust_cargo"]
+    },
+    {
+      "id": "test_assets_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find assets -type f | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_dirs"]
+    }
+  ]
+}

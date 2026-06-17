@@ -1,0 +1,331 @@
+{
+  "repo": "serde-rs_serde",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "make",
+          "gcc"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_compiler",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "rustc",
+          "cargo"
+        ]
+      },
+      "score": 4,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version_compatible",
+      "type": "output_contains",
+      "params": {
+        "command": "rustc --version",
+        "contains": [
+          "1.56",
+          "1.57",
+          "1.58",
+          "1.59",
+          "1.6",
+          "1.7",
+          "1.8"
+        ]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_version",
+      "type": "run_command",
+      "params": {
+        "command": "cargo --version"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pkg_config",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "pkg-config"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_openssl_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists openssl"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rustup_available",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "rustup"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_clippy_available",
+      "type": "run_command",
+      "params": {
+        "command": "cargo clippy --version"
+      },
+      "timeout": 15,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rustfmt_available",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "rustfmt"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_workspace_cargo_toml",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Cargo.toml"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "serde",
+          "serde_derive",
+          "serde_derive_internals",
+          "test_suite"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_serde_core_directory",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "serde_core"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_and_licenses",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE-APACHE",
+          "LICENSE-MIT"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_serde_package_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "serde/Cargo.toml",
+          "serde/build.rs"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_serde_derive_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "serde_derive/Cargo.toml",
+          "serde_derive/build.rs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_suite_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "test_suite/tests",
+          "test_suite/no_std"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "Serde",
+          "serialization"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_rust_basic_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'fn main() { println!(\"Hello, world!\"); }' | rustc - --emit=metadata"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_workspace_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --workspace --quiet"
+      },
+      "timeout": 180,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_serde_package_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --package serde --quiet"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_serde_derive_package_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --package serde_derive --quiet"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_serde_build_with_derive",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build --package serde --features derive --quiet"
+      },
+      "timeout": 300,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_serde_basic_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "cd test_suite && cargo test test_roundtrip --quiet"
+      },
+      "timeout": 180,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_serde_derive_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "cd test_suite && cargo test test_macros --quiet"
+      },
+      "timeout": 180,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_workspace_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build --workspace --quiet"
+      },
+      "timeout": 600,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_serde_serialization_example",
+      "type": "run_command",
+      "params": {
+        "command": "cd serde && cargo run --example serialize"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_documentation_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo doc --package serde --no-deps --quiet"
+      },
+      "timeout": 300,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_clippy_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo clippy --package serde --quiet -- -A warnings"
+      },
+      "timeout": 180,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_no_std_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "cd test_suite/no_std && cargo build --quiet"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    }
+  ]
+}

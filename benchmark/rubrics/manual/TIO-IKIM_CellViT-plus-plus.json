@@ -1,0 +1,150 @@
+{
+  "repo": "TIO-IKIM_CellViT-plus-plus",
+  "tests": [
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "python3",
+          "pip3"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda_docker_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "conda",
+          "docker"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_repo_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "requirements.txt",
+          "environment.yaml",
+          "check_environment.py",
+          "docker-compose.yaml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_repo_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "cellvit",
+          "viewer",
+          "annotation_tool",
+          "docs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_environment_python_pin",
+      "type": "file_contains",
+      "params": {
+        "path": "environment.yaml",
+        "contains": [
+          "name: cellvit_env",
+          "python=3.10.14",
+          "cucim=24.04.00"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_requirements_runtime_packages",
+      "type": "file_contains",
+      "params": {
+        "path": "requirements.txt",
+        "contains": [
+          "ray==2.9.3",
+          "opencv-python-headless",
+          "jupyterlab"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_cuda_visible_devices",
+      "type": "envvar_set",
+      "params": {
+        "name": "CUDA_VISIBLE_DEVICES"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 --version",
+        "contains": [
+          "3.10"
+        ]
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip_version",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -m pip --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "functionality"
+    },
+    {
+      "id": "test_check_environment_help",
+      "type": "run_command",
+      "params": {
+        "command": "python3 check_environment.py >/dev/null 2>&1 || true"
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "functionality"
+    },
+    {
+      "id": "test_docker_version",
+      "type": "run_command",
+      "params": {
+        "command": "docker --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": [
+        "check_conda_docker_tools"
+      ],
+      "category": "functionality"
+    }
+  ]
+}

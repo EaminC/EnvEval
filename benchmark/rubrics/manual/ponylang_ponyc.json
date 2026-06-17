@@ -1,0 +1,298 @@
+{
+  "repo": "ponylang_ponyc",
+  "tests": [
+    {
+      "id": "check_essential_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "cmake",
+          "make",
+          "python3"
+        ]
+      },
+      "score": 4,
+      "category": "configuration"
+    },
+    {
+      "id": "check_clang_compiler",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "clang",
+          "clang++"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gcc_compiler",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "gcc",
+          "g++"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cmake_version",
+      "type": "output_contains",
+      "params": {
+        "command": "cmake --version",
+        "contains": [
+          "3.2"
+        ]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python3_version",
+      "type": "run_command",
+      "params": {
+        "command": "python3 --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_clang_version",
+      "type": "output_contains",
+      "params": {
+        "command": "clang --version",
+        "contains": [
+          "clang"
+        ]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pony_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "Pony"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "lib",
+          "packages",
+          "examples",
+          "test"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_src_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src/libponyc",
+          "src/libponyrt",
+          "src/ponyc"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "CMakeLists.txt",
+          "Makefile",
+          "BUILD.md"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_version_file",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "VERSION"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_lib_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "lib/llvm"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "test/libponyc",
+          "test/libponyrt",
+          "test/full-program-tests"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_examples_helloworld",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "examples/helloworld/main.pony"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_git_submodules",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          ".gitmodules"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_make_libs_prepare",
+      "type": "run_command",
+      "params": {
+        "command": "make libs build_flags=\"-j2\""
+      },
+      "timeout": 1800,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "test_make_configure",
+      "type": "run_command",
+      "params": {
+        "command": "make configure"
+      },
+      "timeout": 120,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_make_build",
+      "type": "run_command",
+      "params": {
+        "command": "make build"
+      },
+      "timeout": 600,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "check_ponyc_binary",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "build/release/ponyc"
+        ]
+      },
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_ponyc_version",
+      "type": "run_command",
+      "params": {
+        "command": "./build/release/ponyc --version"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_compile_hello_world",
+      "type": "run_command",
+      "params": {
+        "command": "cd examples/helloworld && ../../build/release/ponyc ."
+      },
+      "timeout": 60,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_run_hello_world",
+      "type": "output_contains",
+      "params": {
+        "command": "cd examples/helloworld && ./helloworld",
+        "contains": [
+          "Hello, world."
+        ]
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_stdlib_packages",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages/builtin",
+          "packages/collections",
+          "packages/files",
+          "packages/net",
+          "packages/time"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cmake_configure",
+      "type": "run_command",
+      "params": {
+        "command": "cmake -B build_test -S ."
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_make_test_basic",
+      "type": "run_command",
+      "params": {
+        "command": "make test config=release"
+      },
+      "timeout": 900,
+      "score": 6,
+      "category": "functionality"
+    }
+  ]
+}

@@ -1,0 +1,364 @@
+{
+  "repo": "nesaorg_bootstrap",
+  "tests": [
+    {
+      "id": "check_shell_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["bash", "sh", "awk", "sed", "grep", "cut", "tr"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_download_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["curl", "wget"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_network_utils",
+      "type": "commands_exist",
+      "params": {
+        "names": ["ping", "ip"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_archive_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["tar", "gzip", "unzip"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_vcs_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_bootstrap_helpers",
+      "type": "commands_exist",
+      "params": {
+        "names": ["jq"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gum_available",
+      "type": "run_command",
+      "params": {
+        "command": "command -v gum"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_expect_for_key_import",
+      "type": "commands_exist",
+      "params": {
+        "names": ["expect"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_venv_module",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -m venv --help >/dev/null 2>&1"
+      },
+      "timeout": 15,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_crypto_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import ecdsa, base58, cryptography, httpx\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_nesa_specific_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import mospy, betterproto\" && python3 -c \"from ripemd.ripemd160 import ripemd160\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cryptography_build_deps",
+      "type": "run_command",
+      "params": {
+        "command": "(dpkg -s build-essential libffi-dev python3-dev 2>/dev/null | grep -q 'Status: install ok installed') || (command -v gcc && [ -f /usr/include/ffi.h -o -f /usr/include/x86_64-linux-gnu/ffi.h ])"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_sudo_available",
+      "type": "run_command",
+      "params": {
+        "command": "command -v sudo || [ \"$(id -u)\" = \"0\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_docker_client",
+      "type": "commands_exist",
+      "params": {
+        "names": ["docker"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_docker_compose_plugin",
+      "type": "run_command",
+      "params": {
+        "command": "docker compose version 2>&1 | grep -Ei 'v?2\\.' || docker-compose --version 2>&1 | grep -i 'version'"
+      },
+      "timeout": 15,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gpu_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["nvidia-smi"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_nvidia_container_toolkit",
+      "type": "run_command",
+      "params": {
+        "command": "command -v nvidia-container-toolkit || command -v nvidia-ctk || command -v nvidia-container-runtime || [ -f /etc/nvidia-container-runtime/config.toml ]"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_home_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_path_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "PATH"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_root_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "readme.md",
+          "LICENSE.md",
+          "FAQ.md",
+          "Troubleshooting.md",
+          "bootstrap.sh",
+          "import_key.expect",
+          "nesa.tape"
+        ]
+      },
+      "score": 4,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "helpers",
+          "images"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_helper_scripts",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "helpers/install_docker_ubuntu.sh",
+          "helpers/install_nvidia_container_toolkit.sh"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_mentions_docker",
+      "type": "file_contains",
+      "params": {
+        "path": "readme.md",
+        "contains": ["Docker", "NVIDIA", "bootstrap.sh"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_bootstrap_shebang",
+      "type": "file_contains",
+      "params": {
+        "path": "bootstrap.sh",
+        "contains": ["#!/bin/bash"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_bootstrap_syntax_check",
+      "type": "run_command",
+      "params": {
+        "command": "bash -n bootstrap.sh"
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_docker_install_helper_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "bash -n helpers/install_docker_ubuntu.sh && bash -n helpers/install_nvidia_container_toolkit.sh"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_expect_script_parses",
+      "type": "run_command",
+      "params": {
+        "command": "(command -v expect && expect -n import_key.expect) || grep -q 'spawn' import_key.expect"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_docker_runs",
+      "type": "run_command",
+      "params": {
+        "command": "docker --version"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_docker_info_available",
+      "type": "run_command",
+      "params": {
+        "command": "docker info 2>&1 | head -n 5 || docker context ls"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jq_runs",
+      "type": "run_command",
+      "params": {
+        "command": "echo '{\"a\":1}' | jq -r '.a'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_curl_runs",
+      "type": "run_command",
+      "params": {
+        "command": "curl --version | head -n 1"
+      },
+      "timeout": 15,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_bash_supports_associative_arrays",
+      "type": "run_command",
+      "params": {
+        "command": "bash -c 'declare -A m; m[x]=1; echo ${m[x]}' | grep -q 1"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pip_functional",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -m pip --version"
+      },
+      "timeout": 15,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_python_crypto_signing_works",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from ecdsa import SigningKey, SECP256k1; sk=SigningKey.generate(curve=SECP256k1); vk=sk.verifying_key; sig=sk.sign(b'hello'); assert vk.verify(sig, b'hello'); print('secp256k1 sign/verify ok')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_nesaorg_bootstrap_contains_key_functions",
+      "type": "file_contains",
+      "params": {
+        "path": "bootstrap.sh",
+        "contains": ["docker", "nesa", "HOME"]
+      },
+      "score": 1,
+      "category": "structure"
+    }
+  ]
+}

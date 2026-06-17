@@ -1,0 +1,315 @@
+{
+  "repo": "alibaba_fastjson2",
+  "tests": [
+    {
+      "id": "check_java_javac_mvn",
+      "type": "commands_exist",
+      "params": {
+        "names": ["java", "javac", "mvn"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_version",
+      "type": "output_contains",
+      "params": {
+        "command": "java -version",
+        "contains": ["1.8", "9", "11", "17", "21", "25"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "requires": ["check_java_javac_mvn"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_maven_version",
+      "type": "output_contains",
+      "params": {
+        "command": "mvn -version",
+        "contains": ["Apache Maven 3"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "requires": ["check_java_javac_mvn"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "bash", "curl", "wget"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "core",
+          "extension",
+          "kotlin",
+          "fastjson1-compatible",
+          "benchmark",
+          "example-spring-test",
+          "example-solon-test",
+          "example-spring6-test"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "pom.xml",
+          "mvnw",
+          "README.md",
+          "README_cn.md",
+          "LICENSE",
+          "CODE_OF_CONDUCT.md",
+          "CONTRIBUTING.md",
+          "SECURITY.md"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_core_module_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "core/pom.xml",
+          "core/src/main/java/com/alibaba/fastjson2/JSON.java"
+        ]
+      },
+      "score": 2,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "check_extension_module_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "extension/pom.xml",
+          "extension-spring5/pom.xml",
+          "extension-spring6/pom.xml"
+        ]
+      },
+      "score": 2,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "check_kotlin_module_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "kotlin/pom.xml"
+        ]
+      },
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "check_java_home_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "JAVA_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_maven_home_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "MAVEN_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_maven_wrapper_executable",
+      "type": "run_command",
+      "params": {
+        "command": "test -x mvnw"
+      },
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_maven_help",
+      "type": "run_command",
+      "params": {
+        "command": "mvn help:help"
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": ["check_java_javac_mvn"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_maven_clean",
+      "type": "run_command",
+      "params": {
+        "command": "mvn clean -q"
+      },
+      "timeout": 60,
+      "score": 2,
+      "requires": ["check_java_javac_mvn"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_maven_compile",
+      "type": "run_command",
+      "params": {
+        "command": "mvn compile -q"
+      },
+      "timeout": 120,
+      "score": 3,
+      "requires": ["check_java_javac_mvn"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_maven_test_compile",
+      "type": "run_command",
+      "params": {
+        "command": "mvn test-compile -q"
+      },
+      "timeout": 120,
+      "score": 2,
+      "requires": ["check_java_javac_mvn"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_core_module_compile",
+      "type": "run_command",
+      "params": {
+        "command": "cd core && mvn compile -q"
+      },
+      "timeout": 120,
+      "score": 2,
+      "requires": ["check_core_module_files", "check_java_javac_mvn"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_extension_module_compile",
+      "type": "run_command",
+      "params": {
+        "command": "cd extension && mvn compile -q"
+      },
+      "timeout": 120,
+      "score": 2,
+      "requires": ["check_extension_module_files", "check_java_javac_mvn"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_kotlin_module_compile",
+      "type": "run_command",
+      "params": {
+        "command": "cd kotlin && mvn compile -q"
+      },
+      "timeout": 120,
+      "score": 1,
+      "requires": ["check_kotlin_module_files", "check_java_javac_mvn"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_java_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "javac -version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_java_javac_mvn"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_pom_xml_fastjson2_detection",
+      "type": "file_contains",
+      "params": {
+        "path": "pom.xml",
+        "contains": ["fastjson2", "com.alibaba.fastjson2", "Fastjson is a JSON processor"]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_maven_dependencies_resolve",
+      "type": "run_command",
+      "params": {
+        "command": "mvn dependency:resolve -q"
+      },
+      "timeout": 120,
+      "score": 2,
+      "requires": ["check_java_javac_mvn"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_maven_install",
+      "type": "run_command",
+      "params": {
+        "command": "mvn install -DskipTests -q"
+      },
+      "timeout": 300,
+      "score": 3,
+      "requires": ["check_java_javac_mvn"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["FastJSON2", "JSON processor", "Java", "Maven"]
+      },
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_android_module",
+      "type": "run_command",
+      "params": {
+        "command": "cd android-test && ./gradlew --version"
+      },
+      "timeout": 60,
+      "score": 2,
+      "requires": ["check_main_dirs"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_extension_jaxrs_compile",
+      "type": "run_command",
+      "params": {
+        "command": "cd extension-jaxrs && mvn compile -q"
+      },
+      "timeout": 120,
+      "score": 1,
+      "requires": ["check_main_dirs", "check_java_javac_mvn"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_extension_solon_compile",
+      "type": "run_command",
+      "params": {
+        "command": "cd extension-solon && mvn compile -q"
+      },
+      "timeout": 120,
+      "score": 1,
+      "requires": ["check_main_dirs", "check_java_javac_mvn"],
+      "category": "functionality"
+    }
+  ]
+}

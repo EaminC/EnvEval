@@ -1,0 +1,447 @@
+{
+  "repo": "BurntSushi_ripgrep",
+  "tests": [
+    {
+      "id": "check_rust_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "rustc",
+          "cargo"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rustup_tool",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "rustup"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "pkg-config",
+          "cmake"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_shell_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "bash",
+          "grep"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ripgrep_command",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "rg"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version",
+      "type": "output_contains",
+      "params": {
+        "command": "rustc --version",
+        "contains": [
+          "rustc"
+        ]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version_minimum",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --version | grep -E 'rustc 1\\.(8[5-9]|9[0-9]|[1-9][0-9][0-9])'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_version",
+      "type": "output_contains",
+      "params": {
+        "command": "cargo --version",
+        "contains": [
+          "cargo"
+        ]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_version_minimum",
+      "type": "run_command",
+      "params": {
+        "command": "cargo --version | grep -E 'cargo 1\\.(8[5-9]|9[0-9]|[1-9][0-9][0-9])'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_structure",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Cargo.toml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_ripgrep_project",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": [
+          "ripgrep"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "crates",
+          "tests",
+          "scripts",
+          "ci",
+          "benchsuite",
+          "pkg"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_crates_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "crates/core",
+          "crates/grep",
+          "crates/ignore",
+          "crates/cli",
+          "crates/regex",
+          "crates/searcher",
+          "crates/printer",
+          "crates/matcher",
+          "crates/globset",
+          "crates/pcre2"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tests/tests.rs",
+          "tests/misc.rs",
+          "tests/regression.rs",
+          "tests/feature.rs"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_data_dir",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "tests/data"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_documentation",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "GUIDE.md",
+          "FAQ.md",
+          "CHANGELOG.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_rustfmt_config",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "rustfmt.toml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_cargo_config_dir",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          ".cargo"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_cargo_config_file",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          ".cargo/config.toml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_script",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "build.rs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_cargo_toml_name",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": [
+          "name = \"ripgrep\""
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_rust_dependencies",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": [
+          "anyhow",
+          "bstr",
+          "lexopt",
+          "serde_json",
+          "termcolor"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_rust_targets_gnu",
+      "type": "run_command",
+      "params": {
+        "command": "rustup target list --installed | grep -q \"x86_64-unknown-linux-gnu\""
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_targets_musl",
+      "type": "run_command",
+      "params": {
+        "command": "rustup target list --installed | grep -q \"x86_64-unknown-linux-musl\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pcre2_dev_libs",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists libpcre2-8"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_openssl_dev_libs",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists openssl"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cargo_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --quiet"
+      },
+      "timeout": 180,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_target_release_dir",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "target/release"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_ripgrep_executable",
+      "type": "run_command",
+      "params": {
+        "command": "./target/release/rg --version"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "test_rust_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cargo_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "cargo --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_source_files",
+      "type": "run_command",
+      "params": {
+        "command": "find crates -name \"*.rs\" | wc -l | awk '$1 > 0'"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_main_binary",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "crates/core/main.rs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_build_script_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --crate-type lib --crate-name build_script_runner build.rs"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pcre2_feature",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --features pcre2 --quiet"
+      },
+      "timeout": 180,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_git_repository",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          ".git"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_shell_completion_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "/usr/share/bash-completion/completions",
+          "/usr/share/zsh/vendor-completions",
+          "/usr/share/fish/vendor_completions.d"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "run_all_tests",
+      "type": "run_command",
+      "params": {
+        "command": "cargo test --all"
+      },
+      "timeout": 900,
+      "score": 10,
+      "category": "functionality"
+    }
+  ]
+}

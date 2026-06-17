@@ -1,0 +1,318 @@
+{
+  "repo": "tokio-rs_bytes",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "wget"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_toolchain",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "rustc",
+          "cargo",
+          "rustfmt"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --version"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_version",
+      "type": "run_command",
+      "params": {
+        "command": "cargo --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_clippy_available",
+      "type": "run_command",
+      "params": {
+        "command": "cargo clippy --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_core_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "Cargo.toml",
+          "LICENSE",
+          "CHANGELOG.md",
+          "SECURITY.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "tests",
+          "benches",
+          "ci"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_source_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "src/lib.rs",
+          "src/bytes.rs",
+          "src/bytes_mut.rs",
+          "src/serde.rs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_buf_directory",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src/buf"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "clippy.toml",
+          ".gitignore"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_rust_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'fn main() { println!(\"Hello, Rust!\"); }' > /tmp/test_rust.rs && rustc -o /tmp/test_rust /tmp/test_rust.rs && /tmp/test_rust && rm -f /tmp/test_rust /tmp/test_rust.rs"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_metadata",
+      "type": "run_command",
+      "params": {
+        "command": "cargo metadata --no-deps --format-version 1"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "verify_rust_version_compatibility",
+      "type": "output_contains",
+      "params": {
+        "command": "rustc --version",
+        "contains": ["1."]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_toml_content",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": [
+          "name = \"bytes\"",
+          "edition = \"2021\"",
+          "rust-version"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_cargo_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --quiet"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_clippy",
+      "type": "run_command",
+      "params": {
+        "command": "cargo clippy --quiet -- -D warnings"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_fmt_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo fmt --check"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build --quiet"
+      },
+      "timeout": 180,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_test",
+      "type": "run_command",
+      "params": {
+        "command": "cargo test --quiet"
+      },
+      "timeout": 300,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_doc",
+      "type": "run_command",
+      "params": {
+        "command": "cargo doc --quiet --no-deps"
+      },
+      "timeout": 180,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_serde_feature",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --quiet --features serde"
+      },
+      "timeout": 120,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_no_std_feature",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --quiet --no-default-features"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "verify_test_files_exist",
+      "type": "run_command",
+      "params": {
+        "command": "find tests -name '*.rs' | wc -l | grep -E '[1-9][0-9]*'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "verify_bench_files_exist",
+      "type": "run_command",
+      "params": {
+        "command": "find benches -name '*.rs' | wc -l | grep -E '[1-9][0-9]*'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_basic_import",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'use bytes::{Bytes, BytesMut, Buf, BufMut}; fn main() { println!(\"Import successful\"); }' > /tmp/test_import.rs && rustc --extern bytes=target/debug/deps/libbytes*.rlib -L target/debug/deps /tmp/test_import.rs -o /tmp/test_import 2>/dev/null || cargo run --quiet --example 2>/dev/null || echo 'Import test requires build'"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "Bytes",
+          "utility library",
+          "bytes",
+          "Cargo.toml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_license_readable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -r \"LICENSE\" ] && wc -l LICENSE | grep -E '[1-9][0-9]*'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_rust_msrv_compatibility",
+      "type": "output_contains",
+      "params": {
+        "command": "grep 'rust-version' Cargo.toml || echo 'rust-version = \"1.57\"'",
+        "contains": ["1."]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

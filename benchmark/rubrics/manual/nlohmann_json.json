@@ -1,0 +1,359 @@
+{
+  "repo": "nlohmann_json",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "wget",
+          "bash",
+          "tar",
+          "gzip"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cpp_compiler",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "g++",
+          "gcc"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gcc_version",
+      "type": "run_command",
+      "params": {
+        "command": "g++ --version | head -1 | grep -E 'g\\+\\+ \\([^)]*\\) ([4-9]\\.[8-9]|[5-9]\\.|1[0-9]\\.)'"
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cmake",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "cmake"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cmake_version",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --version | head -1 | grep -E 'cmake version ([3-9]\\.[5-9]|[4-9]\\.)'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_make",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "make"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pkg_config",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "pkg-config"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python3",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "python3"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "JSON for Modern C++",
+          "nlohmann"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "include",
+          "single_include",
+          "tests",
+          "cmake"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_header_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "include/nlohmann",
+          "single_include/nlohmann"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_header_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "single_include/nlohmann/json.hpp",
+          "include/nlohmann/json.hpp"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "CMakeLists.txt",
+          "Makefile",
+          "meson.build"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_bazel_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "BUILD.bazel",
+          "MODULE.bazel"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_cmake_tests_dir",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "tests/src"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_license_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "LICENSE.MIT",
+          "ChangeLog.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_cpp_compilation_basic",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <iostream>\nint main() { std::cout << \"C++ works\" << std::endl; return 0; }' | g++ -x c++ -std=c++11 -o /tmp/test_cpp - && /tmp/test_cpp"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cpp11_features",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <iostream>\n#include <memory>\nint main() { auto ptr = std::make_shared<int>(42); std::cout << *ptr << std::endl; return 0; }' | g++ -x c++ -std=c++11 -o /tmp/test_cpp11 - && /tmp/test_cpp11"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_json_header_accessibility",
+      "type": "run_command",
+      "params": {
+        "command": "test -r single_include/nlohmann/json.hpp && echo 'Header accessible'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_json_header_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"single_include/nlohmann/json.hpp\"\nusing json = nlohmann::json;\nint main() { json j; j[\"test\"] = 42; return 0; }' | g++ -x c++ -std=c++11 -I. -o /tmp/test_json - 2>/dev/null && echo 'JSON compilation successful'"
+      },
+      "timeout": 60,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_json_basic_usage",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"single_include/nlohmann/json.hpp\"\n#include <iostream>\nusing json = nlohmann::json;\nint main() { json j = {{\"pi\", 3.141}, {\"happy\", true}}; std::cout << j.dump() << std::endl; return 0; }' | g++ -x c++ -std=c++11 -I. -o /tmp/test_json_usage - && /tmp/test_json_usage"
+      },
+      "timeout": 60,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cmake_configuration",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p /tmp/nlohmann_build && cd /tmp/nlohmann_build && cmake $(pwd) -DJSON_BuildTests=OFF 2>/dev/null >/dev/null && echo 'CMake configuration successful'"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cmake_build",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p /tmp/nlohmann_build && cd /tmp/nlohmann_build && cmake $(pwd) -DJSON_BuildTests=OFF >/dev/null 2>&1 && cmake --build . >/dev/null 2>&1 && echo 'CMake build successful'"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_make_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "make -n all 2>/dev/null >/dev/null && echo 'Makefile syntax valid'"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cmake_with_tests",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p /tmp/nlohmann_test_build && cd /tmp/nlohmann_test_build && cmake $(pwd) -DJSON_BuildTests=ON >/dev/null 2>&1 && echo 'CMake with tests configured'"
+      },
+      "timeout": 90,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cmake_test_build",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p /tmp/nlohmann_test_build && cd /tmp/nlohmann_test_build && cmake $(pwd) -DJSON_BuildTests=ON >/dev/null 2>&1 && cmake --build . --target download_test_data >/dev/null 2>&1 && echo 'Test build with dependencies successful'"
+      },
+      "timeout": 180,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_unit_tests_execution",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p /tmp/nlohmann_test_run && cd /tmp/nlohmann_test_run && cmake $(pwd) -DJSON_BuildTests=ON >/dev/null 2>&1 && cmake --build . --target download_test_data >/dev/null 2>&1 && cmake --build . >/dev/null 2>&1 && ctest -LE \"git_required|not_reproducible\" --output-on-failure -j$(nproc) 2>/dev/null | grep -q 'tests passed' && echo 'Unit tests passed'"
+      },
+      "timeout": 300,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "test_json_parsing_example",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"single_include/nlohmann/json.hpp\"\n#include <iostream>\n#include <sstream>\nusing json = nlohmann::json;\nint main() { std::string s = \"{\\\"name\\\":\\\"John\\\", \\\"age\\\":30}\"; json j = json::parse(s); std::cout << j[\"name\"] << \" is \" << j[\"age\"] << \" years old\" << std::endl; return 0; }' | g++ -x c++ -std=c++11 -I. -o /tmp/test_parse - && /tmp/test_parse"
+      },
+      "timeout": 60,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_json_serialization",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"single_include/nlohmann/json.hpp\"\n#include <iostream>\nusing json = nlohmann::json;\nint main() { json j; j[\"name\"] = \"Alice\"; j[\"age\"] = 25; j[\"married\"] = false; std::cout << j.dump(2) << std::endl; return 0; }' | g++ -x c++ -std=c++11 -I. -o /tmp/test_serialize - && /tmp/test_serialize"
+      },
+      "timeout": 60,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_git_repository",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          ".git"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_documentation_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "FILES.md",
+          "CITATION.cff"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_json_error_handling",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"single_include/nlohmann/json.hpp\"\n#include <iostream>\nusing json = nlohmann::json;\nint main() { try { json j = json::parse(\"{invalid}\"); } catch (const json::parse_error& e) { std::cout << \"Parse error caught: \" << e.what() << std::endl; return 0; } return 1; }' | g++ -x c++ -std=c++11 -I. -o /tmp/test_error - && /tmp/test_error"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    }
+  ]
+}

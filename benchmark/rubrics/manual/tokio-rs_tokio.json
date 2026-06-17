@@ -1,0 +1,309 @@
+{
+  "repo": "tokio-rs_tokio",
+  "tests": [
+    {
+      "id": "check_rust_toolchain",
+      "type": "commands_exist",
+      "params": {
+        "names": ["rustc", "cargo"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version",
+      "type": "output_contains",
+      "params": {
+        "command": "rustc --version",
+        "contains": ["rustc 1."]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_version",
+      "type": "run_command",
+      "params": {
+        "command": "cargo --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "gcc", "make"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_workspace_structure",
+      "type": "files_exist",
+      "params": {
+        "paths": ["Cargo.toml", "README.md", "LICENSE", "Cross.toml", "deny.toml"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": ["tokio", "tokio-util", "tokio-test", "tokio-stream", "tokio-macros"]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_development_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": ["examples", "benches", "tests-integration", "tests-build"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_tokio_crate_files",
+      "type": "files_exist",
+      "params": {
+        "paths": ["tokio/Cargo.toml", "tokio/src/lib.rs", "tokio/README.md"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": ["spellcheck.toml", "spellcheck.dic", "SECURITY.md", "CODE_OF_CONDUCT.md", "CONTRIBUTING.md"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_cargo_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --workspace"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cargo_clippy",
+      "type": "run_command",
+      "params": {
+        "command": "cargo clippy --workspace --all-targets --all-features -- -D warnings"
+      },
+      "timeout": 180,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_tokio_main_crate_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build -p tokio --all-features"
+      },
+      "timeout": 300,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tokio_macros_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build -p tokio-macros"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tokio_util_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build -p tokio-util"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tokio_stream_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build -p tokio-stream"
+      },
+      "timeout": 90,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tokio_test_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build -p tokio-test"
+      },
+      "timeout": 90,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_workspace_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build --workspace"
+      },
+      "timeout": 600,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_examples_compile",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build --examples -p tokio"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_basic_tokio_usage",
+      "type": "run_command",
+      "params": {
+        "command": "cargo run --example hello-world -p tokio"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_deny_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo deny check"
+      },
+      "timeout": 120,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_unit_tests_sample",
+      "type": "run_command",
+      "params": {
+        "command": "cargo test -p tokio --lib --test sleep -- --test-threads=1"
+      },
+      "timeout": 180,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_integration_tests_sample",
+      "type": "run_command",
+      "params": {
+        "command": "cargo test -p tokio --test rt_threaded --test-threads=1"
+      },
+      "timeout": 180,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_doc_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo doc --no-deps -p tokio"
+      },
+      "timeout": 300,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_rust_source_files",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name '*.rs' | head -10"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_toml_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "cargo metadata --format-version 1 > /dev/null"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_feature_flags",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build -p tokio --no-default-features --features rt"
+      },
+      "timeout": 180,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_full_feature_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build -p tokio --all-features"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cross_compilation_config",
+      "type": "file_contains",
+      "params": {
+        "path": "Cross.toml",
+        "contains": ["[build.env]"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_workspace_config",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": ["[workspace]", "resolver = \"2\""]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_tokio_minimum_rust_version",
+      "type": "file_contains",
+      "params": {
+        "path": "tokio/Cargo.toml",
+        "contains": ["rust-version = \"1.70\""]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_benchmarks_exist",
+      "type": "run_command",
+      "params": {
+        "command": "find benches -name '*.rs' | head -3"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    }
+  ]
+}

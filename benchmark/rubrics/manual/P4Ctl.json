@@ -1,0 +1,394 @@
+{
+  "repo": "P4Ctl",
+  "tests": [
+    {
+      "id": "check_python37",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3.7", "pip"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_python37_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python3.7 --version",
+        "contains": ["3.7"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_compiler_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "clang", "llvm-config"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_parser_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["bison", "flex"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_bison_version",
+      "type": "output_contains",
+      "params": {
+        "command": "bison --version",
+        "contains": ["3", "2"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_flex_version",
+      "type": "output_contains",
+      "params": {
+        "command": "flex --version",
+        "contains": ["2", "1"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_network_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["ncat", "git", "curl", "wget"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["make"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_linux_headers",
+      "type": "run_command",
+      "params": {
+        "command": "test -d /usr/src/linux-headers-$(uname -r)"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_libelf_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists libelf"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "compiler",
+          "host_agent",
+          "switch"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_key_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "custom-send.py",
+          "custom-recieve.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_compiler_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "compiler/netcl.y",
+          "compiler/netcl.l",
+          "compiler/netcl-compile",
+          "compiler/Makefile",
+          "compiler/netcl_rules",
+          "compiler/compiled_rules"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_host_agent_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "host_agent/host_agent.py",
+          "host_agent/host_agent_ebpf.c"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_switch_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "switch/p4control.p4",
+          "switch/controller.py",
+          "switch/netcl.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_sde_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "SDE"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_sde_install_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "SDE_INSTALL"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pythonpath_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "PYTHONPATH"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python37_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["python3.7"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gcc_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["gcc"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python37_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3.7 -c \"print('Python 3.7 works')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pip_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "python3.7 -m pip --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_scapy_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3.7 -c \"import scapy; print('Scapy imported successfully')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_bison_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "bison --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_flex_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "flex --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_gcc_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "gcc --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_makefile_targets",
+      "type": "file_contains",
+      "params": {
+        "path": "compiler/Makefile",
+        "contains": ["all", "clean"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_netcl_compiler_executable",
+      "type": "run_command",
+      "params": {
+        "command": "test -x compiler/netcl-compile"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_netcl_compiler_help",
+      "type": "run_command",
+      "params": {
+        "command": "./compiler/netcl-compile --help"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_p4_program_structure",
+      "type": "file_contains",
+      "params": {
+        "path": "switch/p4control.p4",
+        "contains": ["parser", "control", "ingress"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_controller_python_imports",
+      "type": "file_contains",
+      "params": {
+        "path": "switch/controller.py",
+        "contains": ["import", "def"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_custom_send_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "python3.7 -m py_compile custom-send.py"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_custom_receive_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "python3.7 -m py_compile custom-recieve.py"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["P4Control", "Dependencies", "Python 3.7", "Tofino", "eBPF"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_makefile_compiler_def",
+      "type": "file_contains",
+      "params": {
+        "path": "compiler/Makefile",
+        "contains": ["netcl", "bison", "flex", "g++", "clean"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_p4_header_structs",
+      "type": "file_contains",
+      "params": {
+        "path": "switch/p4control.p4",
+        "contains": ["header", "struct"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_git_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "git --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_ncat_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "ncat --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

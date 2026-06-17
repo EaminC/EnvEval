@@ -1,0 +1,356 @@
+{
+  "repo": "perslev_U-Time",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "curl", "wget", "bash", "tar", "gzip"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "g++", "make"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 --version 2>&1 | grep -E 'Python 3\\.(7|8|9|10|11)') || (python --version 2>&1 | grep -E 'Python 3\\.(7|8|9|10|11)')"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gpu_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["nvidia-smi"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_version",
+      "type": "run_command",
+      "params": {
+        "command": "(nvcc --version 2>&1 | grep -E 'release 11') || (nvidia-smi 2>&1 | grep -E 'CUDA Version: 11')"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_version_acceptable_fallback",
+      "type": "run_command",
+      "params": {
+        "command": "(nvcc --version 2>&1 | grep -E 'release (11|12)') || (nvidia-smi 2>&1 | grep -E 'CUDA Version: (11|12)')"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda_or_env",
+      "type": "run_command",
+      "params": {
+        "command": "command -v conda || command -v mamba || command -v micromamba || [ -n \"$VIRTUAL_ENV\" ] || [ -n \"$CONDA_DEFAULT_ENV\" ]"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_hdf5_system_libs",
+      "type": "run_command",
+      "params": {
+        "command": "(dpkg -s libhdf5-dev 2>/dev/null | grep -q 'install ok installed') || (ldconfig -p | grep -qi libhdf5) || python3 -c 'import h5py; print(h5py.version.hdf5_version)'"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_numpy_scipy_pandas",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import numpy, scipy, pandas\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_h5py_tables",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import h5py, tables\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_sklearn_mne_wfdb",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sklearn, mne, wfdb\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_carbontracker_requests",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import carbontracker, requests\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_yaml_tabulate_ruamel",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import ruamel.yaml, tabulate, yamlhparams\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_tensorflow_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import tensorflow as tf; print(tf.__version__)\""
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_tensorflow_version_ge_2",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import tensorflow as tf; major=int(tf.__version__.split('.')[0]); assert major>=2, tf.__version__; print(tf.__version__)\""
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_tensorflow_addons",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import tensorflow_addons\""
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_psg_utils_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import psg_utils\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_matplotlib_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import matplotlib\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_root_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE.txt",
+          "HISTORY.rst",
+          "MANIFEST.in",
+          "setup.py",
+          "requirements.txt",
+          "environment.yaml"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "utime",
+          "utime/bin",
+          "utime/models",
+          "utime/train",
+          "utime/evaluation",
+          "utime/utils",
+          "utime/hyperparameters",
+          "resources",
+          "tests"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_cli_scripts_exist",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "utime/bin/ut.py",
+          "utime/bin/train.py",
+          "utime/bin/predict.py",
+          "utime/bin/evaluate.py",
+          "utime/bin/init.py",
+          "utime/bin/cv_split.py",
+          "utime/bin/fetch.py",
+          "utime/bin/preprocess.py"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_setup_contents",
+      "type": "file_contains",
+      "params": {
+        "path": "setup.py",
+        "contains": ["utime", "ut=utime.bin.ut:entry_func"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_requirements_contents",
+      "type": "file_contains",
+      "params": {
+        "path": "requirements.txt",
+        "contains": ["tensorflow", "numpy", "h5py", "psg_utils"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Python works')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pip_check",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 check || pip check"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_utime_package_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import utime; print(utime.__name__)\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_utime_bin_module",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from utime.bin import ut, train, predict, evaluate\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_ut_cli_help",
+      "type": "run_command",
+      "params": {
+        "command": "(command -v ut && ut --help 2>&1 | head -n 30) || python3 -c \"from utime.bin.ut import entry_func; import sys; sys.argv=['ut','--help']; \ntry:\n  entry_func()\nexcept SystemExit: pass\"\n"
+      },
+      "timeout": 60,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_ut_cli_lists_subcommands",
+      "type": "output_contains",
+      "params": {
+        "command": "(command -v ut && ut --help 2>&1) || python3 -c \"from utime.bin.ut import entry_func; import sys; sys.argv=['ut','--help']; \ntry:\n  entry_func()\nexcept SystemExit: pass\"\n",
+        "contains": ["train", "predict", "init", "fetch", "cv_split", "evaluate", "cm"]
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_ut_fetch_subcommand_help",
+      "type": "run_command",
+      "params": {
+        "command": "(command -v ut && ut fetch --help 2>&1 | head -n 30) || python3 -c \"from utime.bin.fetch import entry_func; import sys; sys.argv=['ut_fetch','--help']; \ntry:\n  entry_func()\nexcept SystemExit: pass\"\n"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tensorflow_basic_op",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import tensorflow as tf; x=tf.constant([[1.0,2.0],[3.0,4.0]]); y=tf.matmul(x,x); print('result sum=', float(tf.reduce_sum(y).numpy()))\""
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tensorflow_gpu_query",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import tensorflow as tf; gpus=tf.config.list_physical_devices('GPU'); print('gpus=', len(gpus))\""
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    }
+  ]
+}

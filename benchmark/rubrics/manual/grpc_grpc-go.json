@@ -1,0 +1,385 @@
+{
+  "repo": "grpc_grpc-go",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "bash",
+          "make",
+          "curl",
+          "wget"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_version",
+      "type": "output_contains",
+      "params": {
+        "command": "go version",
+        "contains": [
+          "go1.24",
+          "go1.25",
+          "go1.26"
+        ]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_command",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "go"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_protoc_command",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "protoc"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_protoc_version",
+      "type": "run_command",
+      "params": {
+        "command": "protoc --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_grpc_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "gRPC-Go"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "examples",
+          "scripts",
+          "test",
+          "internal",
+          "cmd"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_go_mod_exists",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "go.mod",
+          "go.sum"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_makefile_exists",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Makefile"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_core_go_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "server.go",
+          "clientconn.go",
+          "stream.go"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_script_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "scripts/vet.sh",
+          "scripts/install-protoc.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_examples_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "examples/helloworld",
+          "examples/route_guide"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_example_test_script",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "examples/examples_test.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_script_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"scripts/vet.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_example_script_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"examples/examples_test.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_go_env",
+      "type": "run_command",
+      "params": {
+        "command": "go env GOROOT && go env GOPATH"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_go_modules",
+      "type": "run_command",
+      "params": {
+        "command": "go list -m google.golang.org/grpc"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_go_mod_tidy",
+      "type": "run_command",
+      "params": {
+        "command": "go mod tidy && go mod verify"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_go_build_basic",
+      "type": "run_command",
+      "params": {
+        "command": "go build -o /dev/null ./..."
+      },
+      "timeout": 120,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_makefile_build",
+      "type": "run_command",
+      "params": {
+        "command": "make build"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_go_vet",
+      "type": "run_command",
+      "params": {
+        "command": "go vet ./..."
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_protoc_gen_go",
+      "type": "run_command",
+      "params": {
+        "command": "go install google.golang.org/protobuf/cmd/protoc-gen-go@latest && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_helloworld_build_server",
+      "type": "run_command",
+      "params": {
+        "command": "cd examples && go build -o /dev/null ./helloworld/greeter_server/main.go"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_helloworld_build_client",
+      "type": "run_command",
+      "params": {
+        "command": "cd examples && go build -o /dev/null ./helloworld/greeter_client/main.go"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_route_guide_build_server",
+      "type": "run_command",
+      "params": {
+        "command": "cd examples && go build -o /dev/null ./route_guide/server/server.go"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_route_guide_build_client",
+      "type": "run_command",
+      "params": {
+        "command": "cd examples && go build -o /dev/null ./route_guide/client/client.go"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_grpc_import",
+      "type": "run_command",
+      "params": {
+        "command": "go run -c 'import \"google.golang.org/grpc\"; import \"context\"; func main() { println(\"gRPC import successful\") }'"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_basic_server_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "cd examples && timeout 10s go run ./helloworld/greeter_server/main.go & SERVER_PID=$!; sleep 2; kill $SERVER_PID 2>/dev/null || true; wait $SERVER_PID 2>/dev/null || true"
+      },
+      "timeout": 20,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_grpc_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "go list -m all | grep -E '(protobuf|grpc)'"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_go_test_short",
+      "type": "run_command",
+      "params": {
+        "command": "go test -short -timeout 2m ./internal/..."
+      },
+      "timeout": 150,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_example_unit_tests",
+      "type": "run_command",
+      "params": {
+        "command": "cd examples && go test -short -timeout 1m ./..."
+      },
+      "timeout": 90,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_go_tool_chain",
+      "type": "run_command",
+      "params": {
+        "command": "go tool compile -V && go tool link -V"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_proto_generation",
+      "type": "run_command",
+      "params": {
+        "command": "which protoc-gen-go && which protoc-gen-go-grpc"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_makefile_vet",
+      "type": "run_command",
+      "params": {
+        "command": "make vetdeps"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_advanced_example_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd examples && find features -name '*.go' -path '*/server/*.go' | head -3 | xargs -I {} go build -o /dev/null {}"
+      },
+      "timeout": 90,
+      "score": 4,
+      "category": "functionality"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "repo": "lllyasviel_Fooocus",
+  "tests": [
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "python3",
+          "pip3"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda_tool",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "conda"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_repo_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "readme.md",
+          "environment.yaml",
+          "requirements_versions.txt",
+          "entry_with_update.py"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_repo_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "models",
+          "modules",
+          "css",
+          "javascript"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_environment_python_pin",
+      "type": "file_contains",
+      "params": {
+        "path": "environment.yaml",
+        "contains": [
+          "python=3.10",
+          "pip=23.0"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_install_commands",
+      "type": "file_contains",
+      "params": {
+        "path": "readme.md",
+        "contains": [
+          "conda env create -f environment.yaml",
+          "pip install -r requirements_versions.txt",
+          "python entry_with_update.py"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 --version",
+        "contains": [
+          "3.10"
+        ]
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip_version",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -m pip --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "functionality"
+    },
+    {
+      "id": "test_entry_help",
+      "type": "run_command",
+      "params": {
+        "command": "python3 entry_with_update.py --help >/dev/null"
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "functionality"
+    }
+  ]
+}

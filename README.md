@@ -14,6 +14,7 @@ EnvEval/
 │   ├── index.html    # Main page
 │   ├── styles.css    # Stylesheets
 │   └── script.js     # Interactive scripts
+├── benchmark/         # New benchmark directory with additional tasks and scripts
 └── dataset/           # Dataset and results
     ├── index.json    # Benchmark data index
     └── results/      # Result folders (one per model)

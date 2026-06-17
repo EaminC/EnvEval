@@ -1,0 +1,33 @@
+{
+  "repo": "EsmaeilNarimissa_SciDOCX",
+  "dockerfile": "/home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-anthropic/claude-opus-4/EsmaeilNarimissa_SciDOCX/envgym/envgym.dockerfile",
+  "rubric": "/home/cc/enveval/EnvEval/benchmark/rubrics/manual/EsmaeilNarimissa_SciDOCX.json",
+  "build_log": {
+    "command": "docker build --no-cache --network host --label uuid=eval_esmaeilnarimissa_scidocx_1778665887145_5344 -t eval_esmaeilnarimissa_scidocx:1778665887145_5344 -f /home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-anthropic/claude-opus-4/EsmaeilNarimissa_SciDOCX/envgym/envgym.dockerfile /home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-anthropic/claude-opus-4/EsmaeilNarimissa_SciDOCX",
+    "dockerfile_path": "/home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-anthropic/claude-opus-4/EsmaeilNarimissa_SciDOCX/envgym/envgym.dockerfile",
+    "build_context": "/home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-anthropic/claude-opus-4/EsmaeilNarimissa_SciDOCX",
+    "scenario": "scenario_2",
+    "repo_data_exists": true,
+    "build_success": false,
+    "build_stdout": "",
+    "build_stderr": "#0 building with \"default\" instance using docker driver\n\n#1 [internal] load build definition from envgym.dockerfile\n#1 transferring dockerfile: 38B done\n#1 DONE 0.0s\nERROR: failed to build: failed to solve: the Dockerfile cannot be empty\n",
+    "build_returncode": 1,
+    "build_timeout": false,
+    "error_message": "Docker build failed with return code 1"
+  },
+  "container_health": {
+    "final_container_running": false,
+    "container_id": null,
+    "container_name": "eval_esmaeilnarimissa_scidocx_1778665887145_5344"
+  },
+  "summary": {
+    "total_tests": 0,
+    "passed_tests": 0,
+    "failed_tests": 0,
+    "total_score": 0,
+    "max_score": 77,
+    "success_rate": 0,
+    "total_execution_time": 0
+  },
+  "test_results": []
+}

@@ -1,0 +1,196 @@
+{
+  "repo": "sharkdp_bat",
+  "tests": [
+    {
+      "id": "check_rust_and_cargo",
+      "type": "commands_exist",
+      "params": {"names": ["rustc", "cargo"]},
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version",
+      "type": "output_contains",
+      "params": {"command": "rustc --version", "contains": ["1.74"]},
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_version",
+      "type": "output_contains",
+      "params": {"command": "cargo --version", "contains": ["cargo"]},
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {"names": ["git", "less", "fzf", "rg", "fd", "curl", "make", "gcc", "pkg-config"]},
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_structure",
+      "type": "dirs_exist",
+      "params": {"paths": ["src", "tests", "assets", "examples", "doc", "build", "diagnostics"]},
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_key_files",
+      "type": "files_exist",
+      "params": {"paths": ["Cargo.toml", "Cargo.lock", "README.md", "LICENSE-APACHE", "LICENSE-MIT", "CHANGELOG.md", "CONTRIBUTING.md", "rustfmt.toml"]},
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_source_files",
+      "type": "files_exist",
+      "params": {"paths": ["src/lib.rs", "src/main.rs"]},
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_content",
+      "type": "file_contains",
+      "params": {"path": "README.md", "contains": ["bat", "syntax highlighting", "cat clone"]},
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_git_repository",
+      "type": "dirs_exist",
+      "params": {"paths": [".git"]},
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_cargo_build",
+      "type": "run_command",
+      "params": {"command": "cargo build --release"},
+      "timeout": 120,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "check_bat_binary",
+      "type": "files_exist",
+      "params": {"paths": ["target/release/bat"]},
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_bat_help",
+      "type": "run_command",
+      "params": {"command": "target/release/bat --help"},
+      "timeout": 20,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_bat_syntax_highlighting",
+      "type": "run_command",
+      "params": {"command": "echo 'fn main() { println!(\"Hello, world!\"); }' > test.rs && target/release/bat test.rs"},
+      "timeout": 20,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_cargo_test",
+      "type": "run_command",
+      "params": {"command": "cargo test --release -- --skip slow"},
+      "timeout": 120,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "check_batcat_binary",
+      "type": "run_command",
+      "params": {"command": "which batcat || true"},
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pkg_dependencies",
+      "type": "run_command",
+      "params": {"command": "cargo check --quiet"},
+      "timeout": 60,
+      "score": 2,
+      "category": "configuration"
+    }
+    ,
+    {
+      "id": "check_bat_list_themes",
+      "type": "run_command",
+      "params": {"command": "target/release/bat --list-themes"},
+      "timeout": 20,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_bat_config_file",
+      "type": "run_command",
+      "params": {"command": "target/release/bat --config-file"},
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_bat_generate_config",
+      "type": "run_command",
+      "params": {"command": "target/release/bat --generate-config-file"},
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_bat_pager_env",
+      "type": "envvar_set",
+      "params": {"name": "BAT_PAGER"},
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_bat_fzf_integration",
+      "type": "run_command",
+      "params": {"command": "fzf --preview 'target/release/bat --color=always --style=numbers --line-range=:500 {}'"},
+      "timeout": 20,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_bat_ripgrep_integration",
+      "type": "run_command",
+      "params": {"command": "rg needle src/ | target/release/bat --plain"},
+      "timeout": 20,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_bat_fd_integration",
+      "type": "run_command",
+      "params": {"command": "fd . -X target/release/bat"},
+      "timeout": 20,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_manpage_file",
+      "type": "files_exist",
+      "params": {"paths": ["assets/syntaxes/02_Extra/Manpage.sublime-syntax"]},
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_shell_completions",
+      "type": "run_command",
+      "params": {"command": "target/release/bat --completion bash"},
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    }
+  ]
+}

@@ -1,0 +1,292 @@
+{
+  "repo": "SymMC",
+  "tests": [
+    {
+      "id": "check_java_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["java", "javac", "ant"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_version",
+      "type": "output_contains",
+      "params": {
+        "command": "java -version",
+        "contains": ["1.8", "openjdk version \"1.8"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["cmake", "make", "g++", "gcc"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "wget", "bash"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "Enhanced_Kodkod",
+          "Enumerator_Estimator",
+          "Dataset"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_enhanced_kodkod_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "Enhanced_Kodkod/src",
+          "Enhanced_Kodkod/lib",
+          "Enhanced_Kodkod/util"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_enhanced_kodkod_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Enhanced_Kodkod/build.sh",
+          "Enhanced_Kodkod/build.xml",
+          "Enhanced_Kodkod/run.sh"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_enumerator_estimator_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Enumerator_Estimator/build.sh",
+          "Enumerator_Estimator/CMakeLists.txt"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_dataset_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "Dataset/specs",
+          "Dataset/cnfs_NSB",
+          "Dataset/cnfs_PSB",
+          "Dataset/syms"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_alloy_jar",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Enhanced_Kodkod/lib/org.alloytools.alloy.dist.jar"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_scripts_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"Enhanced_Kodkod/build.sh\" ] && [ -x \"Enhanced_Kodkod/run.sh\" ] && [ -x \"Enumerator_Estimator/build.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_java_basic",
+      "type": "run_command",
+      "params": {
+        "command": "java -version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_ant_available",
+      "type": "run_command",
+      "params": {
+        "command": "ant -version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cmake_available",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_enhanced_kodkod_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd Enhanced_Kodkod && ./build.sh"
+      },
+      "timeout": 120,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "check_enhanced_kodkod_bin",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "Enhanced_Kodkod/bin"
+        ]
+      },
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_enumerator_estimator_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd Enumerator_Estimator && ./build.sh"
+      },
+      "timeout": 180,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "check_cmake_build_output",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "Enumerator_Estimator/cmake-build-release"
+        ]
+      },
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_minisat_executable",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Enumerator_Estimator/cmake-build-release/minisat"
+        ]
+      },
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_minisat_executable",
+      "type": "run_command",
+      "params": {
+        "command": "cd Enumerator_Estimator && ./cmake-build-release/minisat -h"
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_java_compilation_basic",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'public class Test { public static void main(String[] args) { System.out.println(\"Java works\"); } }' > /tmp/Test.java && javac /tmp/Test.java && java -cp /tmp Test && rm -f /tmp/Test.java /tmp/Test.class"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cpp_compilation_basic",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <iostream>\nint main() { std::cout << \"C++ works\" << std::endl; return 0; }' > /tmp/test.cpp && g++ -o /tmp/test /tmp/test.cpp && /tmp/test && rm -f /tmp/test /tmp/test.cpp"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_readme_symmc",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["SymMC", "Alloy"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_enhanced_kodkod_classpath",
+      "type": "run_command",
+      "params": {
+        "command": "cd Enhanced_Kodkod && java -cp src:bin:lib/org.alloytools.alloy.dist.jar -version"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "verify_ant_build_target",
+      "type": "run_command",
+      "params": {
+        "command": "cd Enhanced_Kodkod && ant clean"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "verify_cmake_configuration",
+      "type": "run_command",
+      "params": {
+        "command": "cd Enumerator_Estimator && cmake -Bcmake-build-test -H."
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_symmc_integration",
+      "type": "run_command",
+      "params": {
+        "command": "cd Enhanced_Kodkod && ls bin/*.class >/dev/null 2>&1 && cd ../Enumerator_Estimator && [ -x cmake-build-release/minisat ]"
+      },
+      "timeout": 10,
+      "score": 4,
+      "category": "functionality"
+    }
+  ]
+}

@@ -1,0 +1,425 @@
+{
+  "repo": "sveltejs_svelte",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "bash",
+          "curl",
+          "wget"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_installed",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "node",
+          "npm"
+        ]
+      },
+      "score": 4,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version",
+      "type": "output_contains",
+      "params": {
+        "command": "node --version",
+        "contains": [
+          "v18",
+          "v19",
+          "v20",
+          "v21",
+          "v22"
+        ]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pnpm_installed",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "pnpm"
+        ]
+      },
+      "score": 5,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pnpm_version",
+      "type": "output_contains",
+      "params": {
+        "command": "pnpm --version",
+        "contains": [
+          "9.",
+          "10."
+        ]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_typescript_available",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm tsc --version"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "Svelte"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_package_json",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "package.json"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_pnpm_workspace",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "pnpm-workspace.yaml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages",
+          "playgrounds",
+          "benchmarking",
+          "documentation"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_svelte_package",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages/svelte"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_svelte_package_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages/svelte/src",
+          "packages/svelte/tests",
+          "packages/svelte/scripts",
+          "packages/svelte/types"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_svelte_core_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "packages/svelte/package.json",
+          "packages/svelte/rollup.config.js",
+          "packages/svelte/tsconfig.json"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_svelte_src_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages/svelte/src/compiler",
+          "packages/svelte/src/internal",
+          "packages/svelte/src/reactivity"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "vitest.config.js",
+          "eslint.config.js",
+          ".prettierrc"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_playground_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "playgrounds/sandbox"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages/svelte/tests/runtime-runes",
+          "packages/svelte/tests/compiler-errors",
+          "packages/svelte/tests/snapshot"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_node_basic",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"console.log('Node.js is working')\""
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pnpm_basic",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm --version"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_dependencies_install",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm install --frozen-lockfile"
+      },
+      "timeout": 300,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "verify_node_modules",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "node_modules",
+          "packages/svelte/node_modules"
+        ]
+      },
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_svelte_compiler_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd packages/svelte && pnpm build"
+      },
+      "timeout": 180,
+      "score": 10,
+      "category": "functionality"
+    },
+    {
+      "id": "verify_compiler_output",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "packages/svelte/compiler/index.js"
+        ]
+      },
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "verify_types_generated",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages/svelte/types"
+        ]
+      },
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_typescript_check",
+      "type": "run_command",
+      "params": {
+        "command": "cd packages/svelte && pnpm check"
+      },
+      "timeout": 120,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_linting",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm lint"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_vitest_runtime",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm test --run runtime-runes"
+      },
+      "timeout": 180,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "test_compiler_basic",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"const { compile } = require('./packages/svelte/compiler'); console.log(typeof compile);\""
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_svelte_compile_simple",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"const { compile } = require('./packages/svelte/compiler'); const result = compile('<h1>Hello {name}!</h1>', { generate: 'dom' }); console.log(result.js ? 'Success' : 'Failed');\""
+      },
+      "timeout": 30,
+      "score": 6,
+      "category": "functionality"
+    },
+    {
+      "id": "test_playground_setup",
+      "type": "run_command",
+      "params": {
+        "command": "cd playgrounds/sandbox && pnpm prepare"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_playground_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd playgrounds/sandbox && pnpm build"
+      },
+      "timeout": 120,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "verify_playground_output",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "playgrounds/sandbox/dist"
+        ]
+      },
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_benchmark_availability",
+      "type": "run_command",
+      "params": {
+        "command": "node --allow-natives-syntax --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_git_repository",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          ".git"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_monorepo_build",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm build"
+      },
+      "timeout": 240,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "test_full_test_suite_sample",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm test --run validator -t a11y"
+      },
+      "timeout": 60,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_changesets_available",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm changeset --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

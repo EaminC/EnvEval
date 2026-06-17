@@ -1,0 +1,393 @@
+{
+  "repo": "EsmaeilNarimissa_SciDOCX",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "curl", "wget", "bash", "tar"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "g++", "make"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 --version 2>&1 | grep -E 'Python 3\\.(8|9|10|11|12)') || (python --version 2>&1 | grep -E 'Python 3\\.(8|9|10|11|12)')"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gpu_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["nvidia-smi"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_version",
+      "type": "run_command",
+      "params": {
+        "command": "(nvcc --version 2>&1 | grep -E 'release 12') || (nvidia-smi 2>&1 | grep -E 'CUDA Version: 12')"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_version_acceptable_fallback",
+      "type": "run_command",
+      "params": {
+        "command": "(nvcc --version 2>&1 | grep -E 'release (11|12)') || (nvidia-smi 2>&1 | grep -E 'CUDA Version: (11|12)')"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_visible_devices",
+      "type": "envvar_set",
+      "params": {
+        "name": "CUDA_VISIBLE_DEVICES"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pythonpath_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "PYTHONPATH"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pythonpath_includes_deepseek",
+      "type": "output_contains",
+      "params": {
+        "command": "echo \"$PYTHONPATH\"",
+        "contains": ["DeepSeek-OCR-vllm", "DeepSeek-OCR"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_deepseek_ocr_vllm_dir",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d /app/DeepSeek-OCR-vllm ] || [ -d DeepSeek-OCR-vllm ] || find / -maxdepth 5 -type d -name 'DeepSeek-OCR-vllm' 2>/dev/null | head -n 1 | grep -q ."
+      },
+      "timeout": 15,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_model_path_or_models_dir",
+      "type": "run_command",
+      "params": {
+        "command": "[ -n \"$MODEL_PATH\" ] || [ -d /app/models ] || [ -d models ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pandoc_available",
+      "type": "run_command",
+      "params": {
+        "command": "command -v pandoc || python3 -c \"import pypandoc; print(pypandoc.get_pandoc_path())\""
+      },
+      "timeout": 15,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_web_framework_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import fastapi, uvicorn\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pdf_image_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import fitz, img2pdf, PIL\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_transformers_and_tokenizers",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import transformers, tokenizers, sentencepiece\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_vllm_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import vllm; print(vllm.__version__)\""
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_core_scientific_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import numpy, einops, easydict, addict, tqdm\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_root_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE",
+          "Dockerfile",
+          "docker-compose.yml",
+          "requirements.txt",
+          "requirements-lock.txt",
+          "start_server.py",
+          "shared_utils.py",
+          "pdf_to_docx.py",
+          "pdf_to_mmrag_json.py"
+        ]
+      },
+      "score": 4,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "data",
+          "models"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_requirements_contents",
+      "type": "file_contains",
+      "params": {
+        "path": "requirements.txt",
+        "contains": ["fastapi", "vllm", "pymupdf", "transformers"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_dockerfile_contents",
+      "type": "file_contains",
+      "params": {
+        "path": "Dockerfile",
+        "contains": ["vllm", "PYTHONPATH", "start_server.py"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_compose_gpu_config",
+      "type": "file_contains",
+      "params": {
+        "path": "docker-compose.yml",
+        "contains": ["nvidia", "gpu", "CUDA_VISIBLE_DEVICES"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Python works')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pip_check",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 check || pip check"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_start_server_importable",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import ast, pathlib; ast.parse(pathlib.Path('start_server.py').read_text()); print('start_server parses')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pdf_to_docx_help_or_parse",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import ast, pathlib; ast.parse(pathlib.Path('pdf_to_docx.py').read_text()); print('ok')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pdf_to_docx_main_callable",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import importlib.util, pathlib; spec=importlib.util.spec_from_file_location('pdf_to_docx', pathlib.Path('pdf_to_docx.py')); assert spec is not None and spec.loader is not None; print('pdf_to_docx importable as module')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pdf_to_mmrag_help_runs",
+      "type": "run_command",
+      "params": {
+        "command": "python3 pdf_to_mmrag_json.py --help 2>&1 | head -n 40"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pdf_to_mmrag_help_mentions_vlm_flag",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 pdf_to_mmrag_json.py --help 2>&1",
+        "contains": ["use-vlm", "input"]
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_start_server_module_loadable",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import importlib.util, pathlib; spec=importlib.util.spec_from_file_location('start_server', pathlib.Path('start_server.py')); m=importlib.util.module_from_spec(spec); assert spec is not None; print('start_server module spec ok')\""
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_start_server_app_attribute",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; sys.path.insert(0, '.'); import start_server; assert hasattr(start_server, 'app'), 'start_server.app missing'; print('app type:', type(start_server.app).__name__)\""
+      },
+      "timeout": 120,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pypandoc_md_to_docx_conversion",
+      "type": "run_command",
+      "params": {
+        "command": "echo '# hello' > /tmp/t.md && python3 -c \"import pypandoc; pypandoc.convert_file('/tmp/t.md','docx',outputfile='/tmp/t.docx')\" && test -s /tmp/t.docx && rm -f /tmp/t.md /tmp/t.docx"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_shared_utils_importable",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import ast, pathlib; ast.parse(pathlib.Path('shared_utils.py').read_text()); print('ok')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pymupdf_open_empty",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import fitz; doc=fitz.open(); doc.new_page(); print('pages=', len(doc)); doc.close()\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_fastapi_basic_app",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from fastapi import FastAPI; app=FastAPI(); app.get('/h')(lambda: {'ok':True}); print('fastapi ok')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_uvicorn_help",
+      "type": "run_command",
+      "params": {
+        "command": "uvicorn --help 2>&1 | head -n 20"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_vllm_cli_available",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import vllm\" && (command -v vllm || python3 -m vllm.entrypoints.openai.api_server --help 2>&1 | head -n 5)"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    }
+  ]
+}

@@ -1,0 +1,414 @@
+{
+  "repo": "facebook_zstd",
+  "tests": [
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "g++", "make", "cmake", "ninja", "pkg-config"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools", 
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_network_tools",
+      "type": "commands_exist", 
+      "params": {
+        "names": ["git", "curl", "wget"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_compression_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["lz4", "brotli", "gzip"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_cc_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "CC"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cxx_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "CXX"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cflags_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "CFLAGS"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cxxflags_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "CXXFLAGS"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ldflags_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "LDFLAGS"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gcc_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["gcc"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_make_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["make"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_zlib_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists zlib"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_lz4_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists liblz4"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_snappy_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists snappy"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_lzo2_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists lzo2"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "lib",
+          "programs",
+          "tests",
+          "examples",
+          "doc",
+          "contrib",
+          "zlibWrapper"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_root_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Makefile",
+          "README.md",
+          "LICENSE",
+          "COPYING",
+          "CHANGELOG",
+          "Package.swift"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_lib_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "lib/zstd.h",
+          "lib/zdict.h",
+          "lib/zstd_errors.h",
+          "lib/Makefile"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_program_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "programs/zstdcli.c",
+          "programs/Makefile",
+          "programs/benchzstd.c",
+          "programs/datagen.c"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tests/Makefile",
+          "tests/playTests.sh",
+          "tests/fullbench.c"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_gcc_version",
+      "type": "output_contains",
+      "params": {
+        "command": "gcc --version",
+        "contains": ["gcc"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_gpp_version",
+      "type": "output_contains",
+      "params": {
+        "command": "g++ --version",
+        "contains": ["g++"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_make_version",
+      "type": "output_contains",
+      "params": {
+        "command": "make --version",
+        "contains": ["GNU Make", "make"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cmake_version",
+      "type": "output_contains",
+      "params": {
+        "command": "cmake --version",
+        "contains": ["cmake"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "(python --version 2>&1 | grep -q Python) || (python3 --version 2>&1 | grep -q Python)"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_git_version",
+      "type": "output_contains",
+      "params": {
+        "command": "git --version",
+        "contains": ["git"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_c_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <stdio.h>\nint main() { printf(\"Hello from C\\n\"); return 0; }' > test.c && gcc -o test_c test.c && ./test_c && rm -f test_c test.c"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cpp_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <iostream>\nint main() { std::cout << \"Hello from C++\" << std::endl; return 0; }' > test.cpp && g++ -o test_cpp test.cpp && ./test_cpp && rm -f test_cpp test.cpp"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_make_help",
+      "type": "run_command",
+      "params": {
+        "command": "make --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cmake_help",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --help"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "(python -c \"print('Hello from Python')\") || (python3 -c \"print('Hello from Python3')\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pip_list",
+      "type": "run_command",
+      "params": {
+        "command": "(pip list >/dev/null 2>&1) || (pip3 list >/dev/null 2>&1)"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_zstd_header_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"lib/zstd.h\"\n#include <stdio.h>\nint main() { printf(\"ZSTD version: %s\\n\", ZSTD_VERSION_STRING); return 0; }' > test_zstd.c && gcc -I. -o test_zstd test_zstd.c && ./test_zstd && rm -f test_zstd test_zstd.c"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_lib_build",
+      "type": "run_command",
+      "params": {
+        "command": "make lib"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_libzstd_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ -f \"lib/libzstd.a\" ] || [ -f \"lib/libzstd.so\" ]"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_zstd_build",
+      "type": "run_command",
+      "params": {
+        "command": "make zstd"
+      },
+      "timeout": 180,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_zstd_binary_exists",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "zstd"
+        ]
+      },
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_zstd_version",
+      "type": "run_command",
+      "params": {
+        "command": "./zstd --version"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_zstd_help",
+      "type": "run_command",
+      "params": {
+        "command": "./zstd --help"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "repo": "darkreader_darkreader",
+  "tests": [
+    {
+      "id": "check_system_dependencies",
+      "type": "commands_exist",
+      "params": {
+        "names": ["node", "npm", "git", "bash", "curl"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_deno",
+      "type": "commands_exist",
+      "params": {
+        "names": ["deno"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version_major",
+      "type": "run_command",
+      "params": {
+        "command": "node -v | sed 's/v//' | cut -d'.' -f1 | awk '{if ($1 >= 18) exit 0; else exit 1}'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version_output",
+      "type": "output_contains",
+      "params": {
+        "command": "node -v",
+        "contains": ["v18", "v19", "v20", "v21", "v22"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_package_json",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "package.json"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_package_lock_json",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "package-lock.json"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_npm_install",
+      "type": "run_command",
+      "params": {
+        "command": "npm install --ignore-scripts --no-audit --no-fund"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_project_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "tasks",
+          "tests"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_task_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tasks/cli.js",
+          "eslint.config.js"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_license_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_typescript_config",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "src/tsconfig.json"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tests/unit/jest.config.mjs",
+          "tests/inject/karma.conf.cjs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_npm_build_all",
+      "type": "run_command",
+      "params": {
+        "command": "npm run build:all"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_build_release_directory",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"build/release\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_build_chrome_zip",
+      "type": "run_command",
+      "params": {
+        "command": "[ -f \"build/release/darkreader-chrome.zip\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_build_firefox_xpi",
+      "type": "run_command",
+      "params": {
+        "command": "[ -f \"build/release/darkreader-firefox.xpi\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_npm_lint",
+      "type": "run_command",
+      "params": {
+        "command": "npm run lint"
+      },
+      "timeout": 180,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_npm_test_unit",
+      "type": "run_command",
+      "params": {
+        "command": "npm run test:unit"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_npm_test_inject",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 60s npm run test:inject 2>&1 | grep -q 'PASS\\|No binary for Chrome\\|Karma.*ERROR' || true"
+      },
+      "timeout": 70,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_npm_version",
+      "type": "run_command",
+      "params": {
+        "command": "npm --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_node_execution",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"console.log('Node.js works')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_modules_exists",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"node_modules\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    }
+  ]
+}

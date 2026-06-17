@@ -1,0 +1,311 @@
+{
+  "repo": "Silhouette",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "wget",
+          "curl",
+          "make",
+          "gcc",
+          "qemu-system-x86_64",
+          "memcached",
+          "python3",
+          "pip3"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "python3 --version | grep 'Python 3.10'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pip_version",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 --version | grep -E 'pip (2[0-9]|[3-9][0-9])'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_modules",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import ctypes, readline, pymemcache, memcache, psutil, pytz, qemu.qmp, intervaltree, aenum, netifaces, prettytable, tqdm, numpy, matplotlib\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_qemu_version",
+      "type": "run_command",
+      "params": {
+        "command": "qemu-system-x86_64 --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_memcached_version",
+      "type": "run_command",
+      "params": {
+        "command": "memcached --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "codebase",
+          "evaluation",
+          "thirdPart",
+          "pics"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_key_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "build_from_scratch.md",
+          "silhouette_ae.ipynb",
+          "install_dep.sh",
+          "prepare.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_codebase_subdirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "codebase/scripts",
+          "codebase/tools",
+          "codebase/workload",
+          "codebase/trace",
+          "codebase/result_analysis"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_evaluation_subdirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "evaluation/bugs",
+          "evaluation/scalability"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name '*.py' -exec python3 -m py_compile {} +"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_bug_reproduction_script",
+      "type": "run_command",
+      "params": {
+        "command": "cd evaluation/bugs && timeout 120 bash reproduce_all.sh"
+      },
+      "timeout": 120,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_scalability_script",
+      "type": "run_command",
+      "params": {
+        "command": "cd evaluation/scalability/seq2 && timeout 120 bash run_all.sh"
+      },
+      "timeout": 120,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_vm_startup",
+      "type": "run_command",
+      "params": {
+        "command": "qemu-system-x86_64 -help"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_memcached_startup",
+      "type": "run_command",
+      "params": {
+        "command": "memcached -h"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    }
+    ,
+    {
+      "id": "check_makefiles_tools",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "codebase/tools/disk_content/Makefile",
+          "codebase/tools/md5/Makefile",
+          "codebase/tools/src_info/Makefile",
+          "codebase/tools/struct_layout_ast/Makefile",
+          "codebase/tools/struct_layout_pass/Makefile",
+          "codebase/trace/build-llvm15/Makefile",
+          "codebase/workload/ace/Makefile"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "test_build_disk_content",
+      "type": "run_command",
+      "params": {
+        "command": "cd codebase/tools/disk_content && make"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_build_md5",
+      "type": "run_command",
+      "params": {
+        "command": "cd codebase/tools/md5 && make"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_build_src_info",
+      "type": "run_command",
+      "params": {
+        "command": "cd codebase/tools/src_info && make"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_build_struct_layout_ast",
+      "type": "run_command",
+      "params": {
+        "command": "cd codebase/tools/struct_layout_ast && make"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_build_struct_layout_pass",
+      "type": "run_command",
+      "params": {
+        "command": "cd codebase/tools/struct_layout_pass && make"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_build_ace_workload",
+      "type": "run_command",
+      "params": {
+        "command": "cd codebase/workload/ace && make SEQ_DIR=tests/ace-base-silhouette OUT_DIR=bin -j2"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jupyter_notebook",
+      "type": "run_command",
+      "params": {
+        "command": "jupyter nbconvert --execute silhouette_ae.ipynb --to notebook --output executed_silhouette_ae.ipynb"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_ssh_key",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "codebase/scripts/fs_conf/sshkey"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_cleanup_script",
+      "type": "run_command",
+      "params": {
+        "command": "cd evaluation/bugs && bash cleanup_all.sh"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_result_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "evaluation/bugs/bug1",
+          "evaluation/scalability/seq2/nova/mech2cp"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_entrypoints",
+      "type": "run_command",
+      "params": {
+        "command": "python3 codebase/scripts/executor/host_side/main_host.py --help && python3 codebase/scripts/executor/guest_side/main_guest.py --help"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+{
+  "repo": "sharkdp_fd",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "curl", "make", "gcc"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_installed",
+      "type": "commands_exist",
+      "params": {
+        "names": ["rustc", "cargo"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --version | grep '1.77'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_fd_build",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build --release"
+      },
+      "timeout": 120,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_run",
+      "type": "run_command",
+      "params": {
+        "command": "target/release/fd --version"
+      },
+      "timeout": 10,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_basic_search",
+      "type": "run_command",
+      "params": {
+        "command": "target/release/fd Cargo.toml ."
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_exec_option",
+      "type": "run_command",
+      "params": {
+        "command": "target/release/fd -x echo {} | grep Cargo.toml"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_tests",
+      "type": "run_command",
+      "params": {
+        "command": "cargo test"
+      },
+      "timeout": 120,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "check_main_files",
+      "type": "files_exist",
+      "params": {
+        "paths": ["Cargo.toml", "Cargo.lock", "README.md", "LICENSE-APACHE", "LICENSE-MIT", "src/main.rs"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": ["src", "tests", "doc", "contrib", "scripts"]
+      },
+      "score": 2,
+      "category": "structure"
+    }
+    ,
+    {
+      "id": "check_fd_completions",
+      "type": "run_command",
+      "params": {
+        "command": "target/release/fd --gen-completions bash"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_hidden_search",
+      "type": "run_command",
+      "params": {
+        "command": "target/release/fd -H ."
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_ignore_files",
+      "type": "run_command",
+      "params": {
+        "command": "target/release/fd fdignored.foo ."
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_exec_batch",
+      "type": "run_command",
+      "params": {
+        "command": "target/release/fd -g '*.rs' -X echo"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_list_details",
+      "type": "run_command",
+      "params": {
+        "command": "target/release/fd -l Cargo.toml ."
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_exclude_option",
+      "type": "run_command",
+      "params": {
+        "command": "target/release/fd -E tests ."
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_symlink_run",
+      "type": "run_command",
+      "params": {
+        "command": "ln -s . symlink_dir && cd symlink_dir && ../target/release/fd Cargo.toml ."
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_docs_readable",
+      "type": "files_exist",
+      "params": {
+        "paths": ["README.md", "CHANGELOG.md", "CONTRIBUTING.md", "LICENSE-APACHE", "LICENSE-MIT"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_makefile_completions",
+      "type": "run_command",
+      "params": {
+        "command": "make completions"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_in_path",
+      "type": "run_command",
+      "params": {
+        "command": "fd --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_version_matches",
+      "type": "run_command",
+      "params": {
+        "command": "target/release/fd --version | grep $(grep version Cargo.toml | head -1 | awk -F\" '{print $2}')"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_make_build",
+      "type": "run_command",
+      "params": {
+        "command": "make"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_cargo_install",
+      "type": "run_command",
+      "params": {
+        "command": "cargo install --path ."
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_fd_minimal_container",
+      "type": "run_command",
+      "params": {
+        "command": "docker run --rm fd-env-test fd --version"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "integration"
+    }
+  ]
+}

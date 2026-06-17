@@ -1,0 +1,486 @@
+{
+  "repo": "Baleen",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "wget",
+          "bash",
+          "tar",
+          "gzip",
+          "bzip2"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 --version 2>&1 | grep 'Python 3.1') || (python --version 2>&1 | grep 'Python 3.1')"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pip_version",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 --version | grep -E 'pip (2[0-9]|[3-9][0-9])'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda_mamba",
+      "type": "run_command",
+      "params": {
+        "command": "command -v conda || command -v mamba || command -v micromamba"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_numpy",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import numpy\") || (python -c \"import numpy\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pandas",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import pandas\") || (python -c \"import pandas\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_sklearn",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import sklearn\") || (python -c \"import sklearn\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_spookyhash",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import spookyhash\") || (python -c \"import spookyhash\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_jsonargparse",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import jsonargparse\") || (python -c \"import jsonargparse\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_compress_json",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import compress_json\") || (python -c \"import compress_json\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_compress_pickle",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import compress_pickle\") || (python -c \"import compress_pickle\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_commentjson",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import commentjson\") || (python -c \"import commentjson\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_retry",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import retry\") || (python -c \"import retry\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_psutil",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import psutil\") || (python -c \"import psutil\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_lightgbm",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import lightgbm\") || (python -c \"import lightgbm\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_scipy",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import scipy\") || (python -c \"import scipy\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_redis",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import redis\") || (python -c \"import redis\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_matplotlib",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import matplotlib\") || (python -c \"import matplotlib\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_seaborn",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import seaborn\") || (python -c \"import seaborn\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pqdict",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import pqdict\") || (python -c \"import pqdict\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ipywidgets",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import ipywidgets\") || (python -c \"import ipywidgets\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_jupyterlab",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import jupyterlab\") || (python -c \"import jupyterlab\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_baleen_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "Baleen"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "BCacheSim",
+          "data",
+          "notebooks",
+          "runs",
+          "chameleon"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_bcachesim_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "BCacheSim/install",
+          "BCacheSim/cachesim",
+          "BCacheSim/episodic_analysis"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_bcachesim_dir",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "BCacheSim"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_bcachesim_run_script",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "BCacheSim/run_py.sh"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_bcachesim_script_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"BCacheSim/run_py.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_data_scripts",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "data/get-tectonic.sh"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_data_script_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"data/get-tectonic.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_notebooks_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "notebooks"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_runs_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "runs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_getting_started",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "getting-started.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_getting_started_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"getting-started.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_python_basic",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"print('Python is working')\") || (python -c \"print('Python is working')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_bcachesim_cachesim_import",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import sys; sys.path.append('BCacheSim'); import cachesim\") || (python -c \"import sys; sys.path.append('BCacheSim'); import cachesim\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_bcachesim_episodic_import",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import sys; sys.path.append('BCacheSim'); import episodic_analysis\") || (python -c \"import sys; sys.path.append('BCacheSim'); import episodic_analysis\")"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_jupyter_command",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "jupyter"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_git_version",
+      "type": "output_contains",
+      "params": {
+        "command": "git --version",
+        "contains": [
+          "git"
+        ]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_git_repository",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          ".git"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_gitmodules",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          ".gitmodules"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_trace_files_downloaded",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "data/results_release.csv.gz"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_trace_files_extracted",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "data/tectonic",
+          "data/breakdown-stats"
+        ]
+      },
+      "score": 4,
+      "category": "structure"
+    },
+    {
+      "id": "test_bcachesim_simulation",
+      "type": "run_command",
+      "params": {
+        "command": "./BCacheSim/run_py.sh py -B -m BCacheSim.cachesim.simulate_ap --config runs/example/rejectx/config.json"
+      },
+      "timeout": 400,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_bcachesim_episodic_training",
+      "type": "run_command",
+      "params": {
+        "command": "./BCacheSim/run_py.sh py -B -m BCacheSim.episodic_analysis.train --exp example --policy PolicyUtilityServiceTimeSize2 --region Region1 --sample-ratio 0.1 --sample-start 0 --trace-group 201910 --supplied-ea physical --target-wrs 34 50 100 75 20 10 60 90 30 --target-csizes 366.475 --output-base-dir runs/example/baleen --eviction-age 5892.856 --rl-init-kwargs filter_=prefetch --train-target-wr 35.599 --train-models admit prefetch --train-split-secs-start 0 --train-split-secs-end 86400 --ap-acc-cutoff 15 --ap-feat-subset meta+block+chunk"
+      },
+      "timeout": 100,
+      "score": 5,
+      "category": "functionality"
+    }
+  ]
+}

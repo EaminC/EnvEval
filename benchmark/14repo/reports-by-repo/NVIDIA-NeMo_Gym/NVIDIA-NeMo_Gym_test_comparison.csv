@@ -1,0 +1,10 @@
+test_id,test_type,max_score,ours-anthropic/claude-opus-4,ours-tensorblock/gpt-4.1,ours-tensorblock/gpt-4.1-mini,params
+check_pyproject_contains_ray,file_contains,1,1,0,1,"{""path"":""pyproject.toml"",""contains"":[""requires-python = \"">=3.12\"""",""ray[default]"",""pytest""]}"
+check_python_project_files,files_exist,1,1.0,0,1.0,"{""paths"":[""pyproject.toml"",""uv.lock"",""README.md""]}"
+check_python_uv_tools,commands_exist,2,2.0,0,1.6,"{""names"":[""python3"",""pip3"",""uv"",""git"",""curl""]}"
+check_python_version,output_contains,1,1,0,0,"{""command"":""python3 --version"",""contains"":[""3.12""]}"
+check_python_version_file,file_contains,1,1,0,1,"{""path"":"".python-version"",""contains"":[""3.12""]}"
+check_repo_dirs,dirs_exist,1,1.0,0,1.0,"{""paths"":[""nemo_gym"",""resources_servers"",""tests"",""scripts""]}"
+test_unit_test_prereq,run_command,1,1,0,1,"{""command"":""python3 -m pip --version""}"
+test_uv_sync_help,run_command,1,1,0,0,"{""command"":""uv sync --help >/dev/null""}"
+test_uv_version,run_command,1,1,0,0,"{""command"":""uv --version""}"

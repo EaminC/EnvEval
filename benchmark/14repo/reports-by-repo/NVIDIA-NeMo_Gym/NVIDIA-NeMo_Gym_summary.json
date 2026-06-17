@@ -1,0 +1,43 @@
+{
+  "repository": "NVIDIA-NeMo_Gym",
+  "timestamp": "2026-05-13T10:06:06.375529",
+  "total_models_evaluated": 3,
+  "best_performer": {
+    "model": "ours-anthropic/claude-opus-4",
+    "total_score": 10.0,
+    "max_score": 10,
+    "success_rate": 1.0,
+    "total_time": 3.46,
+    "passed_tests": 18,
+    "total_tests": 18
+  },
+  "model_comparison": [
+    {
+      "model": "ours-anthropic/claude-opus-4",
+      "total_score": 10.0,
+      "max_score": 10,
+      "success_rate": 1.0,
+      "total_time": 3.46,
+      "passed_tests": 18,
+      "total_tests": 18
+    },
+    {
+      "model": "ours-tensorblock/gpt-4.1-mini",
+      "total_score": 6.6,
+      "max_score": 10,
+      "success_rate": 0.7778,
+      "total_time": 3.22,
+      "passed_tests": 14,
+      "total_tests": 18
+    },
+    {
+      "model": "ours-tensorblock/gpt-4.1",
+      "total_score": 0,
+      "max_score": 10,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    }
+  ]
+}

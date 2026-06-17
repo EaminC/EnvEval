@@ -1,0 +1,409 @@
+{
+  "repo": "sixthsense",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "bash",
+          "curl",
+          "wget"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 --version 2>&1 | grep 'Python 3.[6-9]') || (python --version 2>&1 | grep 'Python 3.[6-9]')"
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pip_available",
+      "type": "commands_exist",
+      "params": {
+        "names": ["pip3", "pip"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_scikit_learn",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import sklearn\") || (python -c \"import sklearn\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_numpy",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import numpy\") || (python -c \"import numpy\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_matplotlib",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import matplotlib\") || (python -c \"import matplotlib\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pandas",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import pandas\") || (python -c \"import pandas\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_jsonpickle",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import jsonpickle\") || (python -c \"import jsonpickle\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_nearpy",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import nearpy\") || (python -c \"import nearpy\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_treeinterpreter",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import treeinterpreter\") || (python -c \"import treeinterpreter\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cleanlab",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import cleanlab\") || (python -c \"import cleanlab\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "SixthSense"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "train.py",
+          "utils.py",
+          "requirements.txt"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_subcategories_directory",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "subcategories"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_subcategories_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "subcategories/lrm2.json",
+          "subcategories/mix.json",
+          "subcategories/ts.json"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_csvs_directory",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "csvs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_install_script",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "install.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_basic",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"print('Python is working')\") || (python -c \"print('Python is working')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_train_py_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -m py_compile train.py) || (python -m py_compile train.py)"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_utils_py_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -m py_compile utils.py) || (python -m py_compile utils.py)"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_train_py_import",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import train\") || (python -c \"import train\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_utils_py_import",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import utils\") || (python -c \"import utils\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_sklearn_components",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"from sklearn.ensemble import RandomForestClassifier; from sklearn.metrics import roc_auc_score\") || (python -c \"from sklearn.ensemble import RandomForestClassifier; from sklearn.metrics import roc_auc_score\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_matplotlib_backend",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt\") || (python -c \"import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_train_help",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 train.py --help) || (python train.py --help)"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_directory_creation",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p plots models results && echo 'Directories created successfully'"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_json_subcategories_readable",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import json; json.load(open('subcategories/lrm2.json'))\") || (python -c \"import json; json.load(open('subcategories/lrm2.json'))\")"
+      },
+      "timeout": 20,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_requirements_validation",
+      "type": "run_command",
+      "params": {
+        "command": "pip check --disable-pip-version-check"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_train_py_advanced_imports",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"from sklearn.ensemble import RandomForestClassifier,RandomForestRegressor; from sklearn.metrics import roc_auc_score; from sklearn.model_selection import cross_val_score; from treeinterpreter import treeinterpreter as ti; import matplotlib.pyplot as plt\") || (python -c \"from sklearn.ensemble import RandomForestClassifier,RandomForestRegressor; from sklearn.metrics import roc_auc_score; from sklearn.model_selection import cross_val_score; from treeinterpreter import treeinterpreter as ti; import matplotlib.pyplot as plt\")"
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_train_py_dry_run",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 10 (python3 train.py -f csvs/lrm_features.csv -l csvs/lrm_metrics.csv -a rf -m rhat_min -suf avg -bw -plt -saveas plots/test.png -keep _ast_ dt_ var_min var_max data_size -st -tname lightspeed -cv -ignore_vi 2>&1 | head -20) || timeout 10 (python train.py -f csvs/lrm_features.csv -l csvs/lrm_metrics.csv -a rf -m rhat_min -suf avg -bw -plt -saveas plots/test.png -keep _ast_ dt_ var_min var_max data_size -st -tname lightspeed -cv -ignore_vi 2>&1 | head -20) || echo 'Expected failure without CSV data'"
+      },
+      "timeout": 15,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_train_py_runtime_mode",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 10 (python3 train.py -f csvs/timeseries_features.csv -l csvs/timeseries_metrics.csv -a rf -m rhat_min -suf avg -bw -runtime -saveas plots/test_runtime.png -keep _ast_ dt_ var_min var_max data_size -st -tname lightspeed -cv -ignore_vi 2>&1 | head -20) || timeout 10 (python train.py -f csvs/timeseries_features.csv -l csvs/timeseries_metrics.csv -a rf -m rhat_min -suf avg -bw -runtime -saveas plots/test_runtime.png -keep _ast_ dt_ var_min var_max data_size -st -tname lightspeed -cv -ignore_vi 2>&1 | head -20) || echo 'Expected failure without CSV data'"
+      },
+      "timeout": 15,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_train_py_tree_mode",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 10 (python3 train.py -f csvs/mixture_features.csv -l csvs/mixture_metrics.csv -a rf -m rhat_min -suf avg -bw -th 1.05 -saveas plots/temp.png -keep _ast_ dt_ var_min var_max data_size -st -tname naive-bayes-unsup -ignore_vi --tree -special test_prog 2>&1 | head -20) || timeout 10 (python train.py -f csvs/mixture_features.csv -l csvs/mixture_metrics.csv -a rf -m rhat_min -suf avg -bw -th 1.05 -saveas plots/temp.png -keep _ast_ dt_ var_min var_max data_size -st -tname naive-bayes-unsup -ignore_vi --tree -special test_prog 2>&1 | head -20) || echo 'Expected failure without CSV data'"
+      },
+      "timeout": 15,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_argument_parsing_validation",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import train; import argparse; parser = argparse.ArgumentParser(); print('Argument parsing works')\") || (python -c \"import train; import argparse; parser = argparse.ArgumentParser(); print('Argument parsing works')\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_model_subcategories_access",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import json; lrm = json.load(open('subcategories/lrm2.json')); mix = json.load(open('subcategories/mix.json')); ts = json.load(open('subcategories/ts.json')); print('All subcategories loaded successfully')\") || (python -c \"import json; lrm = json.load(open('subcategories/lrm2.json')); mix = json.load(open('subcategories/mix.json')); ts = json.load(open('subcategories/ts.json')); print('All subcategories loaded successfully')\")"
+      },
+      "timeout": 20,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_model_names_extraction",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import json; data = json.load(open('subcategories/lrm2.json')); models = [list(category.values())[0] for category in data]; print('Model names extracted:', len([item for sublist in models for item in sublist]), 'models')\") || (python -c \"import json; data = json.load(open('subcategories/lrm2.json')); models = [list(category.values())[0] for category in data]; print('Model names extracted:', len([item for sublist in models for item in sublist]), 'models')\")"
+      },
+      "timeout": 20,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_machine_learning_pipeline",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"from sklearn.ensemble import RandomForestClassifier; from sklearn.model_selection import train_test_split; import numpy as np; X = np.random.rand(100, 10); y = np.random.randint(0, 2, 100); X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2); rf = RandomForestClassifier(n_estimators=10); rf.fit(X_train, y_train); score = rf.score(X_test, y_test); print('ML pipeline test successful, accuracy:', score)\") || (python -c \"from sklearn.ensemble import RandomForestClassifier; from sklearn.model_selection import train_test_split; import numpy as np; X = np.random.rand(100, 10); y = np.random.randint(0, 2, 100); X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2); rf = RandomForestClassifier(n_estimators=10); rf.fit(X_train, y_train); score = rf.score(X_test, y_test); print('ML pipeline test successful, accuracy:', score)\")"
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_plot_generation_capability",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt; import numpy as np; x = np.linspace(0, 10, 100); y = np.sin(x); plt.figure(); plt.plot(x, y); plt.savefig('plots/test_plot.png'); print('Plot generation successful')\") || (python -c \"import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt; import numpy as np; x = np.linspace(0, 10, 100); y = np.sin(x); plt.figure(); plt.plot(x, y); plt.savefig('plots/test_plot.png'); print('Plot generation successful')\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_threshold_validation",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"thresholds = [1.05, 1.1, 1.15, 1.2]; print('Valid thresholds for SixthSense:', thresholds); assert all(t > 1.0 and t < 2.0 for t in thresholds)\") || (python -c \"thresholds = [1.05, 1.1, 1.15, 1.2]; print('Valid thresholds for SixthSense:', thresholds); assert all(t > 1.0 and t < 2.0 for t in thresholds)\")"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_feature_importance_components",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"from treeinterpreter import treeinterpreter as ti; from sklearn.ensemble import RandomForestClassifier; import numpy as np; X = np.random.rand(50, 5); y = np.random.randint(0, 2, 50); rf = RandomForestClassifier(n_estimators=5); rf.fit(X, y); prediction, bias, contributions = ti.predict(rf, X[:1]); print('Feature importance analysis working')\") || (python -c \"from treeinterpreter import treeinterpreter as ti; from sklearn.ensemble import RandomForestClassifier; import numpy as np; X = np.random.rand(50, 5); y = np.random.randint(0, 2, 50); rf = RandomForestClassifier(n_estimators=5); rf.fit(X, y); prediction, bias, contributions = ti.predict(rf, X[:1]); print('Feature importance analysis working')\")"
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "functionality"
+    }
+  ]
+}

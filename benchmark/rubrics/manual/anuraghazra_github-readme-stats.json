@@ -1,0 +1,347 @@
+{
+  "repo": "anuraghazra_github-readme-stats",
+  "tests": [
+    {
+      "id": "check_node_npm",
+      "type": "commands_exist",
+      "params": {
+        "names": ["node", "npm"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version",
+      "type": "output_contains",
+      "params": {
+        "command": "node --version",
+        "contains": ["v18", "v19", "v20", "v21", "v22"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "requires": ["check_node_npm"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_npm_version",
+      "type": "output_contains",
+      "params": {
+        "command": "npm --version",
+        "contains": ["8", "9", "10", "11", "12"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "requires": ["check_node_npm"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "curl"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "api",
+          "themes",
+          "tests",
+          "scripts"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "package.json",
+          "package-lock.json",
+          "readme.md",
+          "LICENSE",
+          "express.js",
+          "vercel.json"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "jest.config.js",
+          "jest.e2e.config.js",
+          "jest.bench.config.js",
+          "eslint.config.mjs"
+        ]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "check_api_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "api/index.js"
+        ]
+      },
+      "score": 2,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "check_github_readme_stats_detection",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["github-readme-stats", "Dynamically generate stats"]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_npm_install",
+      "type": "run_command",
+      "params": {
+        "command": "npm install --silent"
+      },
+      "timeout": 120,
+      "score": 3,
+      "requires": ["check_node_npm"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_core_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('axios'); require('dotenv'); require('emoji-name-map'); require('github-username-regex'); require('word-wrap'); console.log('Core dependencies available')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "requires": ["test_npm_install"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_dev_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('jest'); require('eslint'); require('prettier'); require('husky'); console.log('Dev dependencies available')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": ["test_npm_install"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_main_module_import",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"import('./src/index.js').then(() => console.log('Main module imported')).catch(e => console.error('Import failed:', e.message))\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "requires": ["test_npm_install"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_express_import",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('express'); console.log('Express.js imported successfully')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": ["test_npm_install"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_jest_config",
+      "type": "run_command",
+      "params": {
+        "command": "node -c jest.config.js"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_config_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_eslint_config",
+      "type": "run_command",
+      "params": {
+        "command": "node -c eslint.config.mjs"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_config_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_npm_scripts",
+      "type": "run_command",
+      "params": {
+        "command": "npm run lint --silent"
+      },
+      "timeout": 60,
+      "score": 2,
+      "requires": ["test_npm_install"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_format_check",
+      "type": "run_command",
+      "params": {
+        "command": "npm run format:check --silent"
+      },
+      "timeout": 60,
+      "score": 2,
+      "requires": ["test_npm_install"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_vercel_config",
+      "type": "file_contains",
+      "params": {
+        "path": "vercel.json",
+        "contains": ["functions", "routes"]
+      },
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_express_setup",
+      "type": "file_contains",
+      "params": {
+        "path": "express.js",
+        "contains": ["express", "app"]
+      },
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_api_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find api -name '*.js' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "test_src_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find src -name '*.js' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "test_themes_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find themes -name '*.js' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "test_tests_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find tests -name '*.js' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "test_scripts_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find scripts -name '*.js' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "test_package_json_scripts",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["\"test\"", "\"lint\"", "\"format\"", "\"start\""]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "readme.md",
+        "contains": ["github-readme-stats", "GitHub", "stats", "cards"]
+      },
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_vercel_deployment",
+      "type": "run_command",
+      "params": {
+        "command": "node -c vercel.json"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_express_server",
+      "type": "run_command",
+      "params": {
+        "command": "node -c express.js"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_husky_git_hooks",
+      "type": "run_command",
+      "params": {
+        "command": "test -d .husky"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    }
+  ]
+}

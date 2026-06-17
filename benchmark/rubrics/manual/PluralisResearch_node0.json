@@ -1,0 +1,358 @@
+{
+  "repo": "PluralisResearch_node0",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "curl", "wget", "bash", "rsync"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "g++", "make"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ssh_client",
+      "type": "commands_exist",
+      "params": {
+        "names": ["ssh"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 --version 2>&1 | grep -E 'Python 3\\.11') || (python --version 2>&1 | grep -E 'Python 3\\.11')"
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gpu_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["nvidia-smi"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_version",
+      "type": "run_command",
+      "params": {
+        "command": "(nvcc --version 2>&1 | grep -E 'release 12') || (nvidia-smi 2>&1 | grep -E 'CUDA Version: 12')"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_version_acceptable_fallback",
+      "type": "run_command",
+      "params": {
+        "command": "(nvcc --version 2>&1 | grep -E 'release (11|12)') || (nvidia-smi 2>&1 | grep -E 'CUDA Version: (11|12)')"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda_or_env",
+      "type": "run_command",
+      "params": {
+        "command": "command -v conda || command -v mamba || [ -n \"$VIRTUAL_ENV\" ] || [ -n \"$CONDA_DEFAULT_ENV\" ] || [ -d /opt/conda ]"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_path_has_conda_or_venv",
+      "type": "output_contains",
+      "params": {
+        "command": "echo \"$PATH\"",
+        "contains": ["conda", "venv", ".local", "usr/local"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torch; print(torch.__version__)\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_version_specific",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torch; v=torch.__version__; assert v.startswith('2.') , v; print('torch '+v)\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_core_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import numpy, scipy, yaml, msgpack, grpc, google.protobuf\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node0_specific_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import configargparse, uvloop, speedtest\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_networking_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import cryptography, requests, psutil\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pydantic_v2",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import pydantic; major=int(pydantic.VERSION.split('.')[0]); assert major>=2, pydantic.VERSION; print(pydantic.VERSION)\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_hivemind_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import hivemind; print(getattr(hivemind, '__version__', 'ok'))\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_root_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE",
+          "Dockerfile",
+          "pyproject.toml",
+          "generate_script.py",
+          "run.json"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "src/node0",
+          "src/node0/server",
+          "src/node0/security",
+          "src/node0/configs",
+          "docs"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_entry_scripts",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "src/node0/run_server.py",
+          "src/node0/configs/llama_8B_C.yaml",
+          "src/node0/models/llama/layers.py"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_pyproject_contents",
+      "type": "file_contains",
+      "params": {
+        "path": "pyproject.toml",
+        "contains": ["node0", "torch", "hivemind"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_dockerfile_base",
+      "type": "file_contains",
+      "params": {
+        "path": "Dockerfile",
+        "contains": ["nvidia/cuda", "miniconda", "pip install"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Python works')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pip_check",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 check || pip check"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_node0_package_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import node0\""
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_node0_run_server_module",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from node0 import run_server\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_node0_internal_submodules_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import node0.security.authorization; import node0.security.validation; import node0.server.node0_server; import node0.server.optim; import node0.utils\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_run_server_help",
+      "type": "run_command",
+      "params": {
+        "command": "python3 src/node0/run_server.py --help 2>&1 | head -n 40"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_run_server_help_lists_key_args",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 src/node0/run_server.py --help 2>&1",
+        "contains": ["run_config", "token", "auth_server", "initial_peers"]
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_generate_script_produces_start_server_sh",
+      "type": "run_command",
+      "params": {
+        "command": "rm -f start_server.sh && python3 generate_script.py --skip_input --token dummy_token --auth_server https://example.com --run_config llama_8B_C --initial_peers /ip4/1.2.3.4/tcp/49200/p2p/QmDummy --gpu_id 0 2>&1 | tail -n 3 && test -f start_server.sh && head -n 3 start_server.sh"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_generate_script_help",
+      "type": "run_command",
+      "params": {
+        "command": "python3 generate_script.py --help 2>&1 | head -n 30"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_generate_script_contains_args",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 generate_script.py --help 2>&1",
+        "contains": ["token", "email", "gpu_id", "run_config", "initial_peers", "use_docker"]
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_torch_device_query",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torch; print('cuda_available=', torch.cuda.is_available()); print('compiled_with_cuda=', torch.backends.cuda.is_built())\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_basic_tensor_op",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torch; x=torch.ones(4,4); y=x @ x; assert y.sum().item() == 64.0, y.sum().item(); print('tensor op ok')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+test_id,test_type,max_score,ours-anthropic/claude-opus-4,ours-tensorblock/gpt-4.1,ours-tensorblock/gpt-4.1-mini,params
+check_conda_tool,commands_exist,1,0.0,0,0,"{""names"":[""conda""]}"
+check_git_tool,commands_exist,1,1.0,0,0,"{""names"":[""git""]}"
+check_python_tools,commands_exist,2,2.0,0,0,"{""names"":[""python3"",""pip3""]}"
+check_python_version,output_contains,1,1,0,0,"{""command"":""python3 --version"",""contains"":[""3.10""]}"
+check_pytorch_cuda_alloc_conf,envvar_set,1,1,0,0,"{""name"":""PYTORCH_CUDA_ALLOC_CONF""}"
+check_readme_install_steps,file_contains,1,1,0,0,"{""path"":""README.md"",""contains"":[""conda create -n clm_gs python=3.10"",""pip install torch==2.6.0"",""export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True""]}"
+check_repo_dirs,dirs_exist,1,1.0,0,0,"{""paths"":[""submodules"",""scene"",""utils"",""strategies""]}"
+check_repo_files,files_exist,1,1.0,0,0,"{""paths"":[""README.md"","".gitmodules"",""train.py""]}"
+check_submodule_paths,file_contains,1,1,0,0,"{""path"":"".gitmodules"",""contains"":[""submodules/cpu-adam"",""submodules/gsplat"",""submodules/clm_kernels""]}"
+test_pip_version,run_command,1,1,0,0,"{""command"":""python3 -m pip --version""}"
+test_train_help,run_command,2,0,0,0,"{""command"":""python3 train.py --help >/dev/null""}"

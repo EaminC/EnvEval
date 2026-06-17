@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>EnvEval 14-Repo Benchmark Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --panel: #161a23;
+    --panel-2: #1d2230;
+    --border: #2a3142;
+    --text: #e6e9ef;
+    --muted: #8b93a7;
+    --accent: #4f8cff;
+    --good: #2ecc71;
+    --bad: #e74c3c;
+    --warn: #f1c40f;
+    --c1: #4f8cff;
+    --c2: #ff6b9a;
+    --c3: #ffb84d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 24px;
+  }
+  h1 { margin: 0 0 4px; font-size: 28px; }
+  .sub { color: var(--muted); margin-bottom: 24px; font-size: 14px; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .stat .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat .value { font-size: 28px; font-weight: 600; margin-top: 4px; }
+  .stat .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  .grid.full { grid-template-columns: 1fr; }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .panel h2 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .panel .desc { color: var(--muted); font-size: 12px; margin-bottom: 14px; }
+  .chart-wrap { position: relative; height: 360px; }
+  .chart-wrap.tall { height: 480px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    color: var(--muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+  tr:hover td { background: var(--panel-2); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .pill.opus { background: rgba(79,140,255,0.15); color: #6ea2ff; }
+  .pill.gpt41 { background: rgba(255,107,154,0.15); color: #ff85ad; }
+  .pill.gpt41mini { background: rgba(255,184,77,0.15); color: #ffc266; }
+  .pill.zero { background: rgba(231,76,60,0.15); color: #ff8170; }
+  .pill.success {
+    background: rgba(46,204,113,0.15); color: #4fd58a;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<h1>EnvEval — 14-Repo Benchmark Dashboard</h1>
+<div class="sub">Reports collected 2026-05-13 · 14 repositories · 3 models per repo</div>
+
+<div class="stats" id="stats"></div>
+
+<div class="grid">
+  <div class="panel">
+    <h2>Best-performer success rate per repo</h2>
+    <div class="desc">Pass rate of the top model on each repository's tests.</div>
+    <div class="chart-wrap"><canvas id="chartBestRate"></canvas></div>
+  </div>
+  <div class="panel">
+    <h2>Best-performer score (out of max)</h2>
+    <div class="desc">Total weighted score achieved vs maximum possible.</div>
+    <div class="chart-wrap"><canvas id="chartBestScore"></canvas></div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <h2>Wins by model</h2>
+    <div class="desc">How many repos each model is the best performer on.</div>
+    <div class="chart-wrap"><canvas id="chartWins"></canvas></div>
+  </div>
+  <div class="panel">
+    <h2>Aggregate score share</h2>
+    <div class="desc">Sum of total_score across all repos per model.</div>
+    <div class="chart-wrap"><canvas id="chartShare"></canvas></div>
+  </div>
+</div>
+
+<div class="grid full">
+  <div class="panel">
+    <h2>Per-repo score by model</h2>
+    <div class="desc">Total score each model achieved on each repo. Zeros indicate failed/empty runs.</div>
+    <div class="chart-wrap tall"><canvas id="chartGrouped"></canvas></div>
+  </div>
+</div>
+
+<div class="grid full">
+  <div class="panel">
+    <h2>Repository details</h2>
+    <div class="desc">Sortable summary of best performers per repo.</div>
+    <table id="repoTable">
+      <thead>
+        <tr>
+          <th>Repository</th>
+          <th>Best model</th>
+          <th class="num">Score</th>
+          <th class="num">Max</th>
+          <th class="num">Success</th>
+          <th class="num">Tests</th>
+          <th class="num">Time (s)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const DATA = [
+  {"repository":"EsmaeilNarimissa_SciDOCX","best":{"model":"ours-tensorblock/gpt-4.1-mini","total_score":55.2,"max_score":77,"success_rate":0.7455,"total_time":24.82,"passed_tests":41,"total_tests":55},"models":[{"model":"ours-tensorblock/gpt-4.1-mini","total_score":55.2,"max_score":77,"success_rate":0.7455,"total_time":24.82,"passed_tests":41,"total_tests":55},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":77,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-anthropic/claude-opus-4","total_score":0,"max_score":77,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"lllyasviel_Fooocus","best":{"model":"ours-tensorblock/gpt-4.1-mini","total_score":10.0,"max_score":11,"success_rate":0.9375,"total_time":3.48,"passed_tests":15,"total_tests":16},"models":[{"model":"ours-tensorblock/gpt-4.1-mini","total_score":10.0,"max_score":11,"success_rate":0.9375,"total_time":3.48,"passed_tests":15,"total_tests":16},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":11,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-anthropic/claude-opus-4","total_score":0,"max_score":11,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"MouseLand_Kilosort","best":{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":12,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},"models":[{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":12,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-tensorblock/gpt-4.1-mini","total_score":0,"max_score":12,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-anthropic/claude-opus-4","total_score":0,"max_score":12,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"nesaorg_bootstrap","best":{"model":"ours-tensorblock/gpt-4.1-mini","total_score":38.67,"max_score":65,"success_rate":0.7091,"total_time":9.39,"passed_tests":39,"total_tests":55},"models":[{"model":"ours-tensorblock/gpt-4.1-mini","total_score":38.67,"max_score":65,"success_rate":0.7091,"total_time":9.39,"passed_tests":39,"total_tests":55},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":65,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-anthropic/claude-opus-4","total_score":0,"max_score":65,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"NVIDIA_tao_tutorials","best":{"model":"ours-anthropic/claude-opus-4","total_score":8.5,"max_score":14,"success_rate":0.6875,"total_time":2.94,"passed_tests":11,"total_tests":16},"models":[{"model":"ours-anthropic/claude-opus-4","total_score":8.5,"max_score":14,"success_rate":0.6875,"total_time":2.94,"passed_tests":11,"total_tests":16},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":14,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-tensorblock/gpt-4.1-mini","total_score":0,"max_score":14,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"NVIDIA-AI-Blueprints_pdf-to-podcast","best":{"model":"ours-tensorblock/gpt-4.1-mini","total_score":61.42,"max_score":76,"success_rate":0.8824,"total_time":15.18,"passed_tests":60,"total_tests":68},"models":[{"model":"ours-tensorblock/gpt-4.1-mini","total_score":61.42,"max_score":76,"success_rate":0.8824,"total_time":15.18,"passed_tests":60,"total_tests":68},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":76,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-anthropic/claude-opus-4","total_score":0,"max_score":76,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"NVIDIA-NeMo_Gym","best":{"model":"ours-anthropic/claude-opus-4","total_score":10.0,"max_score":10,"success_rate":1.0,"total_time":3.46,"passed_tests":18,"total_tests":18},"models":[{"model":"ours-anthropic/claude-opus-4","total_score":10.0,"max_score":10,"success_rate":1.0,"total_time":3.46,"passed_tests":18,"total_tests":18},{"model":"ours-tensorblock/gpt-4.1-mini","total_score":6.6,"max_score":10,"success_rate":0.7778,"total_time":3.22,"passed_tests":14,"total_tests":18},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":10,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"nyu-systems_CLM-GS","best":{"model":"ours-anthropic/claude-opus-4","total_score":10.0,"max_score":13,"success_rate":0.8824,"total_time":5.95,"passed_tests":15,"total_tests":17},"models":[{"model":"ours-anthropic/claude-opus-4","total_score":10.0,"max_score":13,"success_rate":0.8824,"total_time":5.95,"passed_tests":15,"total_tests":17},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":13,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-tensorblock/gpt-4.1-mini","total_score":0,"max_score":13,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"perslev_U-Time","best":{"model":"ours-tensorblock/gpt-4.1-mini","total_score":25.0,"max_score":69,"success_rate":0.6452,"total_time":10.88,"passed_tests":40,"total_tests":62},"models":[{"model":"ours-tensorblock/gpt-4.1-mini","total_score":25.0,"max_score":69,"success_rate":0.6452,"total_time":10.88,"passed_tests":40,"total_tests":62},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":69,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-anthropic/claude-opus-4","total_score":0,"max_score":69,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"PluralisResearch_node0","best":{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":75,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},"models":[{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":75,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-tensorblock/gpt-4.1-mini","total_score":0,"max_score":75,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-anthropic/claude-opus-4","total_score":0,"max_score":75,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"sideprotocol_plonky2-gpu","best":{"model":"ours-anthropic/claude-opus-4","total_score":28.33,"max_score":63,"success_rate":0.5345,"total_time":9.86,"passed_tests":31,"total_tests":58},"models":[{"model":"ours-anthropic/claude-opus-4","total_score":28.33,"max_score":63,"success_rate":0.5345,"total_time":9.86,"passed_tests":31,"total_tests":58},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":63,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-tensorblock/gpt-4.1-mini","total_score":0,"max_score":63,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"SVRTK_svrtk-docker-gpu","best":{"model":"ours-tensorblock/gpt-4.1-mini","total_score":41.67,"max_score":65,"success_rate":0.7234,"total_time":8.0,"passed_tests":34,"total_tests":47},"models":[{"model":"ours-tensorblock/gpt-4.1-mini","total_score":41.67,"max_score":65,"success_rate":0.7234,"total_time":8.0,"passed_tests":34,"total_tests":47},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":65,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-anthropic/claude-opus-4","total_score":0,"max_score":65,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"TIO-IKIM_CellViT-Inference","best":{"model":"ours-tensorblock/gpt-4.1-mini","total_score":62.6,"max_score":71,"success_rate":0.8814,"total_time":32.64,"passed_tests":52,"total_tests":59},"models":[{"model":"ours-tensorblock/gpt-4.1-mini","total_score":62.6,"max_score":71,"success_rate":0.8814,"total_time":32.64,"passed_tests":52,"total_tests":59},{"model":"ours-anthropic/claude-opus-4","total_score":61.0,"max_score":71,"success_rate":0.8814,"total_time":32.84,"passed_tests":52,"total_tests":59},{"model":"ours-tensorblock/gpt-4.1","total_score":0,"max_score":71,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]},
+  {"repository":"TIO-IKIM_CellViT-plus-plus","best":{"model":"ours-tensorblock/gpt-4.1","total_score":7.7,"max_score":13,"success_rate":0.4,"total_time":3.41,"passed_tests":8,"total_tests":20},"models":[{"model":"ours-tensorblock/gpt-4.1","total_score":7.7,"max_score":13,"success_rate":0.4,"total_time":3.41,"passed_tests":8,"total_tests":20},{"model":"ours-tensorblock/gpt-4.1-mini","total_score":0,"max_score":13,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0},{"model":"ours-anthropic/claude-opus-4","total_score":0,"max_score":13,"success_rate":0,"total_time":0,"passed_tests":0,"total_tests":0}]}
+];
+
+const MODELS = ["ours-anthropic/claude-opus-4","ours-tensorblock/gpt-4.1","ours-tensorblock/gpt-4.1-mini"];
+const MODEL_LABEL = {
+  "ours-anthropic/claude-opus-4": "claude-opus-4",
+  "ours-tensorblock/gpt-4.1": "gpt-4.1",
+  "ours-tensorblock/gpt-4.1-mini": "gpt-4.1-mini"
+};
+const MODEL_COLOR = {
+  "ours-anthropic/claude-opus-4": "#4f8cff",
+  "ours-tensorblock/gpt-4.1": "#ff6b9a",
+  "ours-tensorblock/gpt-4.1-mini": "#ffb84d"
+};
+const MODEL_PILL = {
+  "ours-anthropic/claude-opus-4": "opus",
+  "ours-tensorblock/gpt-4.1": "gpt41",
+  "ours-tensorblock/gpt-4.1-mini": "gpt41mini"
+};
+
+// ---------- Stats ----------
+const totalRepos = DATA.length;
+const reposWithAnyPass = DATA.filter(d => d.best.success_rate > 0).length;
+const reposAllZero = totalRepos - reposWithAnyPass;
+const winsByModel = {};
+DATA.forEach(d => {
+  if (d.best.success_rate > 0) {
+    winsByModel[d.best.model] = (winsByModel[d.best.model] || 0) + 1;
+  }
+});
+const totalScoreSum = DATA.reduce((a,d) => a + d.best.total_score, 0);
+const totalMaxSum = DATA.reduce((a,d) => a + d.best.max_score, 0);
+const overallEff = totalMaxSum > 0 ? (totalScoreSum / totalMaxSum * 100).toFixed(1) : "0.0";
+
+const statsHtml = [
+  {label: "Repositories", value: totalRepos, hint: "Evaluated"},
+  {label: "Repos with any pass", value: reposWithAnyPass, hint: `${reposAllZero} all-zero`},
+  {label: "Aggregate score", value: `${overallEff}%`, hint: `${totalScoreSum.toFixed(1)} / ${totalMaxSum}`},
+  {label: "Wins · gpt-4.1-mini", value: winsByModel["ours-tensorblock/gpt-4.1-mini"] || 0, hint: "Best performer"},
+  {label: "Wins · claude-opus-4", value: winsByModel["ours-anthropic/claude-opus-4"] || 0, hint: "Best performer"},
+  {label: "Wins · gpt-4.1", value: winsByModel["ours-tensorblock/gpt-4.1"] || 0, hint: "Best performer"},
+].map(s => `<div class="stat"><div class="label">${s.label}</div><div class="value">${s.value}</div><div class="hint">${s.hint}</div></div>`).join("");
+document.getElementById("stats").innerHTML = statsHtml;
+
+// ---------- Sort by best success rate desc for headline charts ----------
+const sorted = [...DATA].sort((a,b) => b.best.success_rate - a.best.success_rate);
+const labels = sorted.map(d => d.repository);
+
+// Chart defaults (dark)
+Chart.defaults.color = "#c5c9d3";
+Chart.defaults.borderColor = "#2a3142";
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+
+// ---------- Best success rate ----------
+new Chart(document.getElementById("chartBestRate"), {
+  type: "bar",
+  data: {
+    labels,
+    datasets: [{
+      label: "Success rate",
+      data: sorted.map(d => +(d.best.success_rate * 100).toFixed(2)),
+      backgroundColor: sorted.map(d => MODEL_COLOR[d.best.model] || "#666"),
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          afterLabel: ctx => {
+            const d = sorted[ctx.dataIndex];
+            return `Model: ${MODEL_LABEL[d.best.model]}\nTests: ${d.best.passed_tests}/${d.best.total_tests}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: { beginAtZero: true, max: 100, ticks: { callback: v => v + "%" }, grid: { color: "#222a3a" } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+
+// ---------- Best score vs max ----------
+new Chart(document.getElementById("chartBestScore"), {
+  type: "bar",
+  data: {
+    labels,
+    datasets: [
+      {
+        label: "Score",
+        data: sorted.map(d => d.best.total_score),
+        backgroundColor: "#4f8cff",
+        borderRadius: 4,
+        stack: "s"
+      },
+      {
+        label: "Remaining",
+        data: sorted.map(d => Math.max(0, d.best.max_score - d.best.total_score)),
+        backgroundColor: "#2a3142",
+        borderRadius: 4,
+        stack: "s"
+      }
+    ]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          afterLabel: ctx => {
+            const d = sorted[ctx.dataIndex];
+            return `Max: ${d.best.max_score}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: { stacked: true, beginAtZero: true, grid: { color: "#222a3a" } },
+      y: { stacked: true, grid: { display: false } }
+    }
+  }
+});
+
+// ---------- Wins by model (doughnut) ----------
+new Chart(document.getElementById("chartWins"), {
+  type: "doughnut",
+  data: {
+    labels: MODELS.map(m => MODEL_LABEL[m]),
+    datasets: [{
+      data: MODELS.map(m => winsByModel[m] || 0),
+      backgroundColor: MODELS.map(m => MODEL_COLOR[m]),
+      borderColor: "#0f1117",
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: "bottom" }
+    }
+  }
+});
+
+// ---------- Aggregate score share per model ----------
+const aggByModel = {};
+MODELS.forEach(m => aggByModel[m] = 0);
+DATA.forEach(d => d.models.forEach(mm => {
+  aggByModel[mm.model] = (aggByModel[mm.model] || 0) + mm.total_score;
+}));
+new Chart(document.getElementById("chartShare"), {
+  type: "bar",
+  data: {
+    labels: MODELS.map(m => MODEL_LABEL[m]),
+    datasets: [{
+      label: "Sum of total_score",
+      data: MODELS.map(m => +aggByModel[m].toFixed(2)),
+      backgroundColor: MODELS.map(m => MODEL_COLOR[m]),
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false } },
+      y: { beginAtZero: true, grid: { color: "#222a3a" } }
+    }
+  }
+});
+
+// ---------- Grouped per-repo per-model score ----------
+const grouped = [...DATA].sort((a,b) => a.repository.localeCompare(b.repository));
+new Chart(document.getElementById("chartGrouped"), {
+  type: "bar",
+  data: {
+    labels: grouped.map(d => d.repository),
+    datasets: MODELS.map(m => ({
+      label: MODEL_LABEL[m],
+      data: grouped.map(d => {
+        const mm = d.models.find(x => x.model === m);
+        return mm ? mm.total_score : 0;
+      }),
+      backgroundColor: MODEL_COLOR[m],
+      borderRadius: 3
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: "top" },
+      tooltip: {
+        callbacks: {
+          afterLabel: ctx => {
+            const d = grouped[ctx.dataIndex];
+            const mm = d.models.find(x => x.model === MODELS[ctx.datasetIndex]);
+            if (!mm) return "";
+            return `Max: ${mm.max_score}\nSuccess: ${(mm.success_rate*100).toFixed(1)}%\nTests: ${mm.passed_tests}/${mm.total_tests}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: { ticks: { autoSkip: false, maxRotation: 60, minRotation: 45 }, grid: { display: false } },
+      y: { beginAtZero: true, grid: { color: "#222a3a" } }
+    }
+  }
+});
+
+// ---------- Table ----------
+const tbody = document.querySelector("#repoTable tbody");
+const tableRows = [...DATA].sort((a,b) => b.best.success_rate - a.best.success_rate);
+tbody.innerHTML = tableRows.map(d => {
+  const b = d.best;
+  const pillClass = b.success_rate > 0 ? MODEL_PILL[b.model] || "" : "zero";
+  const modelLabel = MODEL_LABEL[b.model] || b.model;
+  return `<tr>
+    <td>${d.repository}</td>
+    <td><span class="pill ${pillClass}">${modelLabel}</span></td>
+    <td class="num">${b.total_score.toFixed(2)}</td>
+    <td class="num">${b.max_score}</td>
+    <td class="num">${(b.success_rate*100).toFixed(1)}%</td>
+    <td class="num">${b.passed_tests}/${b.total_tests}</td>
+    <td class="num">${b.total_time.toFixed(2)}</td>
+  </tr>`;
+}).join("");
+</script>
+</body>
+</html>

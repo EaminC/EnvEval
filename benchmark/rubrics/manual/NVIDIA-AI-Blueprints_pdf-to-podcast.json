@@ -1,0 +1,389 @@
+{
+  "repo": "NVIDIA-AI-Blueprints_pdf-to-podcast",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "curl", "wget", "bash", "tar", "make"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "g++", "make", "pkg-config"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 --version 2>&1 | grep -E 'Python 3\\.(9|10|11|12)') || (python --version 2>&1 | grep -E 'Python 3\\.(9|10|11|12)')"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_docker_client",
+      "type": "commands_exist",
+      "params": {
+        "names": ["docker"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_docker_compose_plugin",
+      "type": "run_command",
+      "params": {
+        "command": "docker compose version 2>&1 | grep -Ei 'v?2\\.(2[9-9]|[3-9][0-9])' || docker compose version 2>&1 | grep -Eq 'Docker Compose version'"
+      },
+      "timeout": 15,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_uv_available",
+      "type": "run_command",
+      "params": {
+        "command": "command -v uv"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gpu_optional_tools",
+      "type": "run_command",
+      "params": {
+        "command": "command -v nvidia-smi || command -v nvidia-container-toolkit || true"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_path_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "PATH"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_fastapi_uvicorn",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import fastapi, uvicorn\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pydantic_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import pydantic\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_redis_minio_clients",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import redis, minio\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_web_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import httpx, websockets, jinja2, ujson, requests\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_langchain_nvidia_endpoints",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import langchain_nvidia_ai_endpoints\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_opentelemetry_sdk",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import opentelemetry, opentelemetry.sdk, opentelemetry.instrumentation.fastapi\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ruff_available",
+      "type": "run_command",
+      "params": {
+        "command": "command -v ruff || python3 -c \"import ruff\" || python3 -m ruff --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_root_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE",
+          "Makefile",
+          "docker-compose.yaml",
+          "requirements.txt",
+          "models.json",
+          "setup.sh",
+          "ruff.toml",
+          "variables.env"
+        ]
+      },
+      "score": 4,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "services",
+          "services/APIService",
+          "services/AgentService",
+          "services/PDFService",
+          "services/TTSService",
+          "shared",
+          "shared/shared",
+          "tests",
+          "samples",
+          "docs"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_shared_package",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "shared/setup.py",
+          "shared/shared/api_types.py",
+          "shared/shared/job.py",
+          "shared/shared/llmmanager.py",
+          "shared/shared/storage.py"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tests/test.py",
+          "tests/test_db.py",
+          "tests/test_files.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_models_json_has_llama",
+      "type": "file_contains",
+      "params": {
+        "path": "models.json",
+        "contains": ["llama-3.1", "meta", "api_base"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_docker_compose_services",
+      "type": "file_contains",
+      "params": {
+        "path": "docker-compose.yaml",
+        "contains": ["api-service", "agent-service", "pdf-service", "tts-service", "redis", "minio"]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_makefile_targets",
+      "type": "file_contains",
+      "params": {
+        "path": "Makefile",
+        "contains": ["all-services", "check_env", "uv", "ruff"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Python works')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pip_check",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 check || pip check"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_docker_runs",
+      "type": "run_command",
+      "params": {
+        "command": "docker --version"
+      },
+      "timeout": 15,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_docker_compose_config_valid",
+      "type": "run_command",
+      "params": {
+        "command": "docker compose -f docker-compose.yaml config --services 2>&1 | head -n 20"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_docker_compose_lists_services",
+      "type": "output_contains",
+      "params": {
+        "command": "docker compose -f docker-compose.yaml config --services 2>&1",
+        "contains": ["api-service", "agent-service", "pdf-service", "tts-service"]
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_shared_package_importable",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import ast, pathlib; [ast.parse(p.read_text()) for p in pathlib.Path('shared/shared').glob('*.py')]; print('shared parses')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tests_collect",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import ast, pathlib; [ast.parse(p.read_text()) for p in pathlib.Path('tests').glob('*.py')]; print('tests parse')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tests_test_py_help",
+      "type": "run_command",
+      "params": {
+        "command": "python3 tests/test.py --help 2>&1 | head -n 40"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_tests_test_py_mentions_target_arg",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 tests/test.py --help 2>&1",
+        "contains": ["target", "context", "monologue"]
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_shared_package_importable_after_install",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from shared.api_types import *; from shared.job import *; from shared.storage import *; print('shared modules importable')\" 2>/dev/null || python3 -c \"import sys; sys.path.insert(0, 'shared'); from shared.api_types import *; print('fallback worked')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_make_check_env_target_exists",
+      "type": "run_command",
+      "params": {
+        "command": "make -n check_env 2>&1 | head -n 20 || grep -q 'check_env' Makefile"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_ruff_runs",
+      "type": "run_command",
+      "params": {
+        "command": "(command -v ruff && ruff --version) || python3 -m ruff --version"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_fastapi_basic_app",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"from fastapi import FastAPI; app=FastAPI(); app.get('/h')(lambda: {'ok':True}); print('fastapi ok')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    }
+  ]
+}

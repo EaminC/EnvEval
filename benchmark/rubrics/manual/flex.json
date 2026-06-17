@@ -1,0 +1,386 @@
+{
+  "repo": "flex",
+  "tests": [
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3", "git", "bash", "curl"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 --version",
+        "contains": ["Python 3.6", "Python 3.7", "Python 3.8"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda",
+      "type": "commands_exist",
+      "params": {
+        "names": ["conda"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_r",
+      "type": "commands_exist",
+      "params": {
+        "names": ["R", "Rscript"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools_optional",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "make", "wget"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_basic_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "requirements.txt",
+          ".gitignore"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_tool_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "tool",
+          "tool/src",
+          "tool/scripts"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_tool_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tool/boundschecker.py",
+          "tool/assertscraper.py",
+          "tool/CompareDistribution.py",
+          "tool/newbugs.csv",
+          "tool/src/Config.py",
+          "tool/src/TestDriver.py",
+          "tool/src/TestInstrumentor.py",
+          "tool/src/Util.py",
+          "tool/scripts/general_setup.sh",
+          "tool/scripts/get_setup_extras.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_conda_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "CONDA_DEFAULT_ENV"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pythonpath",
+      "type": "envvar_set",
+      "params": {
+        "name": "PYTHONPATH"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_virtual_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "VIRTUAL_ENV"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_r_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "R_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["python"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["conda"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip_install",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 install -r requirements.txt"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Hello from Python3')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_import_system",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; print('Python path:', sys.path[0])\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip_version",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip_list",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 list || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_conda_info",
+      "type": "run_command",
+      "params": {
+        "command": "conda info || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_conda_env_list",
+      "type": "run_command",
+      "params": {
+        "command": "conda env list || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_r_version",
+      "type": "run_command",
+      "params": {
+        "command": "R --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_rscript_execution",
+      "type": "run_command",
+      "params": {
+        "command": "Rscript -e \"print('Hello from R')\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import numpy; import scipy; import pandas; import statsmodels; import hyperopt; import arviz; import astunparse; import rpy2; print('All dependencies available')\" || true"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_numpy",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import numpy; print('NumPy version:', numpy.__version__)\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_scipy",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import scipy; print('SciPy version:', scipy.__version__)\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pandas",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import pandas; print('Pandas version:', pandas.__version__)\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_r_eva_package",
+      "type": "run_command",
+      "params": {
+        "command": "Rscript -e \"library(eva); print('eva package available')\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_venv_module",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import venv; print('venv module available')\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"tool\" ] && find tool -name '*.py' | head -1"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_flex_scripts_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -f \"tool/scripts/general_setup.sh\" ] && chmod +x tool/scripts/general_setup.sh 2>/dev/null && [ -x \"tool/scripts/general_setup.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_boundschecker_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; sys.path.append('tool'); exec(open('tool/boundschecker.py').read()) \" 2>&1 | head -5 || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_config_module",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; sys.path.append('tool/src'); import Config; print('Config module imported')\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_testdriver_module",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; sys.path.append('tool/src'); import TestDriver; print('TestDriver module imported')\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_testinstrumentor_module",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; sys.path.append('tool/src'); import TestInstrumentor; print('TestInstrumentor module imported')\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_util_module",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; sys.path.append('tool/src'); import Util; print('Util module imported')\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_newbugs_csv",
+      "type": "run_command",
+      "params": {
+        "command": "[ -f \"tool/newbugs.csv\" ] && [ -r \"tool/newbugs.csv\" ] && [ -s \"tool/newbugs.csv\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    }
+  ]
+}

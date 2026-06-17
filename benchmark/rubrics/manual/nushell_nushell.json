@@ -1,0 +1,369 @@
+{
+  "repo": "nushell_nushell",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "wget",
+          "bash",
+          "tar",
+          "gzip"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_toolchain",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "rustc",
+          "cargo"
+        ]
+      },
+      "score": 5,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_version",
+      "type": "output_contains",
+      "params": {
+        "command": "rustc --version",
+        "contains": [
+          "1.88"
+        ]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cargo_version",
+      "type": "run_command",
+      "params": {
+        "command": "cargo --version"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "gcc",
+          "make"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pkg_config",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "pkg-config"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_nushell_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "Nushell",
+          "A new type of shell"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "crates",
+          "tests",
+          "scripts"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_additional_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "benches",
+          "toolkit",
+          "assets"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_cargo_toml",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Cargo.toml"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_cargo_lock",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Cargo.lock"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_rust_toolchain_config",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "rust-toolchain.toml"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_cross_config",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "Cross.toml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_toolkit_nu",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "toolkit.nu"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_git_repository",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          ".git"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_workspace_config",
+      "type": "file_contains",
+      "params": {
+        "path": "Cargo.toml",
+        "contains": [
+          "[workspace]",
+          "nu-cli",
+          "nu-command"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rust_toolchain_version",
+      "type": "file_contains",
+      "params": {
+        "path": "rust-toolchain.toml",
+        "contains": [
+          "1.88.0"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_rust_basic_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "rustc --version && echo 'fn main() { println!(\"Hello, Rust!\"); }' | rustc - -o /tmp/test_rust && /tmp/test_rust"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo check --workspace"
+      },
+      "timeout": 300,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_build_main",
+      "type": "run_command",
+      "params": {
+        "command": "cargo build --bin nu"
+      },
+      "timeout": 600,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "test_nushell_version",
+      "type": "run_command",
+      "params": {
+        "command": "cargo run --bin nu -- --version"
+      },
+      "timeout": 60,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_nushell_help",
+      "type": "run_command",
+      "params": {
+        "command": "cargo run --bin nu -- --help"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_nushell_simple_command",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'echo \"Hello from Nushell\"' | cargo run --bin nu"
+      },
+      "timeout": 60,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_fmt_check",
+      "type": "run_command",
+      "params": {
+        "command": "cargo fmt --all -- --check"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_clippy",
+      "type": "run_command",
+      "params": {
+        "command": "cargo clippy --workspace --exclude nu_plugin_* -- -D warnings"
+      },
+      "timeout": 300,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_test_basic",
+      "type": "run_command",
+      "params": {
+        "command": "cargo test --workspace --lib --bins --tests -- --test-threads=1"
+      },
+      "timeout": 600,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "test_toolkit_availability",
+      "type": "run_command",
+      "params": {
+        "command": "cargo run --bin nu -- -c 'use toolkit.nu; help toolkit'"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_toolkit_fmt",
+      "type": "run_command",
+      "params": {
+        "command": "cargo run --bin nu -- -c 'use toolkit.nu; toolkit fmt --check'"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_nushell_core_commands",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'ls | where type == \"dir\" | length' | cargo run --bin nu"
+      },
+      "timeout": 60,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_nushell_pipeline",
+      "type": "run_command",
+      "params": {
+        "command": "echo '[1,2,3,4,5] | each { |x| $x * 2 } | math sum' | cargo run --bin nu"
+      },
+      "timeout": 60,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cargo_doc",
+      "type": "run_command",
+      "params": {
+        "command": "cargo doc --workspace --no-deps"
+      },
+      "timeout": 300,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_env_cargo_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "CARGO_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_env_rustup_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "RUSTUP_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

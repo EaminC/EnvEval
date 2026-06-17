@@ -1,0 +1,418 @@
+{
+  "repo": "Fairify",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "bash",
+          "curl",
+          "wget"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "python3 --version"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_core_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "requirements.txt",
+          "README.md",
+          "INSTALL.md",
+          "LICENSE",
+          "STATUS.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "models",
+          "data",
+          "utils",
+          "stress",
+          "relaxed",
+          "targeted",
+          "targeted2"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_src_subdirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src/GC",
+          "src/AC",
+          "src/BM"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_model_subdirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "models/german",
+          "models/adult",
+          "models/bank"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_data_subdirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "data/german",
+          "data/adult",
+          "data/bank"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_virtual_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "VIRTUAL_ENV"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python3_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Hello from Python3')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_python3_import_system",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; print('Python path:', sys.path[0])\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip3_version",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip3_list",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 list"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_z3_solver",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import z3; print('Z3 version:', z3.get_version_string())\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "test_tensorflow",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import tensorflow as tf; print('TensorFlow version:', tf.__version__)\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_aif360",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import aif360; print('AIF360 version:', aif360.__version__)\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_fairify_script",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "src/fairify.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_fairify_script_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"src/fairify.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_variant_scripts",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "stress/fairify-stress.sh",
+          "relaxed/fairify-relaxed.sh",
+          "targeted/fairify-targeted.sh",
+          "targeted2/fairify-targeted.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_verification_scripts",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "src/GC/Verify-GC.py",
+          "src/AC/Verify-AC.py",
+          "src/BM/Verify-BM.py"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_verify_ac_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys, os; sys.path.append('../../'); code=open('src/AC/Verify-AC.py').read(); patch=\"\"\"\\nPARTITION_THRESHOLD=2\\nSOFT_TIMEOUT=15\\nHARD_TIMEOUT=120\\nsim_size=100\\nprint('⚡ FAST TEST MODE ENABLED ⚡')\\norig_model_files=model_files\\nmodel_files=[orig_model_files[0]] if len(orig_model_files)>0 else []\\ndef one_partition(p_list): yield p_list[0]\\np_list=list(one_partition(p_list))\\n\"\"\"; code=code.replace('print(\\'Number of partitions:', 'print(\\'Number of partitions:\\', len(p_list));'+patch); exec(compile(code,'src/AC/Verify-AC.py','exec'))\""
+      },
+      "timeout": 200,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_verify_gc_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys, os; sys.path.append('../../'); code=open('src/GC/Verify-GC.py').read(); patch=\"\"\"\\nPARTITION_THRESHOLD=2\\nSOFT_TIMEOUT=15\\nHARD_TIMEOUT=120\\nsim_size=100\\nprint('⚡ FAST TEST MODE ENABLED ⚡')\\norig_model_files=model_files\\nmodel_files=[orig_model_files[0]] if len(orig_model_files)>0 else []\\ndef one_partition(p_list): yield p_list[0]\\np_list=list(one_partition(p_list))\\n\"\"\"; code=code.replace('print(\\'Number of partitions:', 'print(\\'Number of partitions:\\', len(p_list));'+patch); exec(compile(code,'src/GC/Verify-GC.py','exec'))\""
+      },
+      "timeout": 200,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_verify_bm_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys, os; sys.path.append('src/BM'); code=open('src/BM/Verify-BM.py').read(); patch='''\nPARTITION_THRESHOLD=2\nSOFT_TIMEOUT=15\nHARD_TIMEOUT=120\nsim_size=100\nprint('⚡ FAST TEST MODE ENABLED ⚡')\norig_model_files=model_files\nmodel_files=[orig_model_files[0]] if len(orig_model_files)>0 else []\n'''; exec(code.replace('PARTITION_THRESHOLD = 100', patch))\""
+      },
+      "timeout": 200,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_verify_ac_stress",
+      "type": "run_command",
+      "params": {
+        "command": "timeout --kill-after=5s 1m bash -c './fairify-stress.sh AC'; code=$?; if [ $code -eq 124 ] || [ $code -eq 137 ] || [ $code -eq 143 ]; then exit 0; elif [ $code -ne 0 ]; then exit $code; else exit 0; fi"
+      },
+      "timeout": 70,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_verify_gc_stress",
+      "type": "run_command",
+      "params": {
+        "command": "timeout --kill-after=5s 1m bash -c './fairify-stress.sh GC'; code=$?; if [ $code -eq 124 ] || [ $code -eq 137 ] || [ $code -eq 143 ]; then exit 0; elif [ $code -ne 0 ]; then exit $code; else exit 0; fi"
+      },
+      "timeout": 70,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_verify_bm_stress",
+      "type": "run_command",
+      "params": {
+        "command": "timeout --kill-after=5s 1m bash -c './fairify-stress.sh BM'; code=$?; if [ $code -eq 124 ] || [ $code -eq 137 ] || [ $code -eq 143 ]; then exit 0; elif [ $code -ne 0 ]; then exit $code; else exit 0; fi"
+      },
+      "timeout": 70,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_verify_ac_relaxed",
+      "type": "run_command",
+      "params": {
+        "command": "timeout --kill-after=5s 30s bash -c './fairify-relaxed.sh AC'; code=$?; if [ $code -eq 124 ] || [ $code -eq 137 ] || [ $code -eq 143 ]; then exit 0; elif [ $code -ne 0 ]; then exit $code; else exit 0; fi"
+      },
+      "timeout": 45,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_verify_gc_relaxed",
+      "type": "run_command",
+      "params": {
+        "command": "timeout --kill-after=5s 30s bash -c './fairify-relaxed.sh GC'; code=$?; if [ $code -eq 124 ] || [ $code -eq 137 ] || [ $code -eq 143 ]; then exit 0; elif [ $code -ne 0 ]; then exit $code; else exit 0; fi"
+      },
+      "timeout": 45,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_verify_bm_relaxed",
+      "type": "run_command",
+      "params": {
+        "command": "timeout --kill-after=5s 30s bash -c './fairify-relaxed.sh BM'; code=$?; if [ $code -eq 124 ] || [ $code -eq 137 ] || [ $code -eq 143 ]; then exit 0; elif [ $code -ne 0 ]; then exit $code; else exit 0; fi"
+      },
+      "timeout": 45,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_verify_ac_targeted",
+      "type": "run_command",
+      "params": {
+        "command": "timeout --kill-after=5s 30s bash -c './fairify-targeted.sh AC'; code=$?; if [ $code -eq 124 ] || [ $code -eq 137 ] || [ $code -eq 143 ]; then exit 0; elif [ $code -ne 0 ]; then exit $code; else exit 0; fi"
+      },
+      "timeout": 45,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_verify_gc_targeted",
+      "type": "run_command",
+      "params": {
+        "command": "timeout --kill-after=5s 30s bash -c './fairify-targeted.sh GC'; code=$?; if [ $code -eq 124 ] || [ $code -eq 137 ] || [ $code -eq 143 ]; then exit 0; elif [ $code -ne 0 ]; then exit $code; else exit 0; fi"
+      },
+      "timeout": 45,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_verify_bm_targeted",
+      "type": "run_command",
+      "params": {
+        "command": "timeout --kill-after=5s 30s bash -c './fairify-targeted.sh BM'; code=$?; if [ $code -eq 124 ] || [ $code -eq 137 ] || [ $code -eq 143 ]; then exit 0; elif [ $code -ne 0 ]; then exit $code; else exit 0; fi"
+      },
+      "timeout": 45,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_models_german_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"models/german\" ] && [ \"$(ls -A models/german 2>/dev/null)\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_models_adult_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"models/adult\" ] && [ \"$(ls -A models/adult 2>/dev/null)\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_models_bank_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"models/bank\" ] && [ \"$(ls -A models/bank 2>/dev/null)\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_data_german_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"data/german\" ] && [ \"$(ls -A data/german 2>/dev/null)\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_data_adult_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"data/adult\" ] && [ \"$(ls -A data/adult 2>/dev/null)\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_data_bank_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"data/bank\" ] && [ \"$(ls -A data/bank 2>/dev/null)\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_virtual_environment_creation",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -m venv test_venv && rm -rf test_venv"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    }
+  ]
+}

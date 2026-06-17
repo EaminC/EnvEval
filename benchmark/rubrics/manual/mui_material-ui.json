@@ -1,0 +1,359 @@
+{
+  "repo": "mui_material-ui",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "bash"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version",
+      "type": "output_contains",
+      "params": {
+        "command": "node --version",
+        "contains": ["v18", "v19", "v20", "v21", "v22"]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_npm_available",
+      "type": "commands_exist",
+      "params": {
+        "names": ["npm"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pnpm_available",
+      "type": "commands_exist",
+      "params": {
+        "names": ["pnpm"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pnpm_version",
+      "type": "output_contains",
+      "params": {
+        "command": "pnpm --version",
+        "contains": ["10."]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_available",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "make"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages",
+          "packages-internal",
+          "docs",
+          "examples",
+          "test",
+          "apps"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "scripts",
+          ".github",
+          ".vscode"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_package_json",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "package.json"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_workspace_config",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "pnpm-workspace.yaml",
+          "lerna.json",
+          "nx.json"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_config",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tsconfig.json",
+          "babel.config.mjs",
+          "eslint.config.mjs"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_lock_file",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "pnpm-lock.yaml"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_core_packages",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages/mui-material",
+          "packages/mui-system",
+          "packages/mui-joy",
+          "packages/mui-utils"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "Material UI"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_node_basic",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"console.log('Node.js is working')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_npm_basic",
+      "type": "run_command",
+      "params": {
+        "command": "npm --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pnpm_basic",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm --version"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_package_json_valid",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"JSON.parse(require('fs').readFileSync('package.json', 'utf8'))\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_workspace_config_valid",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm ls --depth=0"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_dependency_install",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm install --frozen-lockfile"
+      },
+      "timeout": 600,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_typescript_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm typescript"
+      },
+      "timeout": 300,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_eslint",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm eslint --max-warnings 1000 packages/mui-material/src"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_build_core_packages",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm build:public"
+      },
+      "timeout": 900,
+      "score": 6,
+      "category": "functionality"
+    },
+    {
+      "id": "test_unit_tests",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm test:unit --testPathPattern=\"packages/mui-material/src/Button\" --passWithNoTests"
+      },
+      "timeout": 180,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_docs_api_build",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm docs:api:build --grep @mui/material"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_example_app_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd examples && ls -la | head -5"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_lerna_version",
+      "type": "run_command",
+      "params": {
+        "command": "npx lerna --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_nx_integration",
+      "type": "run_command",
+      "params": {
+        "command": "npx nx --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_bundle_size_check",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm size:snapshot --help"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_prettier_formatting",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm prettier --check README.md"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_react_component_import",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('packages/mui-material/package.json')); console.log(pkg.name);\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_workspace_scripts",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm run --help"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    }
+  ]
+}

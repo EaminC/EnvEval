@@ -1,0 +1,433 @@
+{
+  "repo": "vuejs_core",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "wget"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_available",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "node"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version",
+      "type": "output_contains",
+      "params": {
+        "command": "node --version",
+        "contains": ["v18", "v19", "v20", "v21", "v22", "v23"]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration",
+      "requires": ["check_node_available"]
+    },
+    {
+      "id": "check_npm_available",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "npm"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pnpm_available",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "pnpm"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "gcc",
+          "g++",
+          "make"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python3",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "python3"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_core_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "package.json",
+          "README.md",
+          "LICENSE",
+          "CHANGELOG.md",
+          "SECURITY.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tsconfig.json",
+          "vitest.config.ts",
+          "rollup.config.js",
+          "eslint.config.js",
+          ".prettierrc",
+          ".node-version"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_workspace_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "pnpm-workspace.yaml",
+          "pnpm-lock.yaml"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages",
+          "packages-private",
+          "scripts",
+          "changelogs",
+          ".github",
+          ".vscode"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_vue_packages",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages/vue",
+          "packages/runtime-core",
+          "packages/runtime-dom",
+          "packages/compiler-core",
+          "packages/compiler-dom",
+          "packages/compiler-sfc",
+          "packages/reactivity",
+          "packages/shared",
+          "packages/server-renderer"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_vue_package_config",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "packages/vue/package.json",
+          "packages/vue/src/index.ts"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_node_execution",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"console.log('Hello from Node.js')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_node_available"]
+    },
+    {
+      "id": "test_npm_version",
+      "type": "run_command",
+      "params": {
+        "command": "npm --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_npm_available"]
+    },
+    {
+      "id": "test_pnpm_version",
+      "type": "run_command",
+      "params": {
+        "command": "pnpm --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_pnpm_available"]
+    },
+    {
+      "id": "test_package_json_parsing",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"JSON.parse(require('fs').readFileSync('package.json', 'utf8'))\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_node_available", "check_core_files"]
+    },
+    {
+      "id": "check_typescript_files",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name \"*.ts\" | head -5"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_javascript_files",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name \"*.js\" | head -5"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_files",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name \"*.test.*\" -o -name \"*.spec.*\" | head -5"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_typescript_check",
+      "type": "run_command",
+      "params": {
+        "command": "npx tsc --noEmit"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality",
+      "requires": ["check_node_available", "check_config_files"]
+    },
+    {
+      "id": "test_vue_package_name",
+      "type": "output_contains",
+      "params": {
+        "command": "node -e \"console.log(JSON.parse(require('fs').readFileSync('packages/vue/package.json', 'utf8')).name)\"",
+        "contains": ["vue"]
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_node_available", "check_vue_package_config"]
+    },
+    {
+      "id": "check_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["vuejs/core", "Vue.js", "progressive", "framework"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_node_version_file",
+      "type": "file_contains",
+      "params": {
+        "path": ".node-version",
+        "contains": ["22"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_package_manager",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["pnpm"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_vitest_availability",
+      "type": "run_command",
+      "params": {
+        "command": "npx vitest --version"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_node_available"]
+    },
+    {
+      "id": "test_rollup_availability",
+      "type": "run_command",
+      "params": {
+        "command": "npx rollup --version"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_node_available"]
+    },
+    {
+      "id": "test_eslint_availability",
+      "type": "run_command",
+      "params": {
+        "command": "npx eslint --version"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_node_available"]
+    },
+    {
+      "id": "test_prettier_availability",
+      "type": "run_command",
+      "params": {
+        "command": "npx prettier --version"
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_node_available"]
+    },
+    {
+      "id": "test_workspace_detection",
+      "type": "output_contains",
+      "params": {
+        "command": "pnpm list --depth=0",
+        "contains": ["workspace"]
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_pnpm_available", "check_workspace_files"]
+    },
+    {
+      "id": "test_vue_build_script",
+      "type": "run_command",
+      "params": {
+        "command": "node scripts/build.js --help || echo 'Build script exists'"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_node_available", "check_main_directories"]
+    },
+    {
+      "id": "test_dev_script_exists",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["scripts/dev.js"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_vue_core_import",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('./packages/vue/src/index.ts')\" || echo 'Vue entry point exists'"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_node_available", "check_vue_package_config"]
+    },
+    {
+      "id": "test_monorepo_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find packages -name package.json | wc -l"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_directories"]
+    },
+    {
+      "id": "test_git_hooks",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["simple-git-hooks"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_lint_staged",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["lint-staged"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_engines_requirement",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": [">=18.12.0"]
+      },
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

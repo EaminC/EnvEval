@@ -1,0 +1,494 @@
+{
+  "repo": "CrossPrefetch",
+  "tests": [
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "g++", "make", "cmake"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "bash", "numactl", "perf"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_kernel_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["cscope"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_kernel_headers",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"/usr/src/linux-headers-$(uname -r)\" ] || [ -d \"/lib/modules/$(uname -r)/build\" ]"
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_kernel_build_env",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "/lib/modules/$(uname -r)/build/Makefile"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_readme",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_crossprefetch_project",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["CrossPrefetch"]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_project_readme"]
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "linux-5.14.0",
+          "scripts",
+          "shared_libs",
+          "appbench"
+        ]
+      },
+      "score": 4,
+      "category": "structure"
+    },
+    {
+      "id": "check_kernel_source_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "linux-5.14.0/Makefile"
+        ]
+      },
+      "score": 3,
+      "category": "structure",
+      "requires": ["check_main_directories"]
+    },
+    {
+      "id": "check_kernel_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "linux-5.14.0/arch",
+          "linux-5.14.0/kernel",
+          "linux-5.14.0/fs"
+        ]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_directories"]
+    },
+    {
+      "id": "check_scripts_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "scripts/setvars.sh",
+          "scripts/install_packages.sh",
+          "scripts/run_all.sh"
+        ]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_directories"]
+    },
+    {
+      "id": "check_scripts_run_dir",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "scripts/run"
+        ]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_main_directories"]
+    },
+    {
+      "id": "check_shared_libs_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "shared_libs/simple_prefetcher"
+        ]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_directories"]
+    },
+    {
+      "id": "check_shared_libs_compile",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "shared_libs/simple_prefetcher/compile.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_shared_libs_structure"]
+    },
+    {
+      "id": "check_appbench_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "appbench/apps"
+        ]
+      },
+      "score": 2,
+      "category": "structure",
+      "requires": ["check_main_directories"]
+    },
+    {
+      "id": "check_appbench_scripts",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "appbench/cleanall.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_appbench_structure"]
+    },
+    {
+      "id": "test_gcc_version",
+      "type": "output_contains",
+      "params": {
+        "command": "gcc --version",
+        "contains": ["gcc"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_build_tools"]
+    },
+    {
+      "id": "test_gpp_version",
+      "type": "output_contains",
+      "params": {
+        "command": "g++ --version",
+        "contains": ["g++"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_build_tools"]
+    },
+    {
+      "id": "test_make_version",
+      "type": "output_contains",
+      "params": {
+        "command": "make --version",
+        "contains": ["GNU Make", "make"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_build_tools"]
+    },
+    {
+      "id": "test_cmake_version",
+      "type": "output_contains",
+      "params": {
+        "command": "cmake --version",
+        "contains": ["cmake"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_build_tools"]
+    },
+    {
+      "id": "test_git_version",
+      "type": "output_contains",
+      "params": {
+        "command": "git --version",
+        "contains": ["git"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration",
+      "requires": ["check_system_tools"]
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Hello from Python3')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_python_tools"]
+    },
+    {
+      "id": "test_c_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'int main() { return 0; }' | gcc -x c - -o /tmp/test_compile && rm -f /tmp/test_compile"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_build_tools"]
+    },
+    {
+      "id": "test_cpp_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'int main() { return 0; }' | g++ -x c++ - -o /tmp/test_compile && rm -f /tmp/test_compile"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_build_tools"]
+    },
+    {
+      "id": "check_ncurses_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists ncurses"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_numa_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists numa"
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_boost_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists boost"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_libconfig_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists libconfig"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_zstd_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists libzstd"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_lz4_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists liblz4"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_snappy_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists snappy"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_openssl_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists openssl"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gflags_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists gflags"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_zlib_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists zlib"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_bzip2_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists bzip2"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_libevent_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists libevent"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_jemalloc_dev",
+      "type": "run_command",
+      "params": {
+        "command": "pkg-config --exists jemalloc"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_psutil",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import psutil\""
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality",
+      "requires": ["check_python_tools"]
+    },
+    {
+      "id": "test_python_zplot",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import zplot\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality",
+      "requires": ["check_python_tools"]
+    },
+    {
+      "id": "check_nvme_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["nvme"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_nvme_devices",
+      "type": "run_command",
+      "params": {
+        "command": "ls /dev/nvme* 2>/dev/null | grep -q nvme"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_msr_access",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "/dev/cpu/0/msr"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_kernel_config",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "linux-5.14.0/.config"
+        ]
+      },
+      "score": 1,
+      "category": "structure",
+      "requires": ["check_kernel_source_files"]
+    },
+    {
+      "id": "test_kernel_version_check",
+      "type": "output_contains",
+      "params": {
+        "command": "uname -r",
+        "contains": ["5."]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+test_id,test_type,max_score,ours-anthropic/claude-opus-4,ours-tensorblock/gpt-4.1,ours-tensorblock/gpt-4.1-mini,params
+check_cli_tools,commands_exist,2,1.5,0,0,"{""names"":[""python3"",""pip3"",""docker"",""git""]}"
+check_notebook_support,commands_exist,1,0.0,0,0,"{""names"":[""jupyter""]}"
+check_nvidia_docker,commands_exist,2,0.0,0,0,"{""names"":[""nvidia-docker""]}"
+check_python_version,output_contains,1,1,0,0,"{""command"":""python3 --version"",""contains"":[""Python 3""]}"
+check_quickstart_contains_tao_install,file_contains,1,1,0,0,"{""path"":""setup/quickstart_launcher.sh"",""contains"":[""pip3 install nvidia-tao"",""pip3 install jupyter"",""docker login""]}"
+check_repo_dirs,dirs_exist,1,1.0,0,0,"{""paths"":[""notebooks"",""setup""]}"
+check_setup_files,files_exist,1,1.0,0,0,"{""paths"":[""README.md"",""setup/quickstart_launcher.sh""]}"
+test_docker_version,run_command,1,0,0,0,"{""command"":""docker --version""}"
+test_jupyter_version,run_command,1,0,0,0,"{""command"":""jupyter --version""}"
+test_pip_version,run_command,1,1,0,0,"{""command"":""python3 -m pip --version""}"
+test_tao_install_command,run_command,2,2,0,0,"{""command"":""bash setup/quickstart_launcher.sh --help""}"

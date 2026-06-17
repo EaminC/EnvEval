@@ -1,0 +1,454 @@
+{
+  "repo": "zeromicro_go-zero",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "bash",
+          "curl",
+          "wget",
+          "make"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_installed",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "go"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_version",
+      "type": "run_command",
+      "params": {
+        "command": "go version"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_version_requirement",
+      "type": "output_contains",
+      "params": {
+        "command": "go version",
+        "contains": [
+          "go1.21",
+          "go1.22",
+          "go1.23"
+        ]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "gcc",
+          "g++"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_protobuf_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "protoc"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_core_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "go.mod",
+          "go.sum",
+          "readme.md",
+          "LICENSE"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_documentation_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "readme-cn.md",
+          "CONTRIBUTING.md",
+          "SECURITY.md",
+          "code-of-conduct.md"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          ".gitignore",
+          ".dockerignore"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "core",
+          "gateway",
+          "zrpc",
+          "rest",
+          "tools"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_additional_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "mcp",
+          "internal",
+          ".github"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_tools_goctl",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "tools/goctl"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_goctl_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "tools/goctl/goctl.go",
+          "tools/goctl/go.mod",
+          "tools/goctl/Makefile"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_core_subdirectories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "core/breaker",
+          "core/conf",
+          "core/service",
+          "core/stores",
+          "core/trace"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_go_env_setup",
+      "type": "run_command",
+      "params": {
+        "command": "go env GOPATH"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_go_mod_verify",
+      "type": "run_command",
+      "params": {
+        "command": "go mod verify"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_go_mod_download",
+      "type": "run_command",
+      "params": {
+        "command": "go mod download"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_go_build_main",
+      "type": "run_command",
+      "params": {
+        "command": "go build -v ./..."
+      },
+      "timeout": 180,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_goctl_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd tools/goctl && go build -v goctl.go"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_goctl_help",
+      "type": "run_command",
+      "params": {
+        "command": "cd tools/goctl && go run goctl.go --help"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_goctl_api_generation",
+      "type": "run_command",
+      "params": {
+        "command": "cd tools/goctl && go run goctl.go api -o test.api && test -f test.api && rm -f test.api"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_go_module_name",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": [
+          "module github.com/zeromicro/go-zero"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_go_version_in_mod",
+      "type": "file_contains",
+      "params": {
+        "path": "go.mod",
+        "contains": [
+          "go 1.21"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_core_imports",
+      "type": "run_command",
+      "params": {
+        "command": "go list -m github.com/zeromicro/go-zero"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_grpc_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "go list -m google.golang.org/grpc"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_protobuf_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "go list -m google.golang.org/protobuf"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_etcd_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "go list -m go.etcd.io/etcd/client/v3"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_redis_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "go list -m github.com/redis/go-redis/v9"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_go_test_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "go test -c ./core/breaker"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_go_vet",
+      "type": "run_command",
+      "params": {
+        "command": "go vet ./..."
+      },
+      "timeout": 60,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gofmt_check",
+      "type": "run_command",
+      "params": {
+        "command": "test -z \"$(gofmt -l .)\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_makefile_goctl",
+      "type": "run_command",
+      "params": {
+        "command": "cd tools/goctl && make build"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_protoc_available",
+      "type": "run_command",
+      "params": {
+        "command": "protoc --version"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_go_workspace_sum",
+      "type": "run_command",
+      "params": {
+        "command": "test -f go.sum && wc -l go.sum | awk '{print $1 > 100}'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_opentelemetry_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "go list -m go.opentelemetry.io/otel"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_prometheus_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "go list -m github.com/prometheus/client_golang"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_build_specific_packages",
+      "type": "run_command",
+      "params": {
+        "command": "go build -v ./core/service ./rest ./zrpc ./gateway"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_goctl_version_output",
+      "type": "output_contains",
+      "params": {
+        "command": "cd tools/goctl && timeout 10s go run goctl.go version || true",
+        "contains": [
+          "goctl",
+          "version"
+        ]
+      },
+      "timeout": 15,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_workspace_has_go_files",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name '*.go' | head -10 | wc -l | awk '{print $1 > 5}'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_workspace_has_api_examples",
+      "type": "run_command",
+      "params": {
+        "command": "find . -name '*.api' -o -name '*example*' | wc -l | awk '{print $1 > 0}'"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    }
+  ]
+}

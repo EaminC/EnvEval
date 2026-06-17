@@ -1,0 +1,136 @@
+{
+  "repo": "MouseLand_Kilosort",
+  "tests": [
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "python3",
+          "pip3"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda_tool",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "conda"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_repo_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "setup.py",
+          "pytest.ini",
+          "tox.ini"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_repo_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "kilosort",
+          "tests",
+          "docs"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_install_steps",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "conda create --name kilosort python=3.9",
+          "python -m pip install kilosort[gui]",
+          "pip install pytest"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_workflow_python_tools",
+      "type": "file_contains",
+      "params": {
+        "path": ".github/workflows/test_and_deploy.yml",
+        "contains": [
+          "actions/setup-python",
+          "pip install setuptools tox tox-gh-actions",
+          "tox"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 --version",
+        "contains": [
+          "3.9",
+          "3.10"
+        ]
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip_version",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -m pip --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "functionality"
+    },
+    {
+      "id": "test_setup_help",
+      "type": "run_command",
+      "params": {
+        "command": "python3 setup.py --help >/dev/null"
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "functionality"
+    },
+    {
+      "id": "test_pytest_version",
+      "type": "run_command",
+      "params": {
+        "command": "pytest --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    }
+  ]
+}

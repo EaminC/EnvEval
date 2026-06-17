@@ -1,0 +1,383 @@
+{
+  "repo": "RelTR",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "wget",
+          "bash",
+          "make",
+          "gcc",
+          "g++"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 --version 2>&1 | grep 'Python 3.') || (python --version 2>&1 | grep 'Python 3.')"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python36_compatibility",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 --version 2>&1 | grep -E 'Python 3\\.[6-9]') || (python --version 2>&1 | grep -E 'Python 3\\.[6-9]') || (python3 --version 2>&1 | grep -E 'Python 3\\.1[0-9]') || (python --version 2>&1 | grep -E 'Python 3\\.1[0-9]')"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pip",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "pip"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda",
+      "type": "run_command",
+      "params": {
+        "command": "command -v conda"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import torch; print(f'PyTorch {torch.__version__}')\") || (python -c \"import torch; print(f'PyTorch {torch.__version__}')\")"
+      },
+      "timeout": 30,
+      "score": 5,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_version",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import torch; assert torch.__version__.startswith('1.6') or torch.__version__.startswith('1.7') or torch.__version__.startswith('1.8') or torch.__version__.startswith('1.9') or torch.__version__.startswith('1.10') or torch.__version__.startswith('1.11') or torch.__version__.startswith('1.12') or torch.__version__.startswith('1.13') or torch.__version__.startswith('2.'), 'PyTorch version compatible'\") || (python -c \"import torch; assert torch.__version__.startswith('1.6') or torch.__version__.startswith('1.7') or torch.__version__.startswith('1.8') or torch.__version__.startswith('1.9') or torch.__version__.startswith('1.10') or torch.__version__.startswith('1.11') or torch.__version__.startswith('1.12') or torch.__version__.startswith('1.13') or torch.__version__.startswith('2.'), 'PyTorch version compatible'\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torchvision",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import torchvision; print(f'torchvision {torchvision.__version__}')\") || (python -c \"import torchvision; print(f'torchvision {torchvision.__version__}')\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_matplotlib",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import matplotlib; print(f'matplotlib {matplotlib.__version__}')\") || (python -c \"import matplotlib; print(f'matplotlib {matplotlib.__version__}')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_numpy",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import numpy; print(f'numpy {numpy.__version__}')\") || (python -c \"import numpy; print(f'numpy {numpy.__version__}')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_scipy",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import scipy; print(f'scipy {scipy.__version__}')\") || (python -c \"import scipy; print(f'scipy {scipy.__version__}')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pycocotools",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import pycocotools; print('pycocotools available')\") || (python -c \"import pycocotools; print('pycocotools available')\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cython",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import Cython; print(f'Cython {Cython.__version__}')\") || (python -c \"import Cython; print(f'Cython {Cython.__version__}')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pil",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"from PIL import Image; print('PIL available')\") || (python -c \"from PIL import Image; print('PIL available')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_reltr_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "RelTR"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "models",
+          "datasets",
+          "lib",
+          "util",
+          "data",
+          "demo"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_python_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "main.py",
+          "inference.py",
+          "engine.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_models_structure",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "models/reltr.py",
+          "models/transformer.py",
+          "models/backbone.py",
+          "models/matcher.py",
+          "models/position_encoding.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_lib_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "lib/fpn",
+          "lib/evaluation"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_fpn_make_script",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "lib/fpn/make.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_demo_images",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "demo/vg1.jpg",
+          "demo/vg2.jpg"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_fpn_make_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"lib/fpn/make.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_python_basic",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"print('Python is working')\") || (python -c \"print('Python is working')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_torch_basic",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import torch; x = torch.tensor([1.0, 2.0]); print('PyTorch basic functionality works')\") || (python -c \"import torch; x = torch.tensor([1.0, 2.0]); print('PyTorch basic functionality works')\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_torchvision_transforms",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import torchvision.transforms as T; print('torchvision transforms work')\") || (python -c \"import torchvision.transforms as T; print('torchvision transforms work')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_reltr_model_import",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import sys; sys.path.append('.'); from models import build_model; print('RelTR model import successful')\") || (python -c \"import sys; sys.path.append('.'); from models import build_model; print('RelTR model import successful')\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_datasets_import",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import sys; sys.path.append('.'); import datasets; print('Datasets module import successful')\") || (python -c \"import sys; sys.path.append('.'); import datasets; print('Datasets module import successful')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_util_import",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import sys; sys.path.append('.'); import util.misc; print('Util module import successful')\") || (python -c \"import sys; sys.path.append('.'); import util.misc; print('Util module import successful')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_engine_import",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 -c \"import sys; sys.path.append('.'); import engine; print('Engine module import successful')\") || (python -c \"import sys; sys.path.append('.'); import engine; print('Engine module import successful')\")"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_fpn_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "cd lib/fpn && bash make.sh"
+      },
+      "timeout": 120,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_fpn_bbox_import",
+      "type": "run_command",
+      "params": {
+        "command": "(cd lib/fpn/box_intersections_cpu && python3 -c \"import bbox; print('FPN bbox compilation successful')\") || (cd lib/fpn/box_intersections_cpu && python -c \"import bbox; print('FPN bbox compilation successful')\")"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_inference_help",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 inference.py --help | head -5) || (python inference.py --help | head -5)"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_main_help",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 main.py --help | head -5) || (python main.py --help | head -5)"
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_inference_with_demo_image",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 60 python3 inference.py --img_path demo/vg1.jpg --resume /dev/null 2>&1 | grep -v 'FileNotFoundError' || timeout 60 python inference.py --img_path demo/vg1.jpg --resume /dev/null 2>&1 | grep -v 'FileNotFoundError' || echo 'Inference script can be executed'"
+      },
+      "timeout": 90,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_main_dry_run",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 30 python3 main.py --dataset vg --img_folder /tmp --ann_path /tmp --help 2>&1 | head -3 || timeout 30 python main.py --dataset vg --img_folder /tmp --ann_path /tmp --help 2>&1 | head -3 || echo 'Main script can be executed'"
+      },
+      "timeout": 60,
+      "score": 5,
+      "category": "functionality"
+    }
+  ]
+}

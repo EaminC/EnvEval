@@ -1,0 +1,43 @@
+{
+  "repository": "TIO-IKIM_CellViT-plus-plus",
+  "timestamp": "2026-05-13T11:23:17.896739",
+  "total_models_evaluated": 3,
+  "best_performer": {
+    "model": "ours-tensorblock/gpt-4.1",
+    "total_score": 7.7,
+    "max_score": 13,
+    "success_rate": 0.4,
+    "total_time": 3.41,
+    "passed_tests": 8,
+    "total_tests": 20
+  },
+  "model_comparison": [
+    {
+      "model": "ours-tensorblock/gpt-4.1",
+      "total_score": 7.7,
+      "max_score": 13,
+      "success_rate": 0.4,
+      "total_time": 3.41,
+      "passed_tests": 8,
+      "total_tests": 20
+    },
+    {
+      "model": "ours-tensorblock/gpt-4.1-mini",
+      "total_score": 0,
+      "max_score": 13,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    },
+    {
+      "model": "ours-anthropic/claude-opus-4",
+      "total_score": 0,
+      "max_score": 13,
+      "success_rate": 0,
+      "total_time": 0,
+      "passed_tests": 0,
+      "total_tests": 0
+    }
+  ]
+}

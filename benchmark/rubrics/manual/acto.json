@@ -1,0 +1,312 @@
+{
+  "repo": "acto",
+  "tests": [
+    {
+      "id": "check_python_pip",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python", "pip"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python --version",
+        "contains": ["Python 3.12", "Python 3.13", "Python 3.14"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "requires": ["check_python_pip"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_kubectl_kind_helm",
+      "type": "commands_exist",
+      "params": {
+        "names": ["go", "kubectl", "kind", "helm"]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_go_version",
+      "type": "output_contains",
+      "params": {
+        "command": "go version",
+        "contains": ["go1.22", "go1.23", "go1.24"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "requires": ["check_go_kubectl_kind_helm"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "make", "curl", "wget"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "acto",
+          "chactos",
+          "data",
+          "docs",
+          "scripts",
+          "ssa",
+          "test"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE",
+          "pyproject.toml",
+          "requirements.txt",
+          "requirements-dev.txt",
+          "Makefile"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_acto_module_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "acto/__init__.py",
+          "acto/__main__.py",
+          "acto/acto_config.py",
+          "acto/engine.py",
+          "acto/reproduce.py"
+        ]
+      },
+      "score": 2,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "check_chactos_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "chactos/__init__.py",
+          "chactos/__main__.py",
+          "chactos/cass-operator.json",
+          "chactos/fault_injector.py"
+        ]
+      },
+      "score": 2,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "check_python_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import kubernetes, deepdiff, exrex, jsonschema, jsonpatch, pandas, yaml, ruamel.yaml, requests, pydantic, pytest, tabulate; print('Core dependencies available')\""
+      },
+      "timeout": 60,
+      "score": 3,
+      "requires": ["check_python_pip"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_acto_module_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import acto; print('Acto module imported successfully')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "requires": ["check_python_dependencies"],
+      "category": "functionality"
+    },
+    {
+      "id": "check_acto_cli_help",
+      "type": "run_command",
+      "params": {
+        "command": "python -m acto --help"
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": ["check_acto_module_import"],
+      "category": "functionality"
+    },
+    {
+      "id": "check_acto_reproduce_cli",
+      "type": "run_command",
+      "params": {
+        "command": "python -m acto.reproduce --help"
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": ["check_acto_module_import"],
+      "category": "functionality"
+    },
+    {
+      "id": "check_make_build",
+      "type": "run_command",
+      "params": {
+        "command": "make lib"
+      },
+      "timeout": 120,
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "functionality"
+    },
+    {
+      "id": "check_requirements_txt_dependencies",
+      "type": "file_contains",
+      "params": {
+        "path": "requirements.txt",
+        "contains": ["kubernetes==31.0.0", "deepdiff==6.3.1", "exrex==0.11.0", "jsonschema==4.17.3", "jsonpatch==1.33", "pandas==2.0.3", "pydantic==2.5.2"]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "check_pyproject_toml_config",
+      "type": "file_contains",
+      "params": {
+        "path": "pyproject.toml",
+        "contains": ["name = \"acto\"", "requires-python = \">= 3.12\"", "kubernetes==31.0.0", "deepdiff", "exrex", "jsonschema"]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "check_kubernetes_client",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"from kubernetes import client, config; print('Kubernetes client works')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": ["check_python_dependencies"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_yaml_processing",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import yaml, ruamel.yaml; print('YAML processing works')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "requires": ["check_python_dependencies"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_json_processing",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import json, jsonpatch; print('JSON processing works')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "requires": ["check_python_dependencies"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_pandas_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import pandas as pd; df = pd.DataFrame({'test': [1, 2, 3]}); print(f'Pandas works: {len(df)} rows')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "requires": ["check_python_dependencies"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_pytest_availability",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import pytest; print(f'Pytest version: {pytest.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "requires": ["check_python_dependencies"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_acto_home_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "ACTO_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pythonpath_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "PYTHONPATH"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_kubeconfig_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "KUBECONFIG"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["Acto", "Kubernetes", "Operators", "Controllers", "End-to-End Testing"]
+      },
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_acto_submodules",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import acto.engine, acto.input, acto.schema, acto.utils, acto.system_state, acto.kubernetes_engine, acto.k8s_util, acto.cli; print('Acto submodules imported successfully')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": ["check_acto_module_import"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_go_lib_build",
+      "type": "run_command",
+      "params": {
+        "command": "cd acto/k8s_util/lib && make"
+      },
+      "timeout": 60,
+      "score": 2,
+      "requires": ["check_go_kubectl_kind_helm"],
+      "category": "functionality"
+    }
+  ]
+}

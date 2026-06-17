@@ -1,0 +1,338 @@
+{
+  "repo": "EsmaeilNarimissa_SciDOCX",
+  "dockerfile": "/home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-tensorblock/gpt-4.1-mini/EsmaeilNarimissa_SciDOCX/envgym/envgym.dockerfile",
+  "rubric": "/home/cc/enveval/EnvEval/benchmark/rubrics/manual/EsmaeilNarimissa_SciDOCX.json",
+  "build_log": {
+    "command": "docker build --no-cache --network host --label uuid=eval_esmaeilnarimissa_scidocx_1778665230186_8161 -t eval_esmaeilnarimissa_scidocx:1778665230186_8161 -f /home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-tensorblock/gpt-4.1-mini/EsmaeilNarimissa_SciDOCX/envgym/envgym.dockerfile /home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-tensorblock/gpt-4.1-mini/EsmaeilNarimissa_SciDOCX",
+    "dockerfile_path": "/home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-tensorblock/gpt-4.1-mini/EsmaeilNarimissa_SciDOCX/envgym/envgym.dockerfile",
+    "build_context": "/home/cc/enveval/EnvEval/benchmark/14repo/ENVGYM-14repo/ours-tensorblock/gpt-4.1-mini/EsmaeilNarimissa_SciDOCX",
+    "scenario": "scenario_2",
+    "repo_data_exists": true,
+    "build_success": true,
+    "build_stdout": "",
+    "build_stderr": "#0 building with \"default\" instance using docker driver\n\n#1 [internal] load build definition from envgym.dockerfile\n#1 transferring dockerfile: 1.60kB done\n#1 DONE 0.0s\n\n#2 [internal] load metadata for docker.io/library/python:3.10-slim\n#2 DONE 0.3s\n\n#3 [internal] load .dockerignore\n#3 transferring context: 174B done\n#3 DONE 0.0s\n\n#4 [1/8] FROM docker.io/library/python:3.10-slim@sha256:3ff3599b60b92eeb304e6bd580b765c4e46f0290e687926bb37a078c74a181a1\n#4 resolve docker.io/library/python:3.10-slim@sha256:3ff3599b60b92eeb304e6bd580b765c4e46f0290e687926bb37a078c74a181a1 0.0s done\n#4 CACHED\n\n#5 [internal] load build context\n#5 transferring context: 2.33kB done\n#5 DONE 0.0s\n\n#6 [2/8] WORKDIR /app\n#6 DONE 0.1s\n\n#7 [3/8] RUN apt-get update && apt-get install -y --no-install-recommends     git     curl     pandoc     && rm -rf /var/lib/apt/lists/*\n#7 0.187 Hit:1 http://deb.debian.org/debian trixie InRelease\n#7 0.187 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]\n#7 0.190 Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]\n#7 0.235 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9671 kB]\n#7 0.349 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [5412 B]\n#7 0.350 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [160 kB]\n#7 1.159 Fetched 9927 kB in 1s (9707 kB/s)\n#7 1.159 Reading package lists...\n#7 1.766 Reading package lists...\n#7 2.325 Building dependency tree...\n#7 2.440 Reading state information...\n#7 2.593 The following additional packages will be installed:\n#7 2.593   git-man libbrotli1 libcom-err2 libcurl3t64-gnutls libcurl4t64 liberror-perl\n#7 2.594   libexpat1 libgdbm-compat4t64 libgnutls30t64 libgssapi-krb5-2 libidn2-0\n#7 2.594   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap2 liblua5.4-0\n#7 2.594   libnghttp2-14 libnghttp3-9 libngtcp2-16 libngtcp2-crypto-gnutls8 libnuma1\n#7 2.594   libp11-kit0 libperl5.40 libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules-db\n#7 2.594   libssh2-1t64 libtasn1-6 libunistring5 libyaml-0-2 pandoc-data perl\n#7 2.595   perl-modules-5.40\n#7 2.596 Suggested packages:\n#7 2.596   gettext-base git-doc git-email git-gui gitk gitweb git-cvs git-mediawiki\n#7 2.596   git-svn gnutls-bin krb5-doc krb5-user sensible-utils\n#7 2.596   texlive-latex-recommended texlive-xetex texlive-luatex pandoc-citeproc\n#7 2.596   texlive-latex-extra context wkhtmltopdf librsvg2-bin groff ghc nodejs php\n#7 2.596   python ruby r-base-core libjs-mathjax libjs-katex\n#7 2.596   citation-style-language-styles perl-doc libterm-readline-gnu-perl\n#7 2.596   | libterm-readline-perl-perl make libtap-harness-archive-perl\n#7 2.596 Recommended packages:\n#7 2.596   bash-completion patch less ssh-client krb5-locales libldap-common\n#7 2.596   publicsuffix libsasl2-modules\n#7 2.836 The following NEW packages will be installed:\n#7 2.836   curl git git-man libbrotli1 libcom-err2 libcurl3t64-gnutls libcurl4t64\n#7 2.836   liberror-perl libexpat1 libgdbm-compat4t64 libgnutls30t64 libgssapi-krb5-2\n#7 2.836   libidn2-0 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap2\n#7 2.836   liblua5.4-0 libnghttp2-14 libnghttp3-9 libngtcp2-16 libngtcp2-crypto-gnutls8\n#7 2.837   libnuma1 libp11-kit0 libperl5.40 libpsl5t64 librtmp1 libsasl2-2\n#7 2.837   libsasl2-modules-db libssh2-1t64 libtasn1-6 libunistring5 libyaml-0-2 pandoc\n#7 2.837   pandoc-data perl perl-modules-5.40\n#7 2.880 0 upgraded, 38 newly installed, 0 to remove and 0 not upgraded.\n#7 2.880 Need to get 51.4 MB of archives.\n#7 2.880 After this operation, 321 MB of additional disk space will be used.\n#7 2.880 Get:1 http://deb.debian.org/debian trixie/main amd64 libexpat1 amd64 2.7.1-2 [108 kB]\n#7 2.888 Get:2 http://deb.debian.org/debian trixie/main amd64 perl-modules-5.40 all 5.40.1-6 [3019 kB]\n#7 2.926 Get:3 http://deb.debian.org/debian trixie/main amd64 libgdbm-compat4t64 amd64 1.24-2 [50.3 kB]\n#7 2.928 Get:4 http://deb.debian.org/debian trixie/main amd64 libperl5.40 amd64 5.40.1-6 [4341 kB]\n#7 2.968 Get:5 http://deb.debian.org/debian trixie/main amd64 perl amd64 5.40.1-6 [267 kB]\n#7 2.971 Get:6 http://deb.debian.org/debian trixie/main amd64 libbrotli1 amd64 1.1.0-2+b7 [307 kB]\n#7 2.976 Get:7 http://deb.debian.org/debian trixie/main amd64 libkrb5support0 amd64 1.21.3-5 [33.0 kB]\n#7 2.977 Get:8 http://deb.debian.org/debian trixie/main amd64 libcom-err2 amd64 1.47.2-3+b10 [25.0 kB]\n#7 2.977 Get:9 http://deb.debian.org/debian trixie/main amd64 libk5crypto3 amd64 1.21.3-5 [81.5 kB]\n#7 2.979 Get:10 http://deb.debian.org/debian trixie/main amd64 libkeyutils1 amd64 1.6.3-6 [9456 B]\n#7 2.980 Get:11 http://deb.debian.org/debian trixie/main amd64 libkrb5-3 amd64 1.21.3-5 [326 kB]\n#7 2.985 Get:12 http://deb.debian.org/debian trixie/main amd64 libgssapi-krb5-2 amd64 1.21.3-5 [138 kB]\n#7 2.987 Get:13 http://deb.debian.org/debian trixie/main amd64 libunistring5 amd64 1.3-2 [477 kB]\n#7 2.992 Get:14 http://deb.debian.org/debian trixie/main amd64 libidn2-0 amd64 2.3.8-2 [109 kB]\n#7 2.993 Get:15 http://deb.debian.org/debian trixie/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-9 [19.8 kB]\n#7 2.994 Get:16 http://deb.debian.org/debian trixie/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-9 [57.5 kB]\n#7 2.994 Get:17 http://deb.debian.org/debian trixie/main amd64 libldap2 amd64 2.6.10+dfsg-1 [194 kB]\n#7 2.996 Get:18 http://deb.debian.org/debian trixie/main amd64 libnghttp2-14 amd64 1.64.0-1.1 [76.0 kB]\n#7 2.996 Get:19 http://deb.debian.org/debian trixie/main amd64 libnghttp3-9 amd64 1.8.0-1 [67.7 kB]\n#7 2.997 Get:20 http://deb.debian.org/debian trixie/main amd64 libpsl5t64 amd64 0.21.2-1.1+b1 [57.2 kB]\n#7 2.998 Get:21 http://deb.debian.org/debian trixie/main amd64 libp11-kit0 amd64 0.25.5-3 [425 kB]\n#7 3.001 Get:22 http://deb.debian.org/debian trixie/main amd64 libtasn1-6 amd64 4.20.0-2 [49.9 kB]\n#7 3.001 Get:23 http://deb.debian.org/debian trixie/main amd64 libgnutls30t64 amd64 3.8.9-3+deb13u2 [1468 kB]\n#7 3.010 Get:24 http://deb.debian.org/debian trixie/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b5 [58.8 kB]\n#7 3.010 Get:25 http://deb.debian.org/debian trixie/main amd64 libssh2-1t64 amd64 1.11.1-1 [245 kB]\n#7 3.012 Get:26 http://deb.debian.org/debian trixie/main amd64 libcurl4t64 amd64 8.14.1-2+deb13u2 [391 kB]\n#7 3.015 Get:27 http://deb.debian.org/debian trixie/main amd64 curl amd64 8.14.1-2+deb13u2 [270 kB]\n#7 3.016 Get:28 http://deb.debian.org/debian-security trixie-security/main amd64 libngtcp2-16 amd64 1.11.0-1+deb13u1 [132 kB]\n#7 3.017 Get:29 http://deb.debian.org/debian-security trixie-security/main amd64 libngtcp2-crypto-gnutls8 amd64 1.11.0-1+deb13u1 [29.5 kB]\n#7 3.017 Get:30 http://deb.debian.org/debian trixie/main amd64 libcurl3t64-gnutls amd64 8.14.1-2+deb13u2 [383 kB]\n#7 3.019 Get:31 http://deb.debian.org/debian trixie/main amd64 liberror-perl all 0.17030-1 [26.9 kB]\n#7 3.020 Get:32 http://deb.debian.org/debian trixie/main amd64 git-man all 1:2.47.3-0+deb13u1 [2205 kB]\n#7 3.031 Get:33 http://deb.debian.org/debian trixie/main amd64 git amd64 1:2.47.3-0+deb13u1 [8862 kB]\n#7 3.087 Get:34 http://deb.debian.org/debian trixie/main amd64 liblua5.4-0 amd64 5.4.7-1+b2 [147 kB]\n#7 3.089 Get:35 http://deb.debian.org/debian trixie/main amd64 libnuma1 amd64 2.0.19-1 [22.2 kB]\n#7 3.089 Get:36 http://deb.debian.org/debian trixie/main amd64 libyaml-0-2 amd64 0.2.5-2 [52.5 kB]\n#7 3.090 Get:37 http://deb.debian.org/debian trixie/main amd64 pandoc-data all 3.1.11.1-3 [459 kB]\n#7 3.096 Get:38 http://deb.debian.org/debian trixie/main amd64 pandoc amd64 3.1.11.1+ds-2 [26.4 MB]\n#7 3.453 debconf: unable to initialize frontend: Dialog\n#7 3.453 debconf: (TERM is not set, so the dialog frontend is not usable.)\n#7 3.453 debconf: falling back to frontend: Readline\n#7 3.453 debconf: unable to initialize frontend: Readline\n#7 3.453 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 38.)\n#7 3.453 debconf: falling back to frontend: Teletype\n#7 3.463 debconf: unable to initialize frontend: Teletype\n#7 3.463 debconf: (This frontend requires a controlling tty.)\n#7 3.463 debconf: falling back to frontend: Noninteractive\n#7 4.677 Fetched 51.4 MB in 0s (117 MB/s)\n#7 4.706 Selecting previously unselected package libexpat1:amd64.\n#7 4.706 (Reading database ... \n(Reading database ... 5%\n(Reading database ... 10%\n(Reading database ... 15%\n(Reading database ... 20%\n(Reading database ... 25%\n(Reading database ... 30%\n(Reading database ... 35%\n(Reading database ... 40%\n(Reading database ... 45%\n(Reading database ... 50%\n(Reading database ... 55%\n(Reading database ... 60%\n(Reading database ... 65%\n(Reading database ... 70%\n(Reading database ... 75%\n(Reading database ... 80%\n(Reading database ... 85%\n(Reading database ... 90%\n(Reading database ... 95%\n(Reading database ... 100%\n(Reading database ... 5645 files and directories currently installed.)\n#7 4.711 Preparing to unpack .../00-libexpat1_2.7.1-2_amd64.deb ...\n#7 4.712 Unpacking libexpat1:amd64 (2.7.1-2) ...\n#7 4.757 Selecting previously unselected package perl-modules-5.40.\n#7 4.757 Preparing to unpack .../01-perl-modules-5.40_5.40.1-6_all.deb ...\n#7 4.758 Unpacking perl-modules-5.40 (5.40.1-6) ...\n#7 5.012 Selecting previously unselected package libgdbm-compat4t64:amd64.\n#7 5.013 Preparing to unpack .../02-libgdbm-compat4t64_1.24-2_amd64.deb ...\n#7 5.014 Unpacking libgdbm-compat4t64:amd64 (1.24-2) ...\n#7 5.047 Selecting previously unselected package libperl5.40:amd64.\n#7 5.048 Preparing to unpack .../03-libperl5.40_5.40.1-6_amd64.deb ...\n#7 5.049 Unpacking libperl5.40:amd64 (5.40.1-6) ...\n#7 5.322 Selecting previously unselected package perl.\n#7 5.324 Preparing to unpack .../04-perl_5.40.1-6_amd64.deb ...\n#7 5.325 Unpacking perl (5.40.1-6) ...\n#7 5.381 Selecting previously unselected package libbrotli1:amd64.\n#7 5.382 Preparing to unpack .../05-libbrotli1_1.1.0-2+b7_amd64.deb ...\n#7 5.383 Unpacking libbrotli1:amd64 (1.1.0-2+b7) ...\n#7 5.442 Selecting previously unselected package libkrb5support0:amd64.\n#7 5.443 Preparing to unpack .../06-libkrb5support0_1.21.3-5_amd64.deb ...\n#7 5.444 Unpacking libkrb5support0:amd64 (1.21.3-5) ...\n#7 5.478 Selecting previously unselected package libcom-err2:amd64.\n#7 5.479 Preparing to unpack .../07-libcom-err2_1.47.2-3+b10_amd64.deb ...\n#7 5.480 Unpacking libcom-err2:amd64 (1.47.2-3+b10) ...\n#7 5.512 Selecting previously unselected package libk5crypto3:amd64.\n#7 5.513 Preparing to unpack .../08-libk5crypto3_1.21.3-5_amd64.deb ...\n#7 5.514 Unpacking libk5crypto3:amd64 (1.21.3-5) ...\n#7 5.556 Selecting previously unselected package libkeyutils1:amd64.\n#7 5.558 Preparing to unpack .../09-libkeyutils1_1.6.3-6_amd64.deb ...\n#7 5.558 Unpacking libkeyutils1:amd64 (1.6.3-6) ...\n#7 5.589 Selecting previously unselected package libkrb5-3:amd64.\n#7 5.590 Preparing to unpack .../10-libkrb5-3_1.21.3-5_amd64.deb ...\n#7 5.591 Unpacking libkrb5-3:amd64 (1.21.3-5) ...\n#7 5.652 Selecting previously unselected package libgssapi-krb5-2:amd64.\n#7 5.653 Preparing to unpack .../11-libgssapi-krb5-2_1.21.3-5_amd64.deb ...\n#7 5.654 Unpacking libgssapi-krb5-2:amd64 (1.21.3-5) ...\n#7 5.701 Selecting previously unselected package libunistring5:amd64.\n#7 5.702 Preparing to unpack .../12-libunistring5_1.3-2_amd64.deb ...\n#7 5.703 Unpacking libunistring5:amd64 (1.3-2) ...\n#7 5.776 Selecting previously unselected package libidn2-0:amd64.\n#7 5.777 Preparing to unpack .../13-libidn2-0_2.3.8-2_amd64.deb ...\n#7 5.778 Unpacking libidn2-0:amd64 (2.3.8-2) ...\n#7 5.826 Selecting previously unselected package libsasl2-modules-db:amd64.\n#7 5.827 Preparing to unpack .../14-libsasl2-modules-db_2.1.28+dfsg1-9_amd64.deb ...\n#7 5.828 Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg1-9) ...\n#7 5.860 Selecting previously unselected package libsasl2-2:amd64.\n#7 5.862 Preparing to unpack .../15-libsasl2-2_2.1.28+dfsg1-9_amd64.deb ...\n#7 5.862 Unpacking libsasl2-2:amd64 (2.1.28+dfsg1-9) ...\n#7 5.899 Selecting previously unselected package libldap2:amd64.\n#7 5.900 Preparing to unpack .../16-libldap2_2.6.10+dfsg-1_amd64.deb ...\n#7 5.901 Unpacking libldap2:amd64 (2.6.10+dfsg-1) ...\n#7 5.953 Selecting previously unselected package libnghttp2-14:amd64.\n#7 5.954 Preparing to unpack .../17-libnghttp2-14_1.64.0-1.1_amd64.deb ...\n#7 5.955 Unpacking libnghttp2-14:amd64 (1.64.0-1.1) ...\n#7 5.995 Selecting previously unselected package libnghttp3-9:amd64.\n#7 5.997 Preparing to unpack .../18-libnghttp3-9_1.8.0-1_amd64.deb ...\n#7 5.998 Unpacking libnghttp3-9:amd64 (1.8.0-1) ...\n#7 6.037 Selecting previously unselected package libpsl5t64:amd64.\n#7 6.039 Preparing to unpack .../19-libpsl5t64_0.21.2-1.1+b1_amd64.deb ...\n#7 6.039 Unpacking libpsl5t64:amd64 (0.21.2-1.1+b1) ...\n#7 6.076 Selecting previously unselected package libp11-kit0:amd64.\n#7 6.077 Preparing to unpack .../20-libp11-kit0_0.25.5-3_amd64.deb ...\n#7 6.078 Unpacking libp11-kit0:amd64 (0.25.5-3) ...\n#7 6.146 Selecting previously unselected package libtasn1-6:amd64.\n#7 6.147 Preparing to unpack .../21-libtasn1-6_4.20.0-2_amd64.deb ...\n#7 6.148 Unpacking libtasn1-6:amd64 (4.20.0-2) ...\n#7 6.184 Selecting previously unselected package libgnutls30t64:amd64.\n#7 6.185 Preparing to unpack .../22-libgnutls30t64_3.8.9-3+deb13u2_amd64.deb ...\n#7 6.186 Unpacking libgnutls30t64:amd64 (3.8.9-3+deb13u2) ...\n#7 6.277 Selecting previously unselected package librtmp1:amd64.\n#7 6.279 Preparing to unpack .../23-librtmp1_2.4+20151223.gitfa8646d.1-2+b5_amd64.deb ...\n#7 6.280 Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b5) ...\n#7 6.317 Selecting previously unselected package libssh2-1t64:amd64.\n#7 6.319 Preparing to unpack .../24-libssh2-1t64_1.11.1-1_amd64.deb ...\n#7 6.319 Unpacking libssh2-1t64:amd64 (1.11.1-1) ...\n#7 6.370 Selecting previously unselected package libcurl4t64:amd64.\n#7 6.372 Preparing to unpack .../25-libcurl4t64_8.14.1-2+deb13u2_amd64.deb ...\n#7 6.373 Unpacking libcurl4t64:amd64 (8.14.1-2+deb13u2) ...\n#7 6.435 Selecting previously unselected package curl.\n#7 6.437 Preparing to unpack .../26-curl_8.14.1-2+deb13u2_amd64.deb ...\n#7 6.438 Unpacking curl (8.14.1-2+deb13u2) ...\n#7 6.493 Selecting previously unselected package libngtcp2-16:amd64.\n#7 6.494 Preparing to unpack .../27-libngtcp2-16_1.11.0-1+deb13u1_amd64.deb ...\n#7 6.495 Unpacking libngtcp2-16:amd64 (1.11.0-1+deb13u1) ...\n#7 6.543 Selecting previously unselected package libngtcp2-crypto-gnutls8:amd64.\n#7 6.544 Preparing to unpack .../28-libngtcp2-crypto-gnutls8_1.11.0-1+deb13u1_amd64.deb ...\n#7 6.545 Unpacking libngtcp2-crypto-gnutls8:amd64 (1.11.0-1+deb13u1) ...\n#7 6.578 Selecting previously unselected package libcurl3t64-gnutls:amd64.\n#7 6.579 Preparing to unpack .../29-libcurl3t64-gnutls_8.14.1-2+deb13u2_amd64.deb ...\n#7 6.580 Unpacking libcurl3t64-gnutls:amd64 (8.14.1-2+deb13u2) ...\n#7 6.643 Selecting previously unselected package liberror-perl.\n#7 6.645 Preparing to unpack .../30-liberror-perl_0.17030-1_all.deb ...\n#7 6.645 Unpacking liberror-perl (0.17030-1) ...\n#7 6.677 Selecting previously unselected package git-man.\n#7 6.679 Preparing to unpack .../31-git-man_1%3a2.47.3-0+deb13u1_all.deb ...\n#7 6.680 Unpacking git-man (1:2.47.3-0+deb13u1) ...\n#7 6.766 Selecting previously unselected package git.\n#7 6.768 Preparing to unpack .../32-git_1%3a2.47.3-0+deb13u1_amd64.deb ...\n#7 6.781 Unpacking git (1:2.47.3-0+deb13u1) ...\n#7 7.091 Selecting previously unselected package liblua5.4-0:amd64.\n#7 7.093 Preparing to unpack .../33-liblua5.4-0_5.4.7-1+b2_amd64.deb ...\n#7 7.093 Unpacking liblua5.4-0:amd64 (5.4.7-1+b2) ...\n#7 7.141 Selecting previously unselected package libnuma1:amd64.\n#7 7.142 Preparing to unpack .../34-libnuma1_2.0.19-1_amd64.deb ...\n#7 7.143 Unpacking libnuma1:amd64 (2.0.19-1) ...\n#7 7.175 Selecting previously unselected package libyaml-0-2:amd64.\n#7 7.177 Preparing to unpack .../35-libyaml-0-2_0.2.5-2_amd64.deb ...\n#7 7.177 Unpacking libyaml-0-2:amd64 (0.2.5-2) ...\n#7 7.212 Selecting previously unselected package pandoc-data.\n#7 7.214 Preparing to unpack .../36-pandoc-data_3.1.11.1-3_all.deb ...\n#7 7.215 Unpacking pandoc-data (3.1.11.1-3) ...\n#7 7.285 Selecting previously unselected package pandoc.\n#7 7.287 Preparing to unpack .../37-pandoc_3.1.11.1+ds-2_amd64.deb ...\n#7 7.288 Unpacking pandoc (3.1.11.1+ds-2) ...\n#7 8.033 Setting up libexpat1:amd64 (2.7.1-2) ...\n#7 8.036 Setting up libkeyutils1:amd64 (1.6.3-6) ...\n#7 8.038 Setting up libgdbm-compat4t64:amd64 (1.24-2) ...\n#7 8.040 Setting up libyaml-0-2:amd64 (0.2.5-2) ...\n#7 8.042 Setting up libbrotli1:amd64 (1.1.0-2+b7) ...\n#7 8.045 Setting up libnghttp2-14:amd64 (1.64.0-1.1) ...\n#7 8.047 Setting up libcom-err2:amd64 (1.47.2-3+b10) ...\n#7 8.049 Setting up libkrb5support0:amd64 (1.21.3-5) ...\n#7 8.051 Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg1-9) ...\n#7 8.053 Setting up libp11-kit0:amd64 (0.25.5-3) ...\n#7 8.055 Setting up libunistring5:amd64 (1.3-2) ...\n#7 8.057 Setting up libk5crypto3:amd64 (1.21.3-5) ...\n#7 8.059 Setting up libsasl2-2:amd64 (2.1.28+dfsg1-9) ...\n#7 8.062 Setting up libnghttp3-9:amd64 (1.8.0-1) ...\n#7 8.064 Setting up libnuma1:amd64 (2.0.19-1) ...\n#7 8.066 Setting up perl-modules-5.40 (5.40.1-6) ...\n#7 8.068 Setting up libtasn1-6:amd64 (4.20.0-2) ...\n#7 8.070 Setting up liblua5.4-0:amd64 (5.4.7-1+b2) ...\n#7 8.072 Setting up git-man (1:2.47.3-0+deb13u1) ...\n#7 8.074 Setting up libngtcp2-16:amd64 (1.11.0-1+deb13u1) ...\n#7 8.076 Setting up libkrb5-3:amd64 (1.21.3-5) ...\n#7 8.078 Setting up libssh2-1t64:amd64 (1.11.1-1) ...\n#7 8.080 Setting up pandoc-data (3.1.11.1-3) ...\n#7 8.083 Setting up libldap2:amd64 (2.6.10+dfsg-1) ...\n#7 8.085 Setting up libidn2-0:amd64 (2.3.8-2) ...\n#7 8.087 Setting up libperl5.40:amd64 (5.40.1-6) ...\n#7 8.089 Setting up perl (5.40.1-6) ...\n#7 8.101 Setting up pandoc (3.1.11.1+ds-2) ...\n#7 8.103 Setting up libgssapi-krb5-2:amd64 (1.21.3-5) ...\n#7 8.108 Setting up libgnutls30t64:amd64 (3.8.9-3+deb13u2) ...\n#7 8.110 Setting up libpsl5t64:amd64 (0.21.2-1.1+b1) ...\n#7 8.113 Setting up liberror-perl (0.17030-1) ...\n#7 8.115 Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b5) ...\n#7 8.118 Setting up libngtcp2-crypto-gnutls8:amd64 (1.11.0-1+deb13u1) ...\n#7 8.120 Setting up libcurl4t64:amd64 (8.14.1-2+deb13u2) ...\n#7 8.123 Setting up libcurl3t64-gnutls:amd64 (8.14.1-2+deb13u2) ...\n#7 8.126 Setting up git (1:2.47.3-0+deb13u1) ...\n#7 8.142 Setting up curl (8.14.1-2+deb13u2) ...\n#7 8.145 Processing triggers for libc-bin (2.41-12+deb13u2) ...\n#7 DONE 9.0s\n\n#8 [4/8] RUN pip install --no-cache-dir uv\n#8 2.125 Collecting uv\n#8 2.187   Downloading uv-0.11.14-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (24.7 MB)\n#8 2.366      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 24.7/24.7 MB 293.6 MB/s eta 0:00:00\n#8 2.481 Installing collected packages: uv\n#8 2.824 Successfully installed uv-0.11.14\n#8 2.824 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv\n#8 2.916 \n#8 2.916 [notice] A new release of pip is available: 23.0.1 -> 26.1.1\n#8 2.916 [notice] To update, run: pip install --upgrade pip\n#8 DONE 3.2s\n\n#9 [5/8] COPY . /app/\n#9 DONE 0.0s\n\n#10 [6/8] RUN ls -l /app/requirements*.txt && python --version && pip --version && uv --version\n#10 0.077 -rw-rw-r-- 1 root root 1127 May 13 08:48 /app/requirements-lock.txt\n#10 0.077 -rw-rw-r-- 1 root root  611 May 13 08:48 /app/requirements.txt\n#10 0.081 Python 3.10.20\n#10 0.320 pip 23.0.1 from /usr/local/lib/python3.10/site-packages/pip (python 3.10)\n#10 0.369 uv 0.11.14 (x86_64-unknown-linux-gnu)\n#10 DONE 0.4s\n\n#11 [7/8] RUN if [ -f /app/requirements-lock.txt ]; then         sed -i 's/torch==2.5.1+cu121/torch==2.5.1/g' /app/requirements-lock.txt &&         sed -i 's/torchvision==0.20.1+cu121/torchvision==0.20.1/g' /app/requirements-lock.txt &&         pip install --no-cache-dir -r /app/requirements-lock.txt;     else         sed -i 's/torch==2.5.1+cu121/torch==2.5.1/g' /app/requirements.txt &&         sed -i 's/torchvision==0.20.1+cu121/torchvision==0.20.1/g' /app/requirements.txt &&         pip install --no-cache-dir -r /app/requirements.txt;     fi\n#11 0.571 Collecting accelerate==1.11.0\n#11 0.594   Downloading accelerate-1.11.0-py3-none-any.whl (375 kB)\n#11 0.607      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 375.8/375.8 kB 37.6 MB/s eta 0:00:00\n#11 0.635 Collecting addict==2.4.0\n#11 0.640   Downloading addict-2.4.0-py3-none-any.whl (3.8 kB)\n#11 0.655 Collecting annotated-doc==0.0.3\n#11 0.660   Downloading annotated_doc-0.0.3-py3-none-any.whl (5.5 kB)\n#11 0.675 Collecting annotated-types==0.7.0\n#11 0.680   Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)\n#11 0.716 Collecting anyio==4.11.0\n#11 0.720   Downloading anyio-4.11.0-py3-none-any.whl (109 kB)\n#11 0.722      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 109.1/109.1 kB 297.6 MB/s eta 0:00:00\n#11 0.754 Collecting certifi==2025.10.5\n#11 0.759   Downloading certifi-2025.10.5-py3-none-any.whl (163 kB)\n#11 0.761      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 163.3/163.3 kB 320.3 MB/s eta 0:00:00\n#11 1.026 Collecting cffi==2.0.0\n#11 1.031   Downloading cffi-2.0.0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (216 kB)\n#11 1.034      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 216.5/216.5 kB 322.1 MB/s eta 0:00:00\n#11 1.285 Collecting charset-normalizer==3.4.4\n#11 1.291   Downloading charset_normalizer-3.4.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (153 kB)\n#11 1.294      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 153.6/153.6 kB 313.7 MB/s eta 0:00:00\n#11 1.328 Collecting click==8.3.0\n#11 1.333   Downloading click-8.3.0-py3-none-any.whl (107 kB)\n#11 1.335      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 107.3/107.3 kB 302.0 MB/s eta 0:00:00\n#11 1.358 Collecting colorama==0.4.6\n#11 1.363   Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)\n#11 1.875 Collecting cryptography==46.0.3\n#11 1.880   Downloading cryptography-46.0.3-cp38-abi3-manylinux_2_34_x86_64.whl (4.5 MB)\n#11 1.900      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 4.5/4.5 MB 262.0 MB/s eta 0:00:00\n#11 1.938 Collecting deprecated==1.3.1\n#11 1.943   Downloading deprecated-1.3.1-py2.py3-none-any.whl (11 kB)\n#11 1.960 Collecting easydict==1.13\n#11 1.965   Downloading easydict-1.13-py3-none-any.whl (6.8 kB)\n#11 1.986 Collecting ecdsa==0.19.1\n#11 1.992   Downloading ecdsa-0.19.1-py2.py3-none-any.whl (150 kB)\n#11 1.996      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 150.6/150.6 kB 165.2 MB/s eta 0:00:00\n#11 2.022 Collecting einops==0.8.1\n#11 2.027   Downloading einops-0.8.1-py3-none-any.whl (64 kB)\n#11 2.029      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 64.4/64.4 kB 286.0 MB/s eta 0:00:00\n#11 2.049 Collecting exceptiongroup==1.3.0\n#11 2.054   Downloading exceptiongroup-1.3.0-py3-none-any.whl (16 kB)\n#11 2.182 Collecting fastapi==0.120.2\n#11 2.187   Downloading fastapi-0.120.2-py3-none-any.whl (108 kB)\n#11 2.189      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 108.4/108.4 kB 308.9 MB/s eta 0:00:00\n#11 2.229 Collecting filelock==3.19.1\n#11 2.234   Downloading filelock-3.19.1-py3-none-any.whl (15 kB)\n#11 2.296 Collecting fsspec==2025.9.0\n#11 2.301   Downloading fsspec-2025.9.0-py3-none-any.whl (199 kB)\n#11 2.304      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 199.3/199.3 kB 313.6 MB/s eta 0:00:00\n#11 2.320 Collecting h11==0.16.0\n#11 2.325   Downloading h11-0.16.0-py3-none-any.whl (37 kB)\n#11 2.409 Collecting httptools==0.7.1\n#11 2.415   Downloading httptools-0.7.1-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (440 kB)\n#11 2.422      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 440.9/440.9 kB 141.3 MB/s eta 0:00:00\n#11 2.536 Collecting huggingface-hub==0.36.0\n#11 2.541   Downloading huggingface_hub-0.36.0-py3-none-any.whl (566 kB)\n#11 2.544      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 566.1/566.1 kB 336.7 MB/s eta 0:00:00\n#11 2.568 Collecting idna==3.11\n#11 2.573   Downloading idna-3.11-py3-none-any.whl (71 kB)\n#11 2.575      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 71.0/71.0 kB 293.1 MB/s eta 0:00:00\n#11 2.590 Collecting img2pdf==0.6.1\n#11 2.597   Downloading img2pdf-0.6.1.tar.gz (106 kB)\n#11 2.603      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 106.5/106.5 kB 118.2 MB/s eta 0:00:00\n#11 2.625   Preparing metadata (setup.py): started\n#11 2.937   Preparing metadata (setup.py): finished with status 'done'\n#11 2.983 Collecting jinja2==3.1.6\n#11 2.989   Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)\n#11 2.995      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 134.9/134.9 kB 123.2 MB/s eta 0:00:00\n#11 3.544 Collecting lxml==6.0.2\n#11 3.549   Downloading lxml-6.0.2-cp310-cp310-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.3 MB)\n#11 3.566      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 5.3/5.3 MB 349.0 MB/s eta 0:00:00\n#11 3.704 Collecting markupsafe==2.1.5\n#11 3.709   Downloading MarkupSafe-2.1.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (25 kB)\n#11 3.747 Collecting mpmath==1.3.0\n#11 3.752   Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)\n#11 3.756      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 536.2/536.2 kB 322.3 MB/s eta 0:00:00\n#11 3.812 Collecting networkx==3.3\n#11 3.818   Downloading networkx-3.3-py3-none-any.whl (1.7 MB)\n#11 3.831      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 1.7/1.7 MB 170.0 MB/s eta 0:00:00\n#11 4.337 Collecting numpy==2.1.2\n#11 4.344   Downloading numpy-2.1.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.3 MB)\n#11 4.395      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 16.3/16.3 MB 346.9 MB/s eta 0:00:00\n#11 4.473 Collecting packaging==25.0\n#11 4.478   Downloading packaging-25.0-py3-none-any.whl (66 kB)\n#11 4.481      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 66.5/66.5 kB 276.1 MB/s eta 0:00:00\n#11 5.362 Collecting pikepdf==10.0.0\n#11 5.370   Downloading pikepdf-10.0.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (2.6 MB)\n#11 5.389      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 2.6/2.6 MB 159.4 MB/s eta 0:00:00\n#11 5.809 Collecting pillow==11.3.0\n#11 5.815   Downloading pillow-11.3.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.6 MB)\n#11 5.842      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 6.6/6.6 MB 265.0 MB/s eta 0:00:00\n#11 6.018 Collecting psutil==7.1.2\n#11 6.025   Downloading psutil-7.1.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (258 kB)\n#11 6.027      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 258.7/258.7 kB 318.5 MB/s eta 0:00:00\n#11 6.062 Collecting pyasn1==0.6.1\n#11 6.066   Downloading pyasn1-0.6.1-py3-none-any.whl (83 kB)\n#11 6.069      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 83.1/83.1 kB 297.4 MB/s eta 0:00:00\n#11 6.085 Collecting pycparser==2.23\n#11 6.090   Downloading pycparser-2.23-py3-none-any.whl (118 kB)\n#11 6.092      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 118.1/118.1 kB 159.9 MB/s eta 0:00:00\n#11 6.443 Collecting pydantic==2.12.3\n#11 6.448   Downloading pydantic-2.12.3-py3-none-any.whl (462 kB)\n#11 6.451      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 462.4/462.4 kB 336.7 MB/s eta 0:00:00\n#11 8.376 Collecting pydantic-core==2.41.4\n#11 8.387   Downloading pydantic_core-2.41.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)\n#11 8.396      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 2.1/2.1 MB 322.6 MB/s eta 0:00:00\n#11 8.799 Collecting pymupdf==1.26.5\n#11 8.806   Downloading pymupdf-1.26.5-cp39-abi3-manylinux_2_28_x86_64.whl (24.1 MB)\n#11 8.880      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 24.1/24.1 MB 344.2 MB/s eta 0:00:00\n#11 8.966 Collecting pypandoc==1.15\n#11 8.970   Downloading pypandoc-1.15-py3-none-any.whl (21 kB)\n#11 8.999 Collecting python-dotenv==1.2.1\n#11 9.003   Downloading python_dotenv-1.2.1-py3-none-any.whl (21 kB)\n#11 9.021 Collecting python-jose==3.5.0\n#11 9.025   Downloading python_jose-3.5.0-py2.py3-none-any.whl (34 kB)\n#11 9.046 Collecting python-multipart==0.0.20\n#11 9.051   Downloading python_multipart-0.0.20-py3-none-any.whl (24 kB)\n#11 9.139 Collecting pyyaml==6.0.3\n#11 9.144   Downloading pyyaml-6.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (770 kB)\n#11 9.148      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 770.3/770.3 kB 352.8 MB/s eta 0:00:00\n#11 10.23 Collecting regex==2025.10.23\n#11 10.24   Downloading regex-2025.10.23-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (791 kB)\n#11 10.25      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 791.5/791.5 kB 150.3 MB/s eta 0:00:00\n#11 10.33 Collecting requests==2.32.5\n#11 10.33   Downloading requests-2.32.5-py3-none-any.whl (64 kB)\n#11 10.34      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 64.7/64.7 kB 295.4 MB/s eta 0:00:00\n#11 10.36 Collecting rsa==4.9.1\n#11 10.36   Downloading rsa-4.9.1-py3-none-any.whl (34 kB)\n#11 10.68 Collecting safetensors==0.6.2\n#11 10.68   Downloading safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (485 kB)\n#11 10.68      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 485.8/485.8 kB 331.1 MB/s eta 0:00:00\n#11 10.80 Collecting sentencepiece==0.2.1\n#11 10.81   Downloading sentencepiece-0.2.1-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)\n#11 10.81      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 1.4/1.4 MB 347.3 MB/s eta 0:00:00\n#11 10.84 Collecting six==1.17.0\n#11 10.84   Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)\n#11 10.85 Collecting sniffio==1.3.1\n#11 10.86   Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)\n#11 10.91 Collecting starlette==0.49.1\n#11 10.92   Downloading starlette-0.49.1-py3-none-any.whl (74 kB)\n#11 10.93      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 74.2/74.2 kB 94.8 MB/s eta 0:00:00\n#11 10.98 Collecting sympy==1.13.1\n#11 10.98   Downloading sympy-1.13.1-py3-none-any.whl (6.2 MB)\n#11 11.02      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 6.2/6.2 MB 201.8 MB/s eta 0:00:00\n#11 11.08 Collecting timm==1.0.21\n#11 11.09   Downloading timm-1.0.21-py3-none-any.whl (2.5 MB)\n#11 11.11      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 2.5/2.5 MB 149.9 MB/s eta 0:00:00\n#11 11.51 Collecting tokenizers==0.22.1\n#11 11.51   Downloading tokenizers-0.22.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)\n#11 11.52      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 3.3/3.3 MB 338.5 MB/s eta 0:00:00\n#11 11.65 Collecting torch==2.5.1\n#11 11.66   Downloading torch-2.5.1-cp310-cp310-manylinux1_x86_64.whl (906.4 MB)\n#11 14.33      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 906.4/906.4 MB 346.8 MB/s eta 0:00:00\n#11 16.72 Collecting torchvision==0.20.1\n#11 16.73   Downloading torchvision-0.20.1-cp310-cp310-manylinux1_x86_64.whl (7.2 MB)\n#11 16.76      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 7.2/7.2 MB 248.0 MB/s eta 0:00:00\n#11 16.85 Collecting tqdm==4.67.1\n#11 16.85   Downloading tqdm-4.67.1-py3-none-any.whl (78 kB)\n#11 16.85      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 78.5/78.5 kB 296.3 MB/s eta 0:00:00\n#11 16.95 Collecting transformers==4.57.1\n#11 16.96   Downloading transformers-4.57.1-py3-none-any.whl (12.0 MB)\n#11 17.00      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 12.0/12.0 MB 312.7 MB/s eta 0:00:00\n#11 17.08 Collecting typing-extensions==4.15.0\n#11 17.08   Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)\n#11 17.08      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 44.6/44.6 kB 259.3 MB/s eta 0:00:00\n#11 17.10 Collecting typing-inspection==0.4.2\n#11 17.11   Downloading typing_inspection-0.4.2-py3-none-any.whl (14 kB)\n#11 17.16 Collecting urllib3==2.5.0\n#11 17.17   Downloading urllib3-2.5.0-py3-none-any.whl (129 kB)\n#11 17.17      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 129.8/129.8 kB 322.7 MB/s eta 0:00:00\n#11 17.22 Collecting uvicorn==0.38.0\n#11 17.22   Downloading uvicorn-0.38.0-py3-none-any.whl (68 kB)\n#11 17.23      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 68.1/68.1 kB 286.4 MB/s eta 0:00:00\n#11 17.56 Collecting watchfiles==1.1.1\n#11 17.57   Downloading watchfiles-1.1.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (455 kB)\n#11 17.57      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 455.6/455.6 kB 342.3 MB/s eta 0:00:00\n#11 17.79 Collecting websockets==15.0.1\n#11 17.80   Downloading websockets-15.0.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (181 kB)\n#11 17.80      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 181.6/181.6 kB 130.7 MB/s eta 0:00:00\n#11 18.36 Collecting wrapt==2.0.0\n#11 18.38   Downloading wrapt-2.0.0-cp310-cp310-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (113 kB)\n#11 18.38      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 113.6/113.6 kB 266.0 MB/s eta 0:00:00\n#11 18.92 Collecting hf-xet<2.0.0,>=1.1.3\n#11 18.92   Downloading hf_xet-1.5.0-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)\n#11 18.94      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 4.5/4.5 MB 346.8 MB/s eta 0:00:00\n#11 19.41 Collecting nvidia-cuda-runtime-cu12==12.4.127\n#11 19.42   Downloading nvidia_cuda_runtime_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (883 kB)\n#11 19.42      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 883.7/883.7 kB 354.8 MB/s eta 0:00:00\n#11 19.45 Collecting nvidia-nccl-cu12==2.21.5\n#11 19.46   Downloading nvidia_nccl_cu12-2.21.5-py3-none-manylinux2014_x86_64.whl (188.7 MB)\n#11 20.03      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 188.7/188.7 MB 321.0 MB/s eta 0:00:00\n#11 20.52 Collecting nvidia-nvjitlink-cu12==12.4.127\n#11 20.53   Downloading nvidia_nvjitlink_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (21.1 MB)\n#11 20.61      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 21.1/21.1 MB 340.7 MB/s eta 0:00:00\n#11 20.70 Collecting nvidia-cuda-nvrtc-cu12==12.4.127\n#11 20.71   Downloading nvidia_cuda_nvrtc_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (24.6 MB)\n#11 20.79      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 24.6/24.6 MB 332.7 MB/s eta 0:00:00\n#11 20.88 Collecting nvidia-nvtx-cu12==12.4.127\n#11 20.88   Downloading nvidia_nvtx_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (99 kB)\n#11 20.88      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 99.1/99.1 kB 298.1 MB/s eta 0:00:00\n#11 20.92 Collecting nvidia-cudnn-cu12==9.1.0.70\n#11 20.92   Downloading nvidia_cudnn_cu12-9.1.0.70-py3-none-manylinux2014_x86_64.whl (664.8 MB)\n#11 22.91      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 664.8/664.8 MB 341.7 MB/s eta 0:00:00\n#11 24.60 Collecting nvidia-cusparse-cu12==12.3.1.170\n#11 24.60   Downloading nvidia_cusparse_cu12-12.3.1.170-py3-none-manylinux2014_x86_64.whl (207.5 MB)\n#11 25.27      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 207.5/207.5 MB 329.0 MB/s eta 0:00:00\n#11 25.84 Collecting nvidia-cublas-cu12==12.4.5.8\n#11 25.84   Downloading nvidia_cublas_cu12-12.4.5.8-py3-none-manylinux2014_x86_64.whl (363.4 MB)\n#11 26.92      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 363.4/363.4 MB 333.8 MB/s eta 0:00:00\n#11 27.90 Collecting nvidia-cufft-cu12==11.2.1.3\n#11 27.90   Downloading nvidia_cufft_cu12-11.2.1.3-py3-none-manylinux2014_x86_64.whl (211.5 MB)\n#11 28.56      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 211.5/211.5 MB 296.9 MB/s eta 0:00:00\n#11 29.13 Collecting triton==3.1.0\n#11 29.13   Downloading triton-3.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (209.5 MB)\n#11 29.76      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 209.5/209.5 MB 344.6 MB/s eta 0:00:00\n#11 30.29 Collecting nvidia-cusolver-cu12==11.6.1.9\n#11 30.30   Downloading nvidia_cusolver_cu12-11.6.1.9-py3-none-manylinux2014_x86_64.whl (127.9 MB)\n#11 30.69      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 127.9/127.9 MB 331.0 MB/s eta 0:00:00\n#11 31.04 Collecting nvidia-curand-cu12==10.3.5.147\n#11 31.05   Downloading nvidia_curand_cu12-10.3.5.147-py3-none-manylinux2014_x86_64.whl (56.3 MB)\n#11 31.22      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 56.3/56.3 MB 361.0 MB/s eta 0:00:00\n#11 31.38 Collecting nvidia-cuda-cupti-cu12==12.4.127\n#11 31.38   Downloading nvidia_cuda_cupti_cu12-12.4.127-py3-none-manylinux2014_x86_64.whl (13.8 MB)\n#11 31.43      \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 13.8/13.8 MB 337.6 MB/s eta 0:00:00\n#11 32.22 Building wheels for collected packages: img2pdf\n#11 32.22   Building wheel for img2pdf (setup.py): started\n#11 32.49   Building wheel for img2pdf (setup.py): finished with status 'done'\n#11 32.50   Created wheel for img2pdf: filename=img2pdf-0.6.1-py3-none-any.whl size=51100 sha256=f526a256570b7311a6121da5bb1e7cf708b370c6dfe743b6ec46624612b5a384\n#11 32.50   Stored in directory: /tmp/pip-ephem-wheel-cache-z5osbjt5/wheels/f9/07/5a/089ac4e2f9f5c198f72d4d3b6a5d1a11b2ce7a38d13cc76437\n#11 32.50 Successfully built img2pdf\n#11 33.83 Installing collected packages: mpmath, easydict, addict, wrapt, websockets, urllib3, typing-extensions, tqdm, sympy, sniffio, six, sentencepiece, safetensors, regex, pyyaml, python-multipart, python-dotenv, pypandoc, pymupdf, pycparser, pyasn1, psutil, pillow, packaging, nvidia-nvtx-cu12, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-curand-cu12, nvidia-cufft-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, numpy, networkx, markupsafe, lxml, idna, httptools, hf-xet, h11, fsspec, filelock, einops, colorama, click, charset-normalizer, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, triton, rsa, requests, pydantic-core, nvidia-cusparse-cu12, nvidia-cudnn-cu12, jinja2, exceptiongroup, ecdsa, deprecated, cffi, python-jose, pydantic, pikepdf, nvidia-cusolver-cu12, huggingface-hub, cryptography, anyio, watchfiles, torch, tokenizers, starlette, img2pdf, transformers, torchvision, fastapi, accelerate, timm\n#11 87.18 Successfully installed accelerate-1.11.0 addict-2.4.0 annotated-doc-0.0.3 annotated-types-0.7.0 anyio-4.11.0 certifi-2025.10.5 cffi-2.0.0 charset-normalizer-3.4.4 click-8.3.0 colorama-0.4.6 cryptography-46.0.3 deprecated-1.3.1 easydict-1.13 ecdsa-0.19.1 einops-0.8.1 exceptiongroup-1.3.0 fastapi-0.120.2 filelock-3.19.1 fsspec-2025.9.0 h11-0.16.0 hf-xet-1.5.0 httptools-0.7.1 huggingface-hub-0.36.0 idna-3.11 img2pdf-0.6.1 jinja2-3.1.6 lxml-6.0.2 markupsafe-2.1.5 mpmath-1.3.0 networkx-3.3 numpy-2.1.2 nvidia-cublas-cu12-12.4.5.8 nvidia-cuda-cupti-cu12-12.4.127 nvidia-cuda-nvrtc-cu12-12.4.127 nvidia-cuda-runtime-cu12-12.4.127 nvidia-cudnn-cu12-9.1.0.70 nvidia-cufft-cu12-11.2.1.3 nvidia-curand-cu12-10.3.5.147 nvidia-cusolver-cu12-11.6.1.9 nvidia-cusparse-cu12-12.3.1.170 nvidia-nccl-cu12-2.21.5 nvidia-nvjitlink-cu12-12.4.127 nvidia-nvtx-cu12-12.4.127 packaging-25.0 pikepdf-10.0.0 pillow-11.3.0 psutil-7.1.2 pyasn1-0.6.1 pycparser-2.23 pydantic-2.12.3 pydantic-core-2.41.4 pymupdf-1.26.5 pypandoc-1.15 python-dotenv-1.2.1 python-jose-3.5.0 python-multipart-0.0.20 pyyaml-6.0.3 regex-2025.10.23 requests-2.32.5 rsa-4.9.1 safetensors-0.6.2 sentencepiece-0.2.1 six-1.17.0 sniffio-1.3.1 starlette-0.49.1 sympy-1.13.1 timm-1.0.21 tokenizers-0.22.1 torch-2.5.1 torchvision-0.20.1 tqdm-4.67.1 transformers-4.57.1 triton-3.1.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.5.0 uvicorn-0.38.0 watchfiles-1.1.1 websockets-15.0.1 wrapt-2.0.0\n#11 87.18 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv\n#11 87.27 \n#11 87.27 [notice] A new release of pip is available: 23.0.1 -> 26.1.1\n#11 87.27 [notice] To update, run: pip install --upgrade pip\n#11 DONE 93.3s\n\n#12 [8/8] RUN mkdir -p /app/models /app/data/output /app/data/mmrag-output\n#12 DONE 0.4s\n\n#13 exporting to image\n#13 exporting layers\n#13 exporting layers 438.0s done\n#13 exporting manifest sha256:d5f03c4075c5fd93e1c3546afc0b7c694f579f7dd0af206ed907ecaf993a968a done\n#13 exporting config sha256:82dc810be34dcb135fb1ecdab1a1181363608a376fe2359277d27ade70ffbb84 done\n#13 exporting attestation manifest sha256:f4c3150093dd4ac6d6ba172e0828770680ee65973bca0c67ff57d76f2495fd88 0.0s done\n#13 exporting manifest list sha256:6a16283d0fd21d572bd07516dfe54ad1459c96515aea79c5f4bab434824b670b done\n#13 naming to docker.io/library/eval_esmaeilnarimissa_scidocx:1778665230186_8161 done\n#13 unpacking to docker.io/library/eval_esmaeilnarimissa_scidocx:1778665230186_8161\n#13 unpacking to docker.io/library/eval_esmaeilnarimissa_scidocx:1778665230186_8161 72.8s done\n#13 DONE 510.9s\n",
+    "build_returncode": 0,
+    "build_timeout": false,
+    "error_message": null
+  },
+  "container_health": {
+    "final_container_running": true,
+    "container_id": "9a616c6315f2af5eb9f1b920905b8b79bad13dee61440d33f454831d48b9498b",
+    "container_name": "eval_esmaeilnarimissa_scidocx_1778665230186_8161"
+  },
+  "summary": {
+    "total_tests": 55,
+    "passed_tests": 41,
+    "failed_tests": 14,
+    "total_score": 55.2,
+    "max_score": 77,
+    "success_rate": 0.7454545454545455,
+    "total_execution_time": 24.817875862121582
+  },
+  "test_results": [
+    {
+      "test_id": "check_system_tools",
+      "test_type": "commands_exist",
+      "passed": 4,
+      "score": 1.6,
+      "message": "Found 4/5 commands. Found: git, curl, bash, tar. Missing: wget",
+      "execution_time": 0.7975766658782959
+    },
+    {
+      "test_id": "check_build_tools",
+      "test_type": "commands_exist",
+      "passed": 0,
+      "score": 0.0,
+      "message": "No commands found. Missing: gcc, g++, make",
+      "execution_time": 0.48433661460876465
+    },
+    {
+      "test_id": "check_python_tools",
+      "test_type": "commands_exist",
+      "passed": 2,
+      "score": 2.0,
+      "message": "All commands found: python3, pip3",
+      "execution_time": 0.3029012680053711
+    },
+    {
+      "test_id": "check_python_version",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.16418147087097168
+    },
+    {
+      "test_id": "check_gpu_tools",
+      "test_type": "commands_exist",
+      "passed": 0,
+      "score": 0.0,
+      "message": "No commands found. Missing: nvidia-smi",
+      "execution_time": 0.1591203212738037
+    },
+    {
+      "test_id": "check_cuda_version",
+      "test_type": "run_command",
+      "passed": 0,
+      "score": 0,
+      "message": "Command failed. Output: ",
+      "execution_time": 0.16952824592590332
+    },
+    {
+      "test_id": "check_cuda_version_acceptable_fallback",
+      "test_type": "run_command",
+      "passed": 0,
+      "score": 0,
+      "message": "Command failed. Output: ",
+      "execution_time": 0.16642260551452637
+    },
+    {
+      "test_id": "check_cuda_visible_devices",
+      "test_type": "envvar_set",
+      "passed": false,
+      "score": 0,
+      "message": "Environment variable 'CUDA_VISIBLE_DEVICES' is not set",
+      "execution_time": 0.16695690155029297
+    },
+    {
+      "test_id": "check_pythonpath_env",
+      "test_type": "envvar_set",
+      "passed": true,
+      "score": 1,
+      "message": "Environment variable 'PYTHONPATH' is set",
+      "execution_time": 0.16259074211120605
+    },
+    {
+      "test_id": "check_pythonpath_includes_deepseek",
+      "test_type": "output_contains",
+      "passed": 0,
+      "score": 0,
+      "message": "Output does not contain any of: DeepSeek-OCR-vllm, DeepSeek-OCR. Command output: /app\n",
+      "execution_time": 0.15642642974853516
+    },
+    {
+      "test_id": "check_deepseek_ocr_vllm_dir",
+      "test_type": "run_command",
+      "passed": 0,
+      "score": 0,
+      "message": "Command failed. Output: ",
+      "execution_time": 0.2601909637451172
+    },
+    {
+      "test_id": "check_model_path_or_models_dir",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 1,
+      "message": "Command executed successfully.",
+      "execution_time": 0.15955662727355957
+    },
+    {
+      "test_id": "check_pandoc_available",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.15871238708496094
+    },
+    {
+      "test_id": "check_web_framework_deps",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.5873475074768066
+    },
+    {
+      "test_id": "check_pdf_image_deps",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.35646843910217285
+    },
+    {
+      "test_id": "check_transformers_and_tokenizers",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 2.5177738666534424
+    },
+    {
+      "test_id": "check_vllm_import",
+      "test_type": "run_command",
+      "passed": 0,
+      "score": 0,
+      "message": "Command failed. Output: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'vllm'\n",
+      "execution_time": 0.18032622337341309
+    },
+    {
+      "test_id": "check_core_scientific_deps",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.3072330951690674
+    },
+    {
+      "test_id": "check_root_files",
+      "test_type": "files_exist",
+      "passed": 9,
+      "score": 3.6,
+      "message": "Found 9/10 files. Found: LICENSE, Dockerfile, docker-compose.yml, requirements.txt, requirements-lock.txt, start_server.py, shared_utils.py, pdf_to_docx.py, pdf_to_mmrag_json.py. Missing: README.md",
+      "execution_time": 1.5688574314117432
+    },
+    {
+      "test_id": "check_main_directories",
+      "test_type": "dirs_exist",
+      "passed": 2,
+      "score": 1.0,
+      "message": "All directories found: data, models",
+      "execution_time": 0.31783533096313477
+    },
+    {
+      "test_id": "check_requirements_contents",
+      "test_type": "file_contains",
+      "passed": 1,
+      "score": 2,
+      "message": "File contains: fastapi, vllm, pymupdf, transformers",
+      "execution_time": 0.32350969314575195
+    },
+    {
+      "test_id": "check_dockerfile_contents",
+      "test_type": "file_contains",
+      "passed": 1,
+      "score": 2,
+      "message": "File contains: vllm, PYTHONPATH, start_server.py",
+      "execution_time": 0.3199934959411621
+    },
+    {
+      "test_id": "check_compose_gpu_config",
+      "test_type": "file_contains",
+      "passed": 1,
+      "score": 2,
+      "message": "File contains: nvidia, gpu, CUDA_VISIBLE_DEVICES",
+      "execution_time": 0.322185754776001
+    },
+    {
+      "test_id": "test_python_execution",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 1,
+      "message": "Command executed successfully.",
+      "execution_time": 0.18215394020080566
+    },
+    {
+      "test_id": "test_pip_check",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 1.4763426780700684
+    },
+    {
+      "test_id": "test_start_server_importable",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.2100818157196045
+    },
+    {
+      "test_id": "test_pdf_to_docx_help_or_parse",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 1,
+      "message": "Command executed successfully.",
+      "execution_time": 0.20654845237731934
+    },
+    {
+      "test_id": "test_pdf_to_docx_main_callable",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.20679616928100586
+    },
+    {
+      "test_id": "test_pdf_to_mmrag_help_runs",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 3,
+      "message": "Command executed successfully.",
+      "execution_time": 4.093492746353149
+    },
+    {
+      "test_id": "test_pdf_to_mmrag_help_mentions_vlm_flag",
+      "test_type": "output_contains",
+      "passed": 1,
+      "score": 2,
+      "message": "Output contains: use-vlm, input.",
+      "execution_time": 4.047211647033691
+    },
+    {
+      "test_id": "test_start_server_module_loadable",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.19814395904541016
+    },
+    {
+      "test_id": "test_start_server_app_attribute",
+      "test_type": "run_command",
+      "passed": 0,
+      "score": 0,
+      "message": "Command failed. Output: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/app/./start_server.py\", line 49, in <module>\n    from config import INPUT_PATH, OUTPUT_PATH, PROMPT, CROP_MODE, MAX_CONCURRENCY, NUM_WORKERS\nModuleNotFoundError: No module named 'config'\n",
+      "execution_time": 2.1909518241882324
+    },
+    {
+      "test_id": "test_pypandoc_md_to_docx_conversion",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 3,
+      "message": "Command executed successfully.",
+      "execution_time": 0.37406039237976074
+    },
+    {
+      "test_id": "test_shared_utils_importable",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.20297861099243164
+    },
+    {
+      "test_id": "test_pymupdf_open_empty",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 3,
+      "message": "Command executed successfully.",
+      "execution_time": 0.2962000370025635
+    },
+    {
+      "test_id": "test_fastapi_basic_app",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.5384612083435059
+    },
+    {
+      "test_id": "test_uvicorn_help",
+      "test_type": "run_command",
+      "passed": 1,
+      "score": 2,
+      "message": "Command executed successfully.",
+      "execution_time": 0.3093545436859131
+    },
+    {
+      "test_id": "test_vllm_cli_available",
+      "test_type": "run_command",
+      "passed": 0,
+      "score": 0,
+      "message": "Command failed. Output: Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'vllm'\n",
+      "execution_time": 0.1750657558441162
+    }
+  ]
+}

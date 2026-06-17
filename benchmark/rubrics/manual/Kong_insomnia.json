@@ -1,0 +1,306 @@
+{
+  "repo": "Kong_insomnia",
+  "tests": [
+    {
+      "id": "check_nodejs_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["node", "npm", "npx"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_nodejs_version",
+      "type": "output_contains",
+      "params": {
+        "command": "node --version",
+        "contains": ["v22.17.1", "v22", "v21", "v20"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_npm_version",
+      "type": "output_contains",
+      "params": {
+        "command": "npm --version",
+        "contains": ["10", "9", "8"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "make", "git", "curl", "wget"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3"]
+      },
+      "category": "configuration"
+    },
+    {
+      "id": "check_mkcert",
+      "type": "commands_exist",
+      "params": {
+        "names": ["mkcert"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_structure",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "packages",
+          "packages/insomnia",
+          "packages/insomnia-inso",
+          "packages/insomnia-testing",
+          "packages/insomnia-smoke-test",
+          "packages/insomnia-scripting-environment",
+          "screenshots",
+          "patches",
+          ".github",
+          ".vscode"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_key_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "package.json",
+          "package-lock.json",
+          ".nvmrc",
+          "README.md",
+          "LICENSE",
+          "CONTRIBUTING.md",
+          "DEVELOPMENT.md",
+          "CODE_OF_CONDUCT.md",
+          "SECURITY.md",
+          "CHANGELOG.md"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "eslint.config.mjs",
+          ".prettierrc",
+          ".prettierignore",
+          ".markdownlint.yaml",
+          ".npmrc",
+          ".gitignore",
+          ".gitattributes",
+          ".dockerignore",
+          ".clang-format"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_scripts",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "build-secure-wrapper.sh",
+          "flake.nix",
+          "flake.lock"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_node_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "NODE_ENV"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "NODE_VERSION"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_playwright_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["node"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_npm_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["npm"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_node_execution",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"console.log('Node.js works')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_npm_workspaces",
+      "type": "run_command",
+      "params": {
+        "command": "npm run --workspaces --if-present --silent"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_package_json_structure",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["\"name\"", "\"version\"", "\"scripts\"", "\"workspaces\"", "\"engines\""]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_nvmrc_content",
+      "type": "file_contains",
+      "params": {
+        "path": ".nvmrc",
+        "contains": ["22.17.1", "22", "21", "20"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_insomnia_package",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "packages/insomnia/package.json"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_inso_package",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "packages/insomnia-inso/package.json"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_testing_package",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "packages/insomnia-testing/package.json"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_smoke_test_package",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "packages/insomnia-smoke-test/package.json"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_scripting_package",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "packages/insomnia-scripting-environment/package.json"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_typescript_available",
+      "type": "run_command",
+      "params": {
+        "command": "npx tsc --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["Insomnia", "API", "GraphQL", "REST", "WebSocket"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_docker_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "docker --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

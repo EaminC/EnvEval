@@ -1,0 +1,393 @@
+{
+  "repo": "iamkun_dayjs",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "curl",
+          "bash"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version",
+      "type": "output_contains",
+      "params": {
+        "command": "node --version",
+        "contains": [
+          "v14",
+          "v16",
+          "v18",
+          "v19",
+          "v20",
+          "v21",
+          "v22"
+        ]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_npm_version",
+      "type": "output_contains",
+      "params": {
+        "command": "npm --version",
+        "contains": [
+          "6",
+          "7",
+          "8",
+          "9",
+          "10"
+        ]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_command",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "node"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_npm_command",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "npm"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src",
+          "test",
+          "build",
+          "types"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_package_json",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "package.json"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "Day.js"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_src_structure",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "src/index.js",
+          "src/utils.js",
+          "src/constant.js"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "babel.config.js",
+          ".eslintrc.json"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_locale_plugin_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "src/locale",
+          "src/plugin"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_node_basic",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"console.log('Node.js is working')\""
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_npm_basic",
+      "type": "run_command",
+      "params": {
+        "command": "npm --version"
+      },
+      "timeout": 15,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "install_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "npm install"
+      },
+      "timeout": 300,
+      "score": 5,
+      "category": "configuration"
+    },
+    {
+      "id": "check_babel_dependency",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('@babel/core')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_eslint_dependency",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('eslint')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_jest_dependency",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('jest')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_rollup_dependency",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('rollup')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cross_env_dependency",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('cross-env')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_eslint_run",
+      "type": "run_command",
+      "params": {
+        "command": "npm run lint"
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_babel_build",
+      "type": "run_command",
+      "params": {
+        "command": "npm run babel"
+      },
+      "timeout": 120,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "check_esm_output",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "esm"
+        ]
+      },
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_build_complete",
+      "type": "run_command",
+      "params": {
+        "command": "npm run build"
+      },
+      "timeout": 180,
+      "score": 6,
+      "category": "functionality"
+    },
+    {
+      "id": "check_build_output",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "dayjs.min.js"
+        ]
+      },
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "check_locale_json_generated",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "locale.json"
+        ]
+      },
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_locale_build_output",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "locale"
+        ]
+      },
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_plugin_build_output",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "plugin"
+        ]
+      },
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_types_copied",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "index.d.ts"
+        ]
+      },
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_dayjs_require",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"const dayjs = require('./dayjs.min.js'); console.log(dayjs().format())\""
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_dayjs_basic_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"const dayjs = require('./dayjs.min.js'); const now = dayjs(); const tomorrow = now.add(1, 'day'); console.log('Today:', now.format('YYYY-MM-DD')); console.log('Tomorrow:', tomorrow.format('YYYY-MM-DD'));\""
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_jest_run",
+      "type": "run_command",
+      "params": {
+        "command": "npm test"
+      },
+      "timeout": 300,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "test_timezone_tests",
+      "type": "run_command",
+      "params": {
+        "command": "npm run test-tz"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_size_check",
+      "type": "run_command",
+      "params": {
+        "command": "npm run size"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "validate_package_size",
+      "type": "output_contains",
+      "params": {
+        "command": "du -b dayjs.min.js | cut -f1",
+        "contains": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    }
+  ]
+}

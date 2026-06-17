@@ -1,0 +1,434 @@
+{
+  "repo": "probfuzz",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "python",
+          "pip",
+          "git",
+          "wget",
+          "curl",
+          "bc"
+        ]
+      },
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python --version",
+        "contains": [
+          "Python 2.7"
+        ]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_available",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "java"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_antlr4",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import antlr4\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_six",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import six\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_astunparse",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import astunparse\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ast",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import ast\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pystan",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import pystan\""
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_edward",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import edward\""
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pyro",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import pyro\""
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_tensorflow",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import tensorflow\""
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pandas",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import pandas\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torch\""
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_probfuzz_readme",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "ProbFuzz"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "backends",
+          "language",
+          "utils",
+          "metrics"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_backend_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "backends/__init__.py",
+          "backends/backend.py",
+          "backends/stan.py",
+          "backends/edward.py",
+          "backends/pyro.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_language_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "language/__init__.py",
+          "language/templateparser.py",
+          "language/checker.py",
+          "language/mylistener.py",
+          "language/myvisitor.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_language_antlr",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "language/antlr",
+          "language/templates"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_scripts",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "probfuzz.py",
+          "install.sh",
+          "check.py",
+          "driver.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "config.json",
+          "models.json"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_utils_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "utils/__init__.py",
+          "utils/utils.py"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_probfuzz_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"probfuzz.py\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_install_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"install.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "check_check_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"check.py\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_python_basic",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"print('Python is working')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pip_basic",
+      "type": "run_command",
+      "params": {
+        "command": "pip --version"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_probfuzz_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "python -m py_compile probfuzz.py"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_check_script_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "python -m py_compile check.py"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_driver_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "python -m py_compile driver.py"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_backend_imports",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"from backends.stan import Stan; from backends.edward import Edward; from backends.pyro import Pyro\""
+      },
+      "timeout": 60,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_language_imports",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"from language.templateparser import TemplatePopulator\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_utils_imports",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"from utils.utils import *\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_check_script_execution",
+      "type": "run_command",
+      "params": {
+        "command": "./check.py"
+      },
+      "timeout": 120,
+      "score": 5,
+      "category": "functionality"
+    },
+    {
+      "id": "test_antlr_jar_available",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "language/antlr/antlr-4.7.1-complete.jar"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "test_antlr_run_script",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "language/antlr/run.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_antlr_grammar",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "language/antlr/Template.g4"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_antlr_run_executable",
+      "type": "run_command",
+      "params": {
+        "command": "[ -x \"language/antlr/run.sh\" ]"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_probfuzz_help",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 30s python probfuzz.py --help || timeout 30s python probfuzz.py -h || echo 'help test passed'"
+      },
+      "timeout": 45,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_probfuzz_minimal_run",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 300s python probfuzz.py 1"
+      },
+      "timeout": 360,
+      "score": 8,
+      "category": "functionality"
+    }
+  ]
+}

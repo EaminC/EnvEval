@@ -1,0 +1,387 @@
+{
+  "repo": "TIO-IKIM_CellViT-Inference",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "curl", "wget", "bash", "tar"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "g++", "make", "pkg-config"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3", "pip3"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "run_command",
+      "params": {
+        "command": "(python3 --version 2>&1 | grep -E 'Python 3\\.(9|10|11|12)') || (python --version 2>&1 | grep -E 'Python 3\\.(9|10|11|12)')"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gpu_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["nvidia-smi", "nvcc"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_version",
+      "type": "output_contains",
+      "params": {
+        "command": "nvcc --version 2>&1",
+        "contains": ["release 11", "release 12"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cuda_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "CUDA_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_path_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "PATH"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_libvips",
+      "type": "run_command",
+      "params": {
+        "command": "(command -v vips) || (pkg-config --exists vips) || (dpkg -s libvips 2>/dev/null) || (ldconfig -p | grep -qi libvips)"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_openslide",
+      "type": "run_command",
+      "params": {
+        "command": "(pkg-config --exists openslide) || (ldconfig -p | grep -qi libopenslide) || (python3 -c 'import openslide' 2>/dev/null)"
+      },
+      "timeout": 15,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_opencv_core_lib",
+      "type": "run_command",
+      "params": {
+        "command": "(dpkg -s libopencv-core-dev 2>/dev/null | grep -q 'Status: install ok installed') || (ldconfig -p | grep -qi libopencv_core)"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_opencv_imgproc_lib",
+      "type": "run_command",
+      "params": {
+        "command": "(dpkg -s libopencv-imgproc-dev 2>/dev/null | grep -q 'Status: install ok installed') || (ldconfig -p | grep -qi libopencv_imgproc)"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_llvm",
+      "type": "run_command",
+      "params": {
+        "command": "command -v llvm-config || command -v llc || (dpkg -s llvm 2>/dev/null | grep -q 'Status: install ok installed')"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_image_libs",
+      "type": "run_command",
+      "params": {
+        "command": "(dpkg -s libjpeg-dev libpng-dev libtiff-dev libgeos-dev libsnappy-dev 2>/dev/null | grep -q 'Status: install ok installed') || (ldconfig -p | grep -E -q 'libjpeg|libpng|libtiff')"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torch; print(torch.__version__)\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_version_ge_2",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torch; major=int(torch.__version__.split('.')[0]); assert major>=2, torch.__version__; print('torch '+torch.__version__)\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torchvision_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torchvision; print(torchvision.__version__)\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_core_ml_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import numpy, pandas, scipy, sklearn\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_image_python_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import cv2, skimage, PIL\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cellvit_specific_deps",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import einops, shapely, ujson, tqdm, snappy\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_numba_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import numba; print(numba.__version__)\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_optional_gpu_accel_libs",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import cupy\" 2>/dev/null || python3 -c \"import cucim\" 2>/dev/null"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ray_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import ray\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pathopatch_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import pathopatch\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_root_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          "LICENSE",
+          "pyproject.toml",
+          "docker-compose.yaml",
+          "build.sh",
+          "example_config.yaml"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "cellvit",
+          "cellvit/inference",
+          "cellvit/models",
+          "cellvit/utils",
+          "cellvit/config",
+          "docs",
+          "examples",
+          "tests"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_entry_scripts",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "cellvit/detect_cells.py",
+          "cellvit/check_system.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_pyproject_contents",
+      "type": "file_contains",
+      "params": {
+        "path": "pyproject.toml",
+        "contains": ["cellvit-inference", "cellvit-check", "torch"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Python works')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pip_check",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 check || pip check"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cellvit_package_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import cellvit; print(cellvit.__name__)\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cellvit_inference_module",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import cellvit.inference.inference; import cellvit.inference.cli\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cellvit_check_cli",
+      "type": "run_command",
+      "params": {
+        "command": "(command -v cellvit-check && cellvit-check 2>&1 | head -n 50) || python3 -m cellvit.check_system 2>&1 | head -n 50"
+      },
+      "timeout": 120,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cellvit_inference_help",
+      "type": "run_command",
+      "params": {
+        "command": "(command -v cellvit-inference && cellvit-inference --help 2>&1 | head -n 60) || python3 -c \"from cellvit.detect_cells import main; print('OK')\""
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cellvit_inference_subcommands",
+      "type": "output_contains",
+      "params": {
+        "command": "(cellvit-inference --help 2>&1) || (python3 -m cellvit.detect_cells --help 2>&1)",
+        "contains": ["process_wsi", "process_dataset"]
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_torch_device_query",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torch; print('cuda_available=', torch.cuda.is_available()); print('device_count=', torch.cuda.device_count() if torch.cuda.is_available() else 0)\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_basic_tensor_op",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import torch; x=torch.ones(4,4); y=x @ x; assert y.sum().item() == 64.0, y.sum().item(); print('tensor op ok')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    }
+  ]
+}

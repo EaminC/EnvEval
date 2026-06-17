@@ -1,0 +1,340 @@
+{
+  "repo": "exli",
+  "tests": [
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "python3",
+          "java",
+          "mvn",
+          "git",
+          "bash",
+          "curl",
+          "wget",
+          "unzip"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 --version",
+        "contains": ["Python 3.9", "Python 3.10", "Python 3.11", "Python 3.12"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_version",
+      "type": "output_contains",
+      "params": {
+        "command": "java -version",
+        "contains": ["1.8", "8"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_maven_version",
+      "type": "output_contains",
+      "params": {
+        "command": "mvn -version",
+        "contains": ["Apache Maven 3.8", "Apache Maven 3.9"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda",
+      "type": "commands_exist",
+      "params": {
+        "names": ["conda"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pip",
+      "type": "commands_exist",
+      "params": {
+        "names": ["pip3", "pip"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_firefox",
+      "type": "commands_exist",
+      "params": {
+        "names": ["firefox"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_geckodriver",
+      "type": "commands_exist",
+      "params": {
+        "names": ["geckodriver"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_build_tools_optional",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "make"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_files",
+      "type": "files_exist",
+      "params": {
+        "paths": ["README.md", "REPRODUCE.md", "LICENSE", "Dockerfile"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_project_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": ["python", "java", "jacoco-extension", "poms", "data", "jars"]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_setup_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "python/setup.py",
+          "python/prepare-conda-env.sh",
+          "java/install.sh"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_source_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": ["python/exli", "java/raninline"]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_conda_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "CONDA_DEFAULT_ENV"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "JAVA_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_maven_home",
+      "type": "envvar_set",
+      "params": {
+        "name": "MAVEN_HOME"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["conda"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_java_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["java"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Hello from Python')\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_imports",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; sys.exit(0)\""
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip_list",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 list || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_conda_info",
+      "type": "run_command",
+      "params": {
+        "command": "conda info || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_conda_env_list",
+      "type": "run_command",
+      "params": {
+        "command": "conda env list || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_java_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo 'public class Test { public static void main(String[] args) { System.out.println(\\\"Hello\\\"); } }' > Test.java && javac Test.java && rm -f Test.java Test.class || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_maven_version",
+      "type": "run_command",
+      "params": {
+        "command": "mvn -version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_maven_help",
+      "type": "run_command",
+      "params": {
+        "command": "mvn -help || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_python_package_install",
+      "type": "run_command",
+      "params": {
+        "command": "pip3 install -e python/ || true"
+      },
+      "timeout": 120,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_java_module_build",
+      "type": "run_command",
+      "params": {
+        "command": "mvn -f java/raninline/pom.xml compile -q || true"
+      },
+      "timeout": 300,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_maven_compile_poms",
+      "type": "run_command",
+      "params": {
+        "command": "find poms -name 'pom.xml' | head -1 | xargs -I {} mvn -f {} compile -q || true"
+      },
+      "timeout": 180,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "check_java_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"java\" ] && find java -name '*.java' | head -1"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_python_files",
+      "type": "run_command",
+      "params": {
+        "command": "[ -d \"python\" ] && find python -name '*.py' | head -1"
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_firefox_version",
+      "type": "run_command",
+      "params": {
+        "command": "firefox --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_geckodriver_version",
+      "type": "run_command",
+      "params": {
+        "command": "geckodriver --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    }
+  ]
+}

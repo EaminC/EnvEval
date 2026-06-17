@@ -1,0 +1,462 @@
+{
+  "repo": "fmtlib_fmt",
+  "tests": [
+    {
+      "id": "check_build_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["gcc", "g++", "cmake", "make", "git", "bash", "curl"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cmake_version",
+      "type": "output_contains",
+      "params": {
+        "command": "cmake --version",
+        "contains": ["cmake version"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gcc_version",
+      "type": "output_contains",
+      "params": {
+        "command": "gcc --version",
+        "contains": ["gcc"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gpp_version",
+      "type": "output_contains",
+      "params": {
+        "command": "g++ --version",
+        "contains": ["g++"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_clang",
+      "type": "commands_exist",
+      "params": {
+        "names": ["clang", "clang++"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ninja",
+      "type": "commands_exist",
+      "params": {
+        "names": ["ninja"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python3",
+      "type": "commands_exist",
+      "params": {
+        "names": ["python3"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_doxygen",
+      "type": "commands_exist",
+      "params": {
+        "names": ["doxygen"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_valgrind",
+      "type": "commands_exist",
+      "params": {
+        "names": ["valgrind"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_bazel",
+      "type": "commands_exist",
+      "params": {
+        "names": ["bazel"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_wget",
+      "type": "commands_exist",
+      "params": {
+        "names": ["wget"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_project_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "CMakeLists.txt",
+          "README.md",
+          "LICENSE",
+          "ChangeLog.md",
+          ".gitignore",
+          "CONTRIBUTING.md"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_project_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "include",
+          "include/fmt",
+          "src",
+          "test",
+          "doc",
+          "support"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_fmt_header_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "include/fmt/core.h",
+          "include/fmt/format.h",
+          "include/fmt/base.h",
+          "include/fmt/format-inl.h",
+          "include/fmt/printf.h",
+          "include/fmt/chrono.h",
+          "include/fmt/color.h",
+          "include/fmt/compile.h",
+          "include/fmt/ranges.h",
+          "include/fmt/std.h"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_fmt_source_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "src/fmt.cc",
+          "src/format.cc",
+          "src/os.cc"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_test_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "test/format-test.cc",
+          "test/base-test.cc",
+          "test/printf-test.cc",
+          "test/chrono-test.cc",
+          "test/compile-test.cc",
+          "test/CMakeLists.txt"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_support_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "support/docopt.py",
+          "support/release.py",
+          "support/printable.py",
+          "doc/index.rst"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_cc_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "CC"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cxx_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "CXX"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cflags_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "CFLAGS"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cxxflags_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "CXXFLAGS"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ldflags_env",
+      "type": "envvar_set",
+      "params": {
+        "name": "LDFLAGS"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_gcc_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["gcc"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_cmake_in_path",
+      "type": "output_contains",
+      "params": {
+        "command": "echo $PATH",
+        "contains": ["cmake"]
+      },
+      "timeout": 10,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_c_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <stdio.h>\nint main() { printf(\"Hello from C\\n\"); return 0; }' > test.c && gcc -o test_c test.c 2>/dev/null && ./test_c && rm -f test_c test.c || rm -f test.c"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cpp_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <iostream>\nint main() { std::cout << \"Hello from C++\" << std::endl; return 0; }' > test.cpp && g++ -o test_cpp test.cpp 2>/dev/null && ./test_cpp && rm -f test_cpp test.cpp || rm -f test.cpp"
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_clang_c_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <stdio.h>\nint main() { printf(\"Hello from Clang C\\n\"); return 0; }' > test_clang.c && clang -o test_clang_c test_clang.c 2>/dev/null && rm -f test_clang_c test_clang.c || rm -f test_clang.c"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_clang_cpp_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include <iostream>\nint main() { std::cout << \"Hello from Clang++\" << std::endl; return 0; }' > test_clang.cpp && clang++ -o test_clang_cpp test_clang.cpp 2>/dev/null && rm -f test_clang_cpp test_clang.cpp || rm -f test_clang.cpp"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    },
+    {
+      "id": "test_fmt_core_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "g++ -std=c++11 -I. -I include -c include/fmt/core.h -o /tmp/test.o 2>&1 | head -5 || true"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cmake_version_command",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cmake_help",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --help || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_make_version",
+      "type": "run_command",
+      "params": {
+        "command": "make --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_ninja_version",
+      "type": "run_command",
+      "params": {
+        "command": "ninja --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_cmake_configure",
+      "type": "run_command",
+      "params": {
+        "command": "cmake -S . -B build"
+      },
+      "timeout": 120,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_cmake_build",
+      "type": "run_command",
+      "params": {
+        "command": "cmake --build build"
+      },
+      "timeout": 300,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_make_build",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p build_test && cd build_test && cmake .. >/dev/null 2>&1 && make -j$(nproc) >/dev/null 2>&1 && cd .. && rm -rf build_test || (cd .. && rm -rf build_test)"
+      },
+      "timeout": 300,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_ninja_build",
+      "type": "run_command",
+      "params": {
+        "command": "mkdir -p build_test && cd build_test && cmake -GNinja .. >/dev/null 2>&1 && ninja >/dev/null 2>&1 && cd .. && rm -rf build_test || (cd .. && rm -rf build_test)"
+      },
+      "timeout": 300,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_fmt_basic_formatting",
+      "type": "run_command",
+      "params": {
+        "command": "echo '#include \"include/fmt/core.h\"\nint main() { std::string s = fmt::format(\"The answer is {}.\", 42); fmt::print(\"{}\\n\", s); return 0; }' > test_fmt_features.cpp && g++ -std=c++11 -I. -o test_fmt_features test_fmt_features.cpp 2>/dev/null && ./test_fmt_features && rm -f test_fmt_features test_fmt_features.cpp || rm -f test_fmt_features.cpp"
+      },
+      "timeout": 60,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_python3_execution",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"print('Hello from Python3')\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_doxygen_version",
+      "type": "run_command",
+      "params": {
+        "command": "doxygen --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_valgrind_version",
+      "type": "run_command",
+      "params": {
+        "command": "valgrind --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_bazel_version",
+      "type": "run_command",
+      "params": {
+        "command": "bazel --version || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "test_docopt_import",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -c \"import sys; sys.path.append('support'); import docopt; print('docopt imported')\" || true"
+      },
+      "timeout": 30,
+      "score": 1,
+      "category": "functionality"
+    }
+  ]
+}

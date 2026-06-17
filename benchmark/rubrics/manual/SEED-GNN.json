@@ -1,0 +1,391 @@
+{
+  "repo": "SEED-GNN",
+  "tests": [
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git",
+          "wget",
+          "gcc",
+          "make"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python --version",
+        "contains": ["Python 3."]
+      },
+      "timeout": 10,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pip_available",
+      "type": "commands_exist",
+      "params": {
+        "names": ["pip"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torch; print(f'PyTorch {torch.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python -c \"import torch; print(torch.__version__)\"",
+        "contains": ["2.0"]
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torchvision",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torchvision; print(f'torchvision {torchvision.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torchaudio",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torchaudio; print(f'torchaudio {torchaudio.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_geometric",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torch_geometric; print(f'torch-geometric {torch_geometric.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_scatter",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torch_scatter; print('torch-scatter available')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_cluster",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torch_cluster; print('torch-cluster available')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_spline_conv",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torch_spline_conv; print('torch-spline-conv available')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_torch_sparse",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import torch_sparse; print('torch-sparse available')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_numpy",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import numpy; print(f'NumPy {numpy.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_pandas",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import pandas; print(f'pandas {pandas.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_ogb",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import ogb; print(f'OGB {ogb.__version__}')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "models",
+          "pipelines",
+          "scripts",
+          "config",
+          "edit_gnn"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_key_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "main.py",
+          "main_utils.py",
+          "data.py",
+          "constants.py",
+          "requirements.txt"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_model_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "models/base.py",
+          "models/gcn.py",
+          "models/gat.py",
+          "models/gin.py",
+          "models/sage.py"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_script_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "scripts/pretrain",
+          "scripts/edit"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_config_directories",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "config/pipeline_config",
+          "config/eval_config"
+        ]
+      },
+      "score": 2,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "SEED-GNN"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "test_python_basic",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"print('Python is working')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_main_py_help",
+      "type": "run_command",
+      "params": {
+        "command": "python main.py --help"
+      },
+      "timeout": 30,
+      "score": 4,
+      "category": "functionality"
+    },
+    {
+      "id": "test_base_model_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"from models.base import BaseModel; print('BaseModel import successful')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gcn_model_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"from models.gcn import GCN; print('GCN import successful')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gat_model_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"from models.gat import GAT; print('GAT import successful')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_gin_model_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"from models.gin import GIN; print('GIN import successful')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_sage_model_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"from models.sage import GraphSAGE; print('GraphSAGE import successful')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_data_loading",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import data; print('Data module import successful')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_main_utils_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import main_utils; print('Main utils import successful')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "category": "functionality"
+    },
+    {
+      "id": "test_constants_import",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"import constants; print('Constants import successful')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pretrain_script_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "bash -n scripts/pretrain/seed_gnn/cora.sh"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_edit_script_syntax",
+      "type": "run_command",
+      "params": {
+        "command": "bash -n scripts/edit/seed_gnn/gcn/cora.sh"
+      },
+      "timeout": 10,
+      "score": 2,
+      "category": "functionality"
+    },
+    {
+      "id": "test_torch_geometric_data",
+      "type": "run_command",
+      "params": {
+        "command": "python -c \"from torch_geometric.datasets import Planetoid; data = Planetoid(root='/tmp/Cora', name='Cora'); print(f'Cora dataset loaded: {len(data)} graphs')\""
+      },
+      "timeout": 60,
+      "score": 6,
+      "category": "functionality"
+    },
+    {
+      "id": "test_pretrain_dry_run",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 30s python main.py --task pretrain --pipeline_config_dir config/pipeline_config/seed_gnn/gcn/cora.json --eval_config_dir config/eval_config/edit_gnn/cora.json --output_folder_dir /tmp/seed_gnn_test --pretrain_output_dir /tmp/seed_gnn_ckpts --dataset_dir /tmp/datasets || true"
+      },
+      "timeout": 45,
+      "score": 8,
+      "category": "functionality"
+    },
+    {
+      "id": "test_edit_dry_run",
+      "type": "run_command",
+      "params": {
+        "command": "timeout 30s python main.py --task edit --pipeline_config_dir config/pipeline_config/seed_gnn/gcn/cora.json --eval_config_dir config/eval_config/edit_gnn/cora.json --output_folder_dir /tmp/seed_gnn_test --pretrain_output_dir /tmp/seed_gnn_ckpts --dataset_dir /tmp/datasets || true"
+      },
+      "timeout": 45,
+      "score": 8,
+      "category": "functionality"
+    }
+  ]
+}

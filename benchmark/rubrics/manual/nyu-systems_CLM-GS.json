@@ -1,0 +1,145 @@
+{
+  "repo": "nyu-systems_CLM-GS",
+  "tests": [
+    {
+      "id": "check_python_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "python3",
+          "pip3"
+        ]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_conda_tool",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "conda"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_git_tool",
+      "type": "commands_exist",
+      "params": {
+        "names": [
+          "git"
+        ]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_repo_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "README.md",
+          ".gitmodules",
+          "train.py"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_repo_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "submodules",
+          "scene",
+          "utils",
+          "strategies"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_readme_install_steps",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": [
+          "conda create -n clm_gs python=3.10",
+          "pip install torch==2.6.0",
+          "export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_submodule_paths",
+      "type": "file_contains",
+      "params": {
+        "path": ".gitmodules",
+        "contains": [
+          "submodules/cpu-adam",
+          "submodules/gsplat",
+          "submodules/clm_kernels"
+        ]
+      },
+      "score": 1,
+      "category": "structure"
+    },
+    {
+      "id": "check_pytorch_cuda_alloc_conf",
+      "type": "envvar_set",
+      "params": {
+        "name": "PYTORCH_CUDA_ALLOC_CONF"
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_python_version",
+      "type": "output_contains",
+      "params": {
+        "command": "python3 --version",
+        "contains": [
+          "3.10"
+        ]
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "configuration"
+    },
+    {
+      "id": "test_pip_version",
+      "type": "run_command",
+      "params": {
+        "command": "python3 -m pip --version"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "functionality"
+    },
+    {
+      "id": "test_train_help",
+      "type": "run_command",
+      "params": {
+        "command": "python3 train.py --help >/dev/null"
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": [
+        "check_python_tools"
+      ],
+      "category": "functionality"
+    }
+  ]
+}

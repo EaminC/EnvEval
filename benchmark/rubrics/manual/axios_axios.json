@@ -1,0 +1,418 @@
+{
+  "repo": "axios_axios",
+  "tests": [
+    {
+      "id": "check_node_npm",
+      "type": "commands_exist",
+      "params": {
+        "names": ["node", "npm"]
+      },
+      "score": 2,
+      "category": "configuration"
+    },
+    {
+      "id": "check_node_version",
+      "type": "output_contains",
+      "params": {
+        "command": "node --version",
+        "contains": ["v14", "v15", "v16", "v17", "v18", "v19", "v20", "v21", "v22"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "requires": ["check_node_npm"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_npm_version",
+      "type": "output_contains",
+      "params": {
+        "command": "npm --version",
+        "contains": ["6", "7", "8", "9", "10", "11", "12"]
+      },
+      "timeout": 10,
+      "score": 2,
+      "requires": ["check_node_npm"],
+      "category": "configuration"
+    },
+    {
+      "id": "check_system_tools",
+      "type": "commands_exist",
+      "params": {
+        "names": ["git", "curl"]
+      },
+      "score": 1,
+      "category": "configuration"
+    },
+    {
+      "id": "check_main_dirs",
+      "type": "dirs_exist",
+      "params": {
+        "paths": [
+          "lib",
+          "test",
+          "dist",
+          "examples",
+          "sandbox",
+          "templates",
+          "bin"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_main_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "package.json",
+          "package-lock.json",
+          "index.js",
+          "index.d.ts",
+          "index.d.cts",
+          "README.md",
+          "LICENSE"
+        ]
+      },
+      "score": 3,
+      "category": "structure"
+    },
+    {
+      "id": "check_build_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "rollup.config.js",
+          "gulpfile.js",
+          "webpack.config.js",
+          "tsconfig.json"
+        ]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "check_test_config_files",
+      "type": "files_exist",
+      "params": {
+        "paths": [
+          "karma.conf.cjs",
+          ".eslintrc.cjs",
+          "tslint.json"
+        ]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "check_axios_detection",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["\"name\": \"axios\"", "Promise based HTTP client"]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_npm_install",
+      "type": "run_command",
+      "params": {
+        "command": "npm install --silent"
+      },
+      "timeout": 120,
+      "score": 3,
+      "requires": ["check_node_npm"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_core_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('follow-redirects'); require('form-data'); require('proxy-from-env'); console.log('Core dependencies available')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "requires": ["test_npm_install"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_dev_dependencies",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('eslint'); require('mocha'); require('karma'); require('rollup'); require('gulp'); require('typescript'); console.log('Dev dependencies available')\""
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": ["test_npm_install"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_axios_core_import",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"const axios = require('.'); console.log('Axios core imported successfully')\""
+      },
+      "timeout": 30,
+      "score": 3,
+      "requires": ["test_npm_install"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_lib_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find lib -name '*.js' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "test_test_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find test -name '*.js' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "test_examples_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find examples -name '*.js' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "test_sandbox_structure",
+      "type": "run_command",
+      "params": {
+        "command": "find sandbox -name '*.js' | wc -l"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_main_dirs"],
+      "category": "structure"
+    },
+    {
+      "id": "test_eslint_config",
+      "type": "run_command",
+      "params": {
+        "command": "node -c .eslintrc.cjs"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_test_config_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_karma_config",
+      "type": "run_command",
+      "params": {
+        "command": "node -c karma.conf.cjs"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_test_config_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_rollup_config",
+      "type": "run_command",
+      "params": {
+        "command": "node -c rollup.config.js"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_build_config_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_gulp_config",
+      "type": "run_command",
+      "params": {
+        "command": "node -c gulpfile.js"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_build_config_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_webpack_config",
+      "type": "run_command",
+      "params": {
+        "command": "node -c webpack.config.js"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_build_config_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_tsconfig",
+      "type": "run_command",
+      "params": {
+        "command": "node -c tsconfig.json"
+      },
+      "timeout": 10,
+      "score": 1,
+      "requires": ["check_build_config_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_npm_scripts",
+      "type": "run_command",
+      "params": {
+        "command": "npm run test:eslint --silent"
+      },
+      "timeout": 60,
+      "score": 2,
+      "requires": ["test_npm_install"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_mocha_scripts",
+      "type": "run_command",
+      "params": {
+        "command": "npm run test:mocha --silent"
+      },
+      "timeout": 60,
+      "score": 2,
+      "requires": ["test_npm_install"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_package_json_scripts",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["\"test\"", "\"build\"", "\"start\"", "\"lint\""]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_package_exports",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["\"exports\"", "\"browser\"", "\"react-native\""]
+      },
+      "score": 2,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_es_modules_config",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["\"type\": \"module\""]
+      },
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_browser_support",
+      "type": "file_contains",
+      "params": {
+        "path": "package.json",
+        "contains": ["\"browser\"", "\"react-native\""]
+      },
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_build_process",
+      "type": "run_command",
+      "params": {
+        "command": "npm run build --dry-run"
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": ["test_npm_install"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_follow_redirects_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('follow-redirects'); console.log('follow-redirects functionality works')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "requires": ["test_core_dependencies"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_form_data_functionality",
+      "type": "run_command",
+      "params": {
+        "command": "node -e \"require('form-data'); console.log('form-data functionality works')\""
+      },
+      "timeout": 30,
+      "score": 1,
+      "requires": ["test_core_dependencies"],
+      "category": "configuration"
+    },
+    {
+      "id": "test_readme_content",
+      "type": "file_contains",
+      "params": {
+        "path": "README.md",
+        "contains": ["axios", "HTTP client", "Promise", "browser", "node.js"]
+      },
+      "score": 1,
+      "requires": ["check_main_files"],
+      "category": "structure"
+    },
+    {
+      "id": "test_typescript_compilation",
+      "type": "run_command",
+      "params": {
+        "command": "npx tsc --noEmit"
+      },
+      "timeout": 60,
+      "score": 2,
+      "requires": ["test_npm_install"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_rollup_build",
+      "type": "run_command",
+      "params": {
+        "command": "npx rollup --config rollup.config.js --dry-run"
+      },
+      "timeout": 30,
+      "score": 2,
+      "requires": ["test_npm_install"],
+      "category": "functionality"
+    },
+    {
+      "id": "test_gulp_tasks",
+      "type": "run_command",
+      "params": {
+        "command": "npx gulp --tasks"
+      },
+      "timeout": 30,
+      "score": 1,
+      "requires": ["test_npm_install"],
+      "category": "functionality"
+    }
+  ]
+}

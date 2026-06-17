@@ -1,0 +1,12 @@
+test_id,test_type,max_score,ours-anthropic/claude-opus-4,ours-tensorblock/gpt-4.1,ours-tensorblock/gpt-4.1-mini,params
+check_conda_docker_tools,commands_exist,1,0,0.5,0,"{""names"":[""conda"",""docker""]}"
+check_cuda_visible_devices,envvar_set,1,0,0,0,"{""name"":""CUDA_VISIBLE_DEVICES""}"
+check_environment_python_pin,file_contains,1,0,0,0,"{""path"":""environment.yaml"",""contains"":[""name: cellvit_env"",""python=3.10.14"",""cucim=24.04.00""]}"
+check_python_tools,commands_exist,2,0,2.0,0,"{""names"":[""python3"",""pip3""]}"
+check_python_version,output_contains,1,0,1,0,"{""command"":""python3 --version"",""contains"":[""3.10""]}"
+check_repo_dirs,dirs_exist,1,0,0.0,0,"{""paths"":[""cellvit"",""viewer"",""annotation_tool"",""docs""]}"
+check_repo_files,files_exist,1,0,0.2,0,"{""paths"":[""README.md"",""requirements.txt"",""environment.yaml"",""check_environment.py"",""docker-compose.yaml""]}"
+check_requirements_runtime_packages,file_contains,1,0,1,0,"{""path"":""requirements.txt"",""contains"":[""ray==2.9.3"",""opencv-python-headless"",""jupyterlab""]}"
+test_check_environment_help,run_command,2,0,2,0,"{""command"":""python3 check_environment.py >/dev/null 2>&1 || true""}"
+test_docker_version,run_command,1,0,0,0,"{""command"":""docker --version""}"
+test_pip_version,run_command,1,0,1,0,"{""command"":""python3 -m pip --version""}"
